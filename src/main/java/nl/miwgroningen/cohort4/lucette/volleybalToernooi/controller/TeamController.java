@@ -1,7 +1,7 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PoolRepository;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class TeamController {
     TeamRepository teamRepository;
 
     @Autowired
-    PoolRepository poolRepository;
+    PouleRepository pouleRepository;
 
     @GetMapping({"/", "/teams"})
     protected String showTeams(Model model) {
@@ -47,7 +47,7 @@ public class TeamController {
     @GetMapping("/teams/add")
     protected String showTeamForm(Model model) {
         model.addAttribute("team", new Team());
-        model.addAttribute("allPools", poolRepository.findAll());
+        model.addAttribute("allPools", pouleRepository.findAll());
         return "teamForm";
     }
 

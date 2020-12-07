@@ -1,11 +1,11 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Pool;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
  */
 
-public interface PoolRepository extends JpaRepository<Pool, Integer> {
+public interface PouleRepository extends JpaRepository<Poule, Integer> {
 }

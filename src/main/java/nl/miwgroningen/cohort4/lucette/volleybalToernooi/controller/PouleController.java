@@ -1,7 +1,7 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Pool;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PoolRepository;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 
 @Controller
-public class PoolController {
+public class PouleController {
 
     @Autowired
-    PoolRepository poolRepository;
+    PouleRepository pouleRepository;
 
     @GetMapping("/pools")
     protected String showPools(Model model) {
-        model.addAttribute("allPools", poolRepository.findAll());
-        model.addAttribute("pool", new Pool());
+        model.addAttribute("allPools", pouleRepository.findAll());
+        model.addAttribute("pool", new Poule());
         return "poolOverzicht";
     }
 
     @PostMapping("/pools/add")
-    protected String saveOrUpdatePool(@ModelAttribute("pool") Pool pool, BindingResult result) {
+    protected String saveOrUpdatePool(@ModelAttribute("pool") Poule poule, BindingResult result) {
         if (result.hasErrors()) {
             return "poolOverview";
         } else {
-            poolRepository.save(pool);
+            pouleRepository.save(poule);
             return "redirect:/pools";
         }
     }

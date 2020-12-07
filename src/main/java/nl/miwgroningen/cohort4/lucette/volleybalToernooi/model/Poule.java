@@ -8,23 +8,23 @@ import java.util.List;
  */
 
 @Entity
-public class Pool {
+public class Poule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer poolId;
+    private Integer pouleId;
 
     private String naam;
 
-    @OneToMany(mappedBy = "pool")
+    @OneToMany(mappedBy = "poule")
     private List<Team> myTeams;
 
-    public Integer getPoolId() {
-        return poolId;
+    public Integer getPouleId() {
+        return pouleId;
     }
 
-    public void setPoolId(Integer poolId) {
-        this.poolId = poolId;
+    public void setPouleId(Integer pouleId) {
+        this.pouleId = pouleId;
     }
 
     public String getNaam() {

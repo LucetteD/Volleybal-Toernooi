@@ -15,10 +15,10 @@
         <th>Naam</th>
         <th>Aantal Teams</th>
     </tr>
-    <tr th:each="pool: ${allPools}">
-        <td th:text="${pool.poolId}"/>
-        <td th:text="${pool.naam}"/>
-        <td th:text="${pool.numberOfTeams}"/>
+    <tr th:each="poule: ${allPools}">
+        <td th:text="${poule.poolId}"/>
+        <td th:text="${poule.naam}"/>
+        <td th:text="${poule.numberOfTeams}"/>
         <td></td>
         <td></td>
         <td></td>
@@ -26,12 +26,12 @@
 </table>
 
 <h1>Maak een nieuwe Pool</h1>
-<form th:action="@{/pools/add}" th:object="${pool}" method="post">
+<form th:action="@{/pools/add}" th:object="${poule}" method="post">
     <p>Naam: <input type="text" th:field="*{naam}" /></p>
     <p><input type="submit" value="Submit" /></p>
 </form>
 <h1>Pools</h1>
 
-<a th:href="@{/pools/add}">Voeg pool toe</a>
+<a th:href="@{/pools/add}">Voeg poule toe</a>
 </body>
 </html>

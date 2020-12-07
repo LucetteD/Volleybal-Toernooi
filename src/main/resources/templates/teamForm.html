@@ -12,8 +12,8 @@
     <p>Teamnaam: <input type="text" th:field="*{teamNaam}" /></p>
     <p>
         Pool:
-        <select th:field="*{pool}">
-            <option th:each="pool: ${allPools}" th:value="${pool.poolId}" th:text="${pool.name}"></option>
+        <select th:field="*{poule}">
+            <option th:each="poule: ${allPools}" th:value="${poule.pouleId}" th:text="${poule.name}"></option>
         </select>
     </p>
     <p><input type="submit" value="Submit" /></p>

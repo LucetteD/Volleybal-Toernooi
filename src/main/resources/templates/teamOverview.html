@@ -17,7 +17,7 @@
     </tr>
     <tr th:each="team: ${allTeams}">
         <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamNaam})}" th:text="${team.teamNaam}" /></td>
-        <td th:text="${team.pool.naam}"/>
+        <td th:text="${team.poule.naam}"/>
         <td th:text="${team.nrOfSpelers}"></td>
         <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamNaam})}">Voeg toe</a></td>
     </tr>

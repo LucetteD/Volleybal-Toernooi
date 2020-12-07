@@ -20,10 +20,12 @@ public class Team {
 
     private String teamNaam;
 
+    private String nationaliteit;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "poolId", referencedColumnName = "poolId", nullable = false)
+    @JoinColumn(name = "pouleId", referencedColumnName = "pouleId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Pool pool;
+    private Poule poule;
 
     @OneToMany(mappedBy = "team")
     private List<Speler> spelers;
@@ -48,11 +50,11 @@ public class Team {
         this.teamNaam = teamNaam;
     }
 
-    public Pool getPool() {
-        return pool;
+    public Poule getPoule() {
+        return poule;
     }
 
-    public void setPool(Pool pool) {
-        this.pool = pool;
+    public void setPoule(Poule poule) {
+        this.poule = poule;
     }
 }

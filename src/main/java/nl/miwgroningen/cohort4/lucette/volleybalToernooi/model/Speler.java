@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
@@ -16,7 +17,20 @@ public class Speler {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer spelerId;
 
-    private Boolean available = true;
+    private String firstName;
+
+    private String lastName;
+
+    private LocalDate birthdate;
+
+    private double height;
+
+    private String currentClub;
+
+    private int shirtNumber;
+
+    // Limit to dropdown menu
+    private String position;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "teamId", referencedColumnName = "teamId", nullable = false)
@@ -29,14 +43,6 @@ public class Speler {
 
     public void setSpelerId(Integer spelerId) {
         this.spelerId = spelerId;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
     }
 
     public Team getTeam() {
