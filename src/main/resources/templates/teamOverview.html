@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Book overzicht</title>
+</head>
+<body>
+<h1>Teams</h1>
+<table>
+    <tr>
+        <th>Team Naam</th>
+        <th>Pool</th>
+        <th># of spelers</th>
+    </tr>
+    <tr th:each="team: ${allTeams}">
+        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamNaam})}" th:text="${team.teamNaam}" /></td>
+        <td th:text="${team.pool.naam}"/>
+        <td th:text="${team.nrOfSpelers}"></td>
+        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamNaam})}">Add</a></td>
+    </tr>
+</table>
+<p>
+    <a th:href="@{/teams/add}">Add team</a>
+</p>
+<p>
+    <a th:href="@{/pools}">Pool overview</a>
+</p>
+<p sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/user/new}">Add user</a>
+</p>
+<p>
+    <a th:href="@{/logout}">Log out</a>
+</p>
+</body>
+</html>
