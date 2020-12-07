@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title>Create a new team</title>
+    <title>Voeg een nieuw team toe</title>
 </head>
 <body>
-<h1>Create a new team</h1>
+<h1>Voeg een nieuw team toe</h1>
 <form th:action="@{/teams/add}" th:object="${team}" method="post">
-    <p>Team Naam: <input type="text" th:field="*{teamNaam}" /></p>
+    <p>Teamnaam: <input type="text" th:field="*{teamNaam}" /></p>
     <p>
         Pool:
         <select th:field="*{pool}">

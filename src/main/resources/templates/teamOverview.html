@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title>Book overzicht</title>
+    <title>Team overzicht</title>
 </head>
 <body>
 <h1>Teams</h1>
@@ -13,26 +13,26 @@
     <tr>
         <th>Team Naam</th>
         <th>Pool</th>
-        <th># of spelers</th>
+        <th>Aantal spelers</th>
     </tr>
     <tr th:each="team: ${allTeams}">
         <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamNaam})}" th:text="${team.teamNaam}" /></td>
         <td th:text="${team.pool.naam}"/>
         <td th:text="${team.nrOfSpelers}"></td>
-        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamNaam})}">Add</a></td>
+        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamNaam})}">Voeg toe</a></td>
     </tr>
 </table>
 <p>
-    <a th:href="@{/teams/add}">Add team</a>
+    <a th:href="@{/teams/add}">Voeg team toe</a>
 </p>
 <p>
-    <a th:href="@{/pools}">Pool overview</a>
+    <a th:href="@{/pools}">Pool overzicht</a>
 </p>
 <p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/user/new}">Add user</a>
+    <a th:href="@{/user/new}">Voeg gebruiker toe</a>
 </p>
 <p>
-    <a th:href="@{/logout}">Log out</a>
+    <a th:href="@{/logout}">Log uit</a>
 </p>
 </body>
 </html>

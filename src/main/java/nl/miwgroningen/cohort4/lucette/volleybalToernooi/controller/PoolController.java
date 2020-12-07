@@ -27,7 +27,7 @@ public class PoolController {
         return "poolOverzicht";
     }
 
-    @PostMapping("/pool/add")
+    @PostMapping("/pools/add")
     protected String saveOrUpdatePool(@ModelAttribute("pool") Pool pool, BindingResult result) {
         if (result.hasErrors()) {
             return "poolOverview";

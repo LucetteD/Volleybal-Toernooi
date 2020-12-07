@@ -11,9 +11,9 @@
 <h1>Teams</h1>
 <table>
     <tr>
-        <th>Id</th>
+        <th>Nummer</th>
         <th>Naam</th>
-        <th># of Teams</th>
+        <th>Aantal Teams</th>
     </tr>
     <tr th:each="pool: ${allPools}">
         <td th:text="${pool.poolId}"/>
@@ -26,12 +26,12 @@
 </table>
 
 <h1>Maak een nieuwe Pool</h1>
-<form th:action="@{/pool/add}" th:object="${pool}" method="post">
+<form th:action="@{/pools/add}" th:object="${pool}" method="post">
     <p>Naam: <input type="text" th:field="*{naam}" /></p>
     <p><input type="submit" value="Submit" /></p>
 </form>
 <h1>Pools</h1>
 
-<a th:href="@{/pool/add}">Voeg pool toe</a>
+<a th:href="@{/pools/add}">Voeg pool toe</a>
 </body>
 </html>
