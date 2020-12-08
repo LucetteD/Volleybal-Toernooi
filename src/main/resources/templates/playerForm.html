@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Voeg een nieuwe speler toe</title>
+</head>
+<body>
+<h1>Voeg een nieuwe speler toe</h1>
+<form th:action="@{/players/add}" th:object="${player}" method="post">
+    <p>Voornaam: <input type="text" th:field="*{firstName}" /></p>
+    <p>Achternaam: <input type="text" th:field="*{lastName}" /></p>
+    <p>Geboortedatum: <input type="text" th:field="*{birthdate}" /></p>
+    <p>Lengte: <input type="text" th:field="*{height}" /></p>
+    <p>Huidige club: <input type="text" th:field="*{currentClub}" /></p>
+    <p>
+        Team:
+        <select th:field="*{team}">
+            <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>
+        </select>
+    </p>
+    <p>
+        Rol:
+        <select th:field="*{role}">
+            <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
+        </select>
+    </p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+</body>
+</html>
