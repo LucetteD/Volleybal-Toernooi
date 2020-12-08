@@ -9,13 +9,16 @@
 <body>
 <h1>Voeg een nieuw team toe</h1>
 <form th:action="@{/teams/add}" th:object="${team}" method="post">
-    <p>Teamnaam: <input type="text" th:field="*{teamName}" /></p>
-    <p>
-        Pool:
-        <select th:field="*{poule}">
-            <option th:each="poule: ${allPools}" th:value="${poule.pouleId}" th:text="${poule.name}"></option>
-        </select>
-    </p>
+    <div>
+        <label for="teamName">Team naam:</label>
+        <input type="text" id="teamName" th:field="*{teamName}" />
+        <span class="field-error" th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}">Team name Error</span>
+    </div>
+    <div>
+        <label for="nationality">Nationaliteit:</label>
+        <input type="text" id="nationality" th:field="*{nationality}" />
+        <span class="field-error" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}">Nationality Error</span>
+    </div>
     <p><input type="submit" value="Submit" /></p>
 </form>
 </body>

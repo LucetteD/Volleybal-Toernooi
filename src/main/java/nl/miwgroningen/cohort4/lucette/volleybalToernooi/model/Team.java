@@ -18,14 +18,15 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer teamId;
 
+    @Column(unique = true)
     private String teamName;
 
     private String nationality;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pouleId", referencedColumnName = "pouleId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pouleId", referencedColumnName = "pouleId")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Poule poule;
+    private Poule poule = null;
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
@@ -59,5 +60,13 @@ public class Team {
 
     public void setPoule(Poule poule) {
         this.poule = poule;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 }
