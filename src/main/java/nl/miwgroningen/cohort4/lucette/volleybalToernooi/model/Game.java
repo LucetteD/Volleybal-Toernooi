@@ -4,8 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
@@ -18,9 +17,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int gameId;
 
-    private LocalDate date;
-
-    private LocalTime time;
+    private LocalDateTime time;
 
     private String location;
 

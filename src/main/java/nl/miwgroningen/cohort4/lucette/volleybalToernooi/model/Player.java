@@ -27,8 +27,6 @@ public class Player {
 
     private String currentClub;
 
-    private int shirtNumber;
-
     // Limit to dropdown menu
     private String position;
 
