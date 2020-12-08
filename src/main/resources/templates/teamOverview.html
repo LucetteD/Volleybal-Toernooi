@@ -16,10 +16,10 @@
         <th>Aantal spelers</th>
     </tr>
     <tr th:each="team: ${allTeams}">
-        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamNaam})}" th:text="${team.teamNaam}" /></td>
+        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
         <td th:text="${team.poule.naam}"/>
         <td th:text="${team.nrOfSpelers}"></td>
-        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamNaam})}">Voeg toe</a></td>
+        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamName})}">Voeg toe</a></td>
     </tr>
 </table>
 <p>

@@ -9,7 +9,7 @@
 <body>
 <h1>Voeg een nieuw team toe</h1>
 <form th:action="@{/teams/add}" th:object="${team}" method="post">
-    <p>Teamnaam: <input type="text" th:field="*{teamNaam}" /></p>
+    <p>Teamnaam: <input type="text" th:field="*{teamName}" /></p>
     <p>
         Pool:
         <select th:field="*{poule}">

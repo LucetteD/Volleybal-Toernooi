@@ -30,7 +30,7 @@ public class PouleController {
     @PostMapping("/pools/add")
     protected String saveOrUpdatePool(@ModelAttribute("pool") Poule poule, BindingResult result) {
         if (result.hasErrors()) {
-            return "poolOverview";
+            return "pouleOverview";
         } else {
             pouleRepository.save(poule);
             return "redirect:/pools";

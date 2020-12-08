@@ -1,8 +1,8 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Speler;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Player;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.SpelerRepository;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PlayerRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,32 +13,33 @@ import java.util.Optional;
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
  */
-public class SpelerController {
+
+public class PlayerController {
 
     @Autowired
     TeamRepository teamRepository;
 
     @Autowired
-    SpelerRepository spelerRepository;
+    PlayerRepository playerRepository;
 
     @GetMapping("/copy/add/{teamId}")
     protected String addCopy(@PathVariable("teamId") Integer teamId) {
         Optional<Team> teamBox = teamRepository.findById(teamId);
         if (teamBox.isPresent()) {
-            Speler speler = new Speler();
-            speler.setTeam(teamBox.get());
-            spelerRepository.save(speler);
+            Player player = new Player();
+            player.setTeam(teamBox.get());
+            playerRepository.save(player);
         }
         return "redirect:/teams";
     }
 
-    @GetMapping("/speler/add/t/{teamNaam}")
-    protected String addSpelerByName(@PathVariable("teamNaam") String teamNaam) {
-        Optional<Team> teamBox = teamRepository.findByTeamNaam(teamNaam);
+    @GetMapping("/speler/add/t/{teamName}")
+    protected String addSpelerByName(@PathVariable("teamName") String teamName) {
+        Optional<Team> teamBox = teamRepository.findByTeamName(teamName);
         if (teamBox.isPresent()) {
-            Speler speler = new Speler();
-            speler.setTeam(teamBox.get());
-            spelerRepository.save(speler);
+            Player player = new Player();
+            player.setTeam(teamBox.get());
+            playerRepository.save(player);
         }
         return "redirect:/teams";
     }

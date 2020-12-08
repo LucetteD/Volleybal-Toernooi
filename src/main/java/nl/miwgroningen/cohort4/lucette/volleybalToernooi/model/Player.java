@@ -11,11 +11,11 @@ import java.time.LocalDate;
  */
 
 @Entity
-public class Speler {
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer spelerId;
+    private Integer playerId;
 
     private String firstName;
 
@@ -37,12 +37,12 @@ public class Speler {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
-    public Integer getSpelerId() {
-        return spelerId;
+    public Integer getPlayerId() {
+        return playerId;
     }
 
-    public void setSpelerId(Integer spelerId) {
-        this.spelerId = spelerId;
+    public void setPlayerId(Integer playerId) {
+        this.playerId = playerId;
     }
 
     public Team getTeam() {

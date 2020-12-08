@@ -18,9 +18,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer teamId;
 
-    private String teamNaam;
+    private String teamName;
 
-    private String nationaliteit;
+    private String nationality;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pouleId", referencedColumnName = "pouleId", nullable = false)
@@ -28,10 +28,10 @@ public class Team {
     private Poule poule;
 
     @OneToMany(mappedBy = "team")
-    private List<Speler> spelers;
+    private List<Player> players;
 
     public int getNrOfSpelers() {
-        return spelers.size();
+        return players.size();
     }
 
     public Integer getTeamId() {
@@ -42,12 +42,12 @@ public class Team {
         this.teamId = teamId;
     }
 
-    public String getTeamNaam() {
-        return teamNaam;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setTeamNaam(String teamNaam) {
-        this.teamNaam = teamNaam;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public Poule getPoule() {
