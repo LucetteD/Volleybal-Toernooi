@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Voeg een nieuwe rol toe</title>
+</head>
+<body>
+<h1>Voeg een nieuwe rol toe</h1>
+<form th:action="@{/role/add}" th:object="${role}" method="post">
+    <p>Rol: <input type="text" th:field="*{roleName}" /></p>
+    <p><input type="submit" value="Submit" /></p>
+    <span class="field-error" th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">Team name Error</span>
+</form>
+</body>
+</html>
