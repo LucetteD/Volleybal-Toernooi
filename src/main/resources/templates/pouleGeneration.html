@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Informatie over het te generen kampioenschap</title>
+</head>
+<body>
+<h1>Informatie over het te generen kampioenschap</h1>
+
+<table>
+    <tr>
+        <td>Aantal Poules</td>
+        <td th:text="${numberOfPoules}"></td>
+    </tr>
+    <tr>
+        <td>Aantal Poule Wedstrijden</td>
+        <td th:text="${pouleGames}"></td>
+    </tr>
+    <tr>
+        <td>Niveaus van finales</td>
+        <td th:text="${levelsOfFinals}"></td>
+    </tr>
+    <tr>
+        <td>Aantal Finale wedstrijden</td>
+        <td th:text="${finalGames}"></td>
+    </tr>
+</table>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

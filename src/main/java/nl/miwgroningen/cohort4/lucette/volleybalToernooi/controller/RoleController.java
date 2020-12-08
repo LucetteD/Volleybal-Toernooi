@@ -39,20 +39,22 @@ public class RoleController {
     @GetMapping("role/add")
     protected String showRoleForm(Model model) {
         model.addAttribute("role", new Role());
+        model.addAttribute("existingRoles", roleRepository.findAll());
         return "roleForm";
     }
 
     @PostMapping("role/add")
-    protected String saveOrUpdateRole(@ModelAttribute("role") Role role, BindingResult result) {
+    protected String saveOrUpdateRole(@ModelAttribute("role") Role role, BindingResult result, Model model) {
         if (roleRepository.existsByRoleName(role.getRoleName())) {
             result.rejectValue("roleName", "error.user", "Deze rol bestaat al");
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("existingRoles", roleRepository.findAll());
             return "roleForm";
         } else {
             roleRepository.save(role);
-            return "redirect:/teams";
+            return "redirect:/role/add";
         }
     }
 }

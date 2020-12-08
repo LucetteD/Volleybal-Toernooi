@@ -3,15 +3,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
     <title>Voeg een nieuwe rol toe</title>
 </head>
 <body>
 <h1>Voeg een nieuwe rol toe</h1>
 <form th:action="@{/role/add}" th:object="${role}" method="post">
-    <p>Rol: <input type="text" th:field="*{roleName}" /></p>
-    <p><input type="submit" value="Submit" /></p>
-    <span class="field-error" th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">Team name Error</span>
+    <div class="form-group col-md-6">
+        <label for="roleName">Rolnaam:</label>
+        <input type="text" class="form-control" id="roleName" th:field="*{roleName}"  th:classappend="${not #lists.isEmpty(#fields.errors('roleName'))} ? is-invalid" />
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">Role name Error</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Opslaan</button>
 </form>
+
+<h1>Bestaande rollen</h1>
+<ul th:each="role : ${existingRoles}">
+    <li th:text="${role.roleName}">Role name</li>
+</ul>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 </body>
 </html>
