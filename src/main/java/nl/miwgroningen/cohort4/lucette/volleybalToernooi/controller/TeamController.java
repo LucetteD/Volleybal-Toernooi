@@ -58,6 +58,7 @@ public class TeamController {
             // A team with this naam already exists
             result.rejectValue("teamName", "error.user", "Deze teamnaam is al in gebruik.");
         }
+
         if (result.hasErrors()) {
             return "teamForm";
         } else {

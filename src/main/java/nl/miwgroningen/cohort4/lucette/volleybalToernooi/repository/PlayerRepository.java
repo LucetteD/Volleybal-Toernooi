@@ -1,6 +1,7 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Player;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
+    boolean existsByAssociationRegistrationNumber(String associationRegistrationNumber);
 }

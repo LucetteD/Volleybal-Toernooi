@@ -5,6 +5,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,19 +22,24 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer playerId;
 
+    @NotBlank(message = "Voornaam is verplicht")
     private String firstName;
 
+    @NotBlank(message = "Achternaam is verplicht")
     private String lastName;
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate birthdate;
 
-    private double height;
+    @Min(150)
+    @Max(250)
+    private int height = 175;
 
+    @NotBlank()
     private String currentClub;
 
-    // Limit to dropdown menu
-    private String position;
+    @NotBlank()
+    private String associationRegistrationNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "teamId", referencedColumnName = "teamId", nullable = false)
@@ -73,11 +81,11 @@ public class Player {
         this.birthdate = birthdate;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -87,14 +95,6 @@ public class Player {
 
     public void setCurrentClub(String currentClub) {
         this.currentClub = currentClub;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public Team getTeam() {
@@ -111,5 +111,13 @@ public class Player {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getAssociationRegistrationNumber() {
+        return associationRegistrationNumber;
+    }
+
+    public void setAssociationRegistrationNumber(String associationRegistrationNumber) {
+        this.associationRegistrationNumber = associationRegistrationNumber;
     }
 }
