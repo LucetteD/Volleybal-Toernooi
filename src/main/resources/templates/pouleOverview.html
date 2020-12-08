@@ -25,13 +25,13 @@
     </tr>
 </table>
 
-<h1>Maak een nieuwe Pool</h1>
-<form th:action="@{/pools/add}" th:object="${poule}" method="post">
+<h1>Maak een nieuwe Poule</h1>
+<form th:action="@{/poules/add}" th:object="${poule}" method="post">
     <p>Naam: <input type="text" th:field="*{naam}" /></p>
     <p><input type="submit" value="Submit" /></p>
 </form>
-<h1>Pools</h1>
+<h1>Poules</h1>
 
-<a th:href="@{/pools/add}">Voeg poule toe</a>
+<a th:href="@{/poules/add}">Voeg poule toe</a>
 </body>
 </html>
