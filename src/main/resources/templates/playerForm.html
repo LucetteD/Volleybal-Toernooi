@@ -11,7 +11,7 @@
 <form th:action="@{/players/add}" th:object="${player}" method="post">
     <p>Voornaam: <input type="text" th:field="*{firstName}" /></p>
     <p>Achternaam: <input type="text" th:field="*{lastName}" /></p>
-    <p>Geboortedatum: <input type="text" th:field="*{birthdate}" /></p>
+    <p>Geboortedatum: <input type="date" th:field="*{birthdate}" /></p>
     <p>Lengte: <input type="text" th:field="*{height}" /></p>
     <p>Huidige club: <input type="text" th:field="*{currentClub}" /></p>
     <p>

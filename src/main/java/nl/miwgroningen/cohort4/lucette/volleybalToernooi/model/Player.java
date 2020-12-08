@@ -2,6 +2,7 @@ package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class Player {
 
     private String lastName;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate birthdate;
 
     private double height;
