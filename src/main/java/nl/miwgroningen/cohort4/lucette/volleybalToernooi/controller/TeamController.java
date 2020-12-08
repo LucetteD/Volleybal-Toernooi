@@ -59,7 +59,6 @@ public class TeamController {
             result.addError(new ObjectError("teamName", "Deze team naam is al in gebruik"));
         }
         if (result.hasErrors()) {
-            System.out.println(result);
             return "teamForm";
         } else {
             teamRepository.save(team);
