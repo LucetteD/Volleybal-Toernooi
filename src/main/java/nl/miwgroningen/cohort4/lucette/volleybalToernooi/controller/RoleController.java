@@ -1,6 +1,7 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Role;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PlayerRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,20 @@ public class RoleController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    PlayerRepository playerRepository;
+
+//    @GetMapping("/game/add/{playerId}")
+//    protected String addGame(@PathVariable("playerId") Integer teamId) {
+//        Optional<Player> playerBox = playerRepository.findById(playerId);
+//        if (playerBox.isPresent()) {
+//            Game game = new Game();
+//            game.setPlayer(playerBox.get());
+//            playerRepository.save(player);
+//        }
+//        return "redirect:/players"; // TODO Add aantal gespeelde wedstrijden in playerOverview
+//    }
 
     @GetMapping("role/add")
     protected String showRoleForm(Model model) {

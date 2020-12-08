@@ -38,6 +38,10 @@ public class Team {
         return players.size();
     }
 
+    public int getNrOfGames() {
+        return games.size();
+    }
+
     public Integer getTeamId() {
         return teamId;
     }

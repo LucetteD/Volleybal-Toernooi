@@ -49,6 +49,13 @@ public class Player {
     @ManyToOne
     private Role role;
 
+    @OneToMany(mappedBy = "team")
+    private List<Game> games;
+
+    public int getNrOfGames() {
+        return games.size();
+    }
+
     public Integer getPlayerId() {
         return playerId;
     }

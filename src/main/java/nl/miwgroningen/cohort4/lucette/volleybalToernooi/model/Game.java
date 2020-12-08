@@ -28,6 +28,11 @@ public class Game {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "playerId", referencedColumnName = "playerId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Player player;
+
     public int getGameId() {
         return gameId;
     }
@@ -42,5 +47,13 @@ public class Game {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
