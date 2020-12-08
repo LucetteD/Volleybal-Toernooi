@@ -32,8 +32,14 @@ public class PlayerController {
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping("/copy/add/{teamId}")
-    protected String addCopy(@PathVariable("teamId") Integer teamId) {
+    @GetMapping({"/", "/players"})
+    protected String showTeams(Model model) {
+        model.addAttribute("allPlayers", playerRepository.findAll());
+        return "playerOverview";
+    }
+
+    @GetMapping("/game/add/{teamId}")
+    protected String addGame(@PathVariable("teamId") Integer teamId) {
         Optional<Team> teamBox = teamRepository.findById(teamId);
         if (teamBox.isPresent()) {
             Player player = new Player();

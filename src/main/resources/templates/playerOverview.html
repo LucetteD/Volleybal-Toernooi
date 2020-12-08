@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Speler overzicht</title>
+</head>
+<body>
+<h1>Spelers</h1>
+<table>
+    <tr>
+        <th>Naam</th>
+        <th>Team</th>
+        <th>Aantal gespeelde wedstrijden</th>
+    </tr>
+    <tr th:each="player: ${allPlayers}">
+        <td><a th:href="@{/player/{playerName}(playerName=${player.lastName})}" th:text="${player.lastName}" /></td>
+        <td th:text="${player.lastName}"/>
+        <td th:text="${player.nrOfGames}"></td>
+        <td><a th:href="@{/player/add/t/{playerName}(playerName=${player.lastName})}">Voeg toe</a></td>
+    </tr>
+</table>
+<p>
+    <a th:href="@{/players/add}">Voeg speler toe</a>
+</p>
+<p>
+    <a th:href="@{/poules}">Poule overzicht</a>
+</p>
+<p>
+    <a th:href="@{/players/add}">Voeg team toe</a>
+</p>
+<p>
+    <a th:href="@{/logout}">Log uit</a>
+</p>
+</body>
+</html>
