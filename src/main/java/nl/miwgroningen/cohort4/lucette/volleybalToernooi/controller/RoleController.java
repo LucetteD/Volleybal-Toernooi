@@ -29,9 +29,8 @@ public class RoleController {
 
     @PostMapping("role/add")
     protected String saveOrUpdateRole(@ModelAttribute("role") Role role, BindingResult result) {
-        // TODO check if role already exists
         if (roleRepository.existsByRoleName(role.getRoleName())) {
-            result.addError(new ObjectError("roleName", "This role already exists"));
+            result.rejectValue("roleName", "error.user", "Deze rol bestaat al");
         }
 
         if (result.hasErrors()) {
