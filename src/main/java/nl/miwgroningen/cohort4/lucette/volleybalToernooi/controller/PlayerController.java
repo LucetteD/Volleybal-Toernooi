@@ -69,9 +69,16 @@ public class PlayerController {
     }
 
     @PostMapping("/players/add")
-    protected String saveOrUpdatePlayer(@ModelAttribute("player") Player player, BindingResult result) {
+    protected String saveOrUpdatePlayer(@ModelAttribute("player") Player player, BindingResult result, Model model) {
+        if (playerRepository.existsByAssociationRegistrationNumber(player.getAssociationRegistrationNumber())) {
+            result.rejectValue("associationRegistrationNumber", "error.user",
+                    "Een speler met dit bondsnummer bestaat al");
+        }
+
         if (result.hasErrors()) {
             System.out.println(result);
+            model.addAttribute("allTeams", teamRepository.findAll());
+            model.addAttribute("allRoles", roleRepository.findAll());
             return "playerForm";
         } else {
             playerRepository.save(player);

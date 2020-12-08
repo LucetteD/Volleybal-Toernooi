@@ -56,8 +56,9 @@ public class TeamController {
     protected String saveOrUpdateTeam(@ModelAttribute("team") Team team, BindingResult result) {
         if (teamRepository.findByTeamName(team.getTeamName()).isPresent()) {
             // A team with this naam already exists
-            result.addError(new ObjectError("teamName", "Deze team naam is al in gebruik"));
+            result.rejectValue("teamName", "error.user", "Deze teamnaam is al in gebruik.");
         }
+
         if (result.hasErrors()) {
             return "teamForm";
         } else {

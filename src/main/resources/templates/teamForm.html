@@ -3,23 +3,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
     <title>Voeg een nieuw team toe</title>
 </head>
 <body>
 <h1>Voeg een nieuw team toe</h1>
 <form th:action="@{/teams/add}" th:object="${team}" method="post">
+    <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
+        Er heeft zich een probleem voorgedaan.
+    </div>
     <div>
         <label for="teamName">Team naam:</label>
-        <input type="text" id="teamName" th:field="*{teamName}" />
-        <span class="field-error" th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}">Team name Error</span>
+        <input type="text" class="form-control" id="teamName" th:field="*{teamName}"  th:classappend="${not #lists.isEmpty(#fields.errors('teamName'))} ? is-invalid" />
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}">Team name Error</div>
     </div>
     <div>
         <label for="nationality">Nationaliteit:</label>
-        <input type="text" id="nationality" th:field="*{nationality}" />
-        <span class="field-error" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}">Nationality Error</span>
+        <input type="text" class="form-control" id="nationality" th:field="*{nationality}" />
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}">Nationality Error</div>
     </div>
-    <p><input type="submit" value="Submit" /></p>
+    <button type="submit" class="btn btn-primary">Opslaan</button>
 </form>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 </body>
 </html>
