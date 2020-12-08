@@ -65,6 +65,7 @@ public class PlayerController {
     @PostMapping("/players/add")
     protected String saveOrUpdatePlayer(@ModelAttribute("player") Player player, BindingResult result) {
         if (result.hasErrors()) {
+            System.out.println(result);
             return "playerForm";
         } else {
             playerRepository.save(player);
