@@ -30,7 +30,10 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
-    public int getNrOfSpelers() {
+    @OneToMany(mappedBy = "team")
+    private List<Game> games;
+
+    public int getNrOfPlayers() {
         return players.size();
     }
 
