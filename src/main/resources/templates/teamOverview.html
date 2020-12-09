@@ -8,37 +8,33 @@
     <title>Team overzicht</title>
 </head>
 <body>
+<ul>
+    <li><a th:href="@{/teams}">Team overzicht</a></li>
+    <li><a th:href="@{/players}">Speler overzicht</a></li>
+    <li><a th:href="@{/poules}">Poule overzicht</a></li>
+    <li><a th:href="@{/pouleGames}">Wedstrijdschema</a></li>
+    <li><a th:href="@{/logout}">Log uit</a></li>
+</ul>
+
 <h1>Teams</h1>
 <table>
     <tr>
         <th>Team Naam</th>
-<!--        <th>Poule</th>-->
+        <th>Poule</th>
         <th>Aantal spelers</th>
     </tr>
     <tr th:each="team: ${allTeams}">
-        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
-<!--        <td th:text="${team.poule.naam}"/>-->
+        <td><a th:href="@{/team/{teamName}(teamName=${team.teamName})}" th:text="${team.teamName}" /></td>
+        <td th:text="${team.getPoule()}"/>
         <td th:text="${team.nrOfPlayers}"></td>
-        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamName})}">Voeg toe</a></td>
+        <td><a th:href="@{/lid/add/t/{teamName}(teamName=${team.teamName})}">Voeg toe</a></td>
     </tr>
 </table>
 <p>
     <a th:href="@{/teams/add}">Voeg team toe</a>
 </p>
-<p>
-    <a th:href="@{/players/add}">Voeg speler toe</a>
-</p>
-<p>
-    <a th:href="@{/players}">Speler overzicht</a>
-</p>
-<p>
-    <a th:href="@{/poules}">Poule overzicht</a>
-</p>
-<p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/user/new}">Voeg gebruiker toe</a>
-</p>
-<p>
-    <a th:href="@{/logout}">Log uit</a>
-</p>
+<!--<p sec:authorize="hasRole('ADMIN')">-->
+<!--    <a th:href="@{/user/new}">Voeg gebruiker toe</a>-->
+<!--</p>-->
 </body>
 </html>
