@@ -21,8 +21,12 @@
         <th>Poule</th>
     </tr>
     <tr th:each="poule: ${allPoules}">
-        <td><a <!--th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}"
-            th:text="${poule.pouleName}"-->>pouleName</a></td>
+        <td>
+            <a>
+                <!--th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}" th:text="${poule.pouleName}"-->
+                pouleName
+            </a>
+        </td>
         <td></td>
         <td></td>
         <td></td>
@@ -32,24 +36,28 @@
     </tr>
 </table>
 
-<div th:each="poule: ${allPoules}">
-    <h2 th:text="@{'Poule ' + ${poule.pouleName}}"></h2>
-    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" th:attr="data-target=${poule.pouleName}" aria-expanded="false" >
-        Button with data-target
-    </button>
-    <div class="collapse" th:id="${poule.pouleName}" data-parent="#accordion">
-        <table>
-            <tr>
-                <th>Wedstrijdnummer:</th>
-                <th>Thuis team</th>
-                <th>Gast team</th>
-            </tr>
-            <tr th:each="game: ${poule.pouleGames}">
-                <td th:text="${game.gameId}"></td>
-                <td th:text="${game.homeTeam.teamName}"></td>
-                <td th:text="${game.visitorTeam.teamName}"></td>
-            </tr>
-        </table>
+<!-- Het probleem was dat deze "parent" div miste... -->
+<div id="all_poules">
+    <div th:each="poule: ${allPoules}" >
+        <h2 th:text="'Poule ' + ${poule.pouleName}"></h2>
+<!--    Door de data-parent kunnen niet alle velden tegelijk uitgeklapt worden    -->
+        <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
+            <table>
+                <tr>
+                    <th>Wedstrijdnummer:</th>
+                    <th>Thuis team</th>
+                    <th>Gast team</th>
+                </tr>
+                <tr th:each="game: ${poule.pouleGames}">
+                    <td th:text="${game.gameId}"></td>
+                    <td th:text="${game.homeTeam.teamName}"></td>
+                    <td th:text="${game.visitorTeam.teamName}"></td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-primary" data-toggle="collapse" th:attr="data-target='#poulegames_' + ${poule.pouleName}">
+            Show/Hide games
+        </button>
     </div>
 </div>
 
