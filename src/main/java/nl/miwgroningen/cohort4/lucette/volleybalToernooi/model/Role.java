@@ -15,6 +15,12 @@ public class Role {
 
     private String roleName;
 
+    public Role(){}
+
+    public Role(String role) {
+        roleName = role;
+    }
+
     public Integer getRoleId() {
         return roleId;
     }
