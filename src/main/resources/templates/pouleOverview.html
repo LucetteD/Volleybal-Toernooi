@@ -3,19 +3,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title>Pool overzicht</title>
+    <title>Poule overzicht</title>
 </head>
 <body>
 <ul>
     <li><a th:href="@{/teams}">Team overzicht</a></li>
     <li><a th:href="@{/players}">Speler overzicht</a></li>
     <li><a th:href="@{/poules}">Poule overzicht</a></li>
-    <li><a th:href="@{/pouleGames}">Wedstrijdschema</a></li>
-    <li><a th:href="@{/logout}">Log uit</a></li>
+    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
+    <li><a th:href="@{/logout}">Log in</a></li>
 </ul>
-<h1>Overzicht van bestaande Pools</h1>
-<h1>Teams</h1>
+<h1>Overzicht van bestaande Poules</h1>
 <table>
     <tr>
         <th>Nummer</th>
@@ -31,5 +31,11 @@
         <td></td>
     </tr>
 </table>
+
+<a th:href="@{/poule/generate}" role="button" class="btn btn-success btn-lg active" aria-pressed="true">Informatie over het te genereren kampioenschap</a>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Wedstrijd overzicht</title>
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/teams}">Team overzicht</a></li>
+    <li><a th:href="@{/players}">Speler overzicht</a></li>
+    <li><a th:href="@{/poules}">Poule overzicht</a></li>
+    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
+    <li><a th:href="@{/logout}">Log in</a></li>
+</ul>
+<h1>Overzicht van de wedstrijden</h1>
+<table>
+    <tr>
+        <th>Poule</th>
+    </tr>
+    <tr th:each="poule: ${allPoules}">
+        <td>
+            <a>
+                <!--th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}" th:text="${poule.pouleName}"-->
+                pouleName
+            </a>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr th:each="poule: ${allGames}">
+        <td><a>pouleGames</a></td>
+    </tr>
+</table>
+
+<!-- Het probleem was dat deze "parent" div miste... -->
+<div id="all_poules">
+    <div th:each="poule: ${allPoules}" >
+        <h2 th:text="'Poule ' + ${poule.pouleName}"></h2>
+<!--    Door de data-parent kunnen niet alle velden tegelijk uitgeklapt worden    -->
+        <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
+            <table>
+                <tr>
+                    <th>Wedstrijdnummer:</th>
+                    <th>Thuis team</th>
+                    <th>Gast team</th>
+                </tr>
+                <tr th:each="game: ${poule.pouleGames}">
+                    <td th:text="${game.gameId}"></td>
+                    <td th:text="${game.homeTeam.teamName}"></td>
+                    <td th:text="${game.visitorTeam.teamName}"></td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-primary" data-toggle="collapse" th:attr="data-target='#poulegames_' + ${poule.pouleName}">
+            Show/Hide games
+        </button>
+    </div>
+</div>
+
+<a th:href="@{/games}" role="button" class="btn btn-success btn-lg active" aria-pressed="true">
+    ??</a>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
