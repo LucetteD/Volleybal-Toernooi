@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -69,7 +70,7 @@ public class PlayerController {
     }
 
     @PostMapping("/players/add")
-    protected String saveOrUpdatePlayer(@ModelAttribute("player") Player player, BindingResult result, Model model) {
+    protected String saveOrUpdatePlayer(@ModelAttribute("player") @Valid Player player, BindingResult result, Model model) {
         if (playerRepository.existsByAssociationRegistrationNumber(player.getAssociationRegistrationNumber())) {
             result.rejectValue("associationRegistrationNumber", "error.user",
                     "Een speler met dit bondsnummer bestaat al");

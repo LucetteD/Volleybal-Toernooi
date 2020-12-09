@@ -14,7 +14,7 @@ public class Poule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pouleId;
 
-    private String naam;
+    private String name;
 
     @OneToMany(mappedBy = "poule")
     private List<Team> myTeams;
@@ -28,11 +28,11 @@ public class Poule {
     }
 
     public String getNaam() {
-        return naam;
+        return name;
     }
 
     public void setNaam(String naam) {
-        this.naam = naam;
+        this.name = name;
     }
 
     public int getNumberOfTeams() {
