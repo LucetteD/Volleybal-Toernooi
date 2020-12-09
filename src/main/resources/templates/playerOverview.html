@@ -12,8 +12,8 @@
     <li><a th:href="@{/teams}">Team overzicht</a></li>
     <li><a th:href="@{/players}">Speler overzicht</a></li>
     <li><a th:href="@{/poules}">Poule overzicht</a></li>
-    <li><a th:href="@{/pouleGames}">Wedstrijdschema</a></li>
-    <li><a th:href="@{/logout}">Log uit</a></li>
+    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
+    <li><a th:href="@{/logout}">Log in</a></li>
 </ul>
 <h1>Spelers</h1>
 <table>
@@ -24,22 +24,12 @@
     </tr>
     <tr th:each="player: ${allPlayers}">
         <td><a th:href="@{/player/{playerName}(playerName=${player.lastName})}" th:text="${player.lastName}" /></td>
-        <td th:text="${player.lastName}"/>
+        <td th:text="${player.getTeam()}"/>
         <td th:text="${player.nrOfGames}"></td>
-        <td><a th:href="@{/player/add/t/{playerName}(playerName=${player.lastName})}">Voeg toe</a></td>
     </tr>
 </table>
 <p>
     <a th:href="@{/players/add}">Voeg speler toe</a>
-</p>
-<p>
-    <a th:href="@{/poules}">Poule overzicht</a>
-</p>
-<p>
-    <a th:href="@{/players/add}">Voeg team toe</a>
-</p>
-<p>
-    <a th:href="@{/logout}">Log uit</a>
 </p>
 </body>
 </html>
