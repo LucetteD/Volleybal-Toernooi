@@ -33,8 +33,8 @@ public class PlayerController {
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping({"/", "/players"})
-    protected String showTeams(Model model) {
+    @GetMapping({"/players"})
+    protected String showPlayers(Model model) {
         model.addAttribute("allPlayers", playerRepository.findAll());
         return "playerOverview";
     }

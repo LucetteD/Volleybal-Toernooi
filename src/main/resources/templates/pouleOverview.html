@@ -22,23 +22,14 @@
         <th>Naam</th>
         <th>Aantal Teams</th>
     </tr>
-    <tr th:each="poule: ${allPools}">
-        <td th:text="${poule.poolId}"/>
-        <td th:text="${poule.naam}"/>
-        <td th:text="${poule.numberOfTeams}"/>
+    <tr th:each="poule: ${allPoules}">
+        <td th:text="${poule.pouleId}"></td>
+        <td><a th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}" th:text="${poule.pouleName}"></a></td>
+        <td th:text="${poule.numberOfTeams}"></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
 </table>
-
-<h1>Maak een nieuwe Poule</h1>
-<form th:action="@{/poules/add}" th:object="${poule}" method="post">
-    <p>Naam: <input type="text" th:field="*{naam}" /></p>
-    <p><input type="submit" value="Submit" /></p>
-</form>
-<h1>Poules</h1>
-
-<a th:href="@{/poules/add}">Voeg poule toe</a>
 </body>
 </html>
