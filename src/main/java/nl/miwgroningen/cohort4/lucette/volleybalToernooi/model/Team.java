@@ -24,10 +24,10 @@ public class Team {
 
     private String nationality;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pouleId", referencedColumnName = "pouleId")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Poule poule = null;
+    private Poule poule;
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;

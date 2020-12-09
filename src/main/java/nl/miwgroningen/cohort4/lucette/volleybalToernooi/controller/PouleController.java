@@ -75,6 +75,7 @@ public class PouleController {
             team.setPoule(null);
             teamRepository.saveAndFlush(team);
         }
+        gameRepository.deleteAll();
         pouleRepository.deleteAll();
 
         List<Team> teams = teamRepository.findAll();
@@ -86,6 +87,7 @@ public class PouleController {
         int pouleSize = teams.size() / numberOfPoules;
         int overSize = teams.size() % numberOfPoules;
 
+        // create poules and divide the teams among them
         for (int poule = 0; poule < numberOfPoules; poule++) {
             String pouleName = "" + (char) (poule + 65);
             Poule newPoule = new Poule();
@@ -95,25 +97,30 @@ public class PouleController {
                 // Added the minimum number of teams to this poule
                 Team team = teams.remove(0);
                 team.setPoule(newPoule);
+                newPoule.addTeam(team);
                 teamRepository.save(team);
             }
             if (poule < overSize) {
                 // check if this is one of the "oversized poules" and add an additional team if it is.
                 Team team = teams.remove(0);
                 team.setPoule(newPoule);
+                newPoule.addTeam(team);
                 teamRepository.save(team);
             }
         }
-        teamRepository.flush();
 
+        // generate pool games
         for (Poule poule : pouleRepository.findAll()) {
-            // TODO Dit werkt dus nog niet
-//            List<Game> pouleGames = poule.generatePouleGames();
-//            gameRepository.saveAll(pouleGames);
+            List<Game> pouleGames = poule.generatePouleGames();
+            gameRepository.saveAll(pouleGames);
         }
+
+        // generate final games
 
         return "redirect:/poules";
     }
+
+
 
     // TODO: Should this functions be moved to "Poule"
     private int numberOfFinalGames(int levelOfFinals) {

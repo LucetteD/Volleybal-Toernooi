@@ -17,16 +17,21 @@ public class Poule {
 
     private String pouleName;
 
-    @OneToMany(mappedBy = "poule", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "poule")
     private List<Team> myTeams;
 
     @OneToMany(mappedBy = "poule")
     private List<PouleGame> pouleGames;
 
+    public Poule(){
+        myTeams = new ArrayList<>();
+        pouleGames = new ArrayList<>();
+    }
+
     public List<Game> generatePouleGames(){
         List<Game> pouleGames = new ArrayList<>();
-        System.out.println(myTeams);
-        List<Team> teams = new ArrayList<>(myTeams);
+        System.out.println(this.getMyTeams());
+        List<Team> teams = new ArrayList<>(this.getMyTeams());
         Team teamA = teams.remove(0);
 
         while (!teams.isEmpty()) {
@@ -69,5 +74,13 @@ public class Poule {
 
     public List<PouleGame> getPouleGames() {
         return pouleGames;
+    }
+
+    public void addTeam(Team team) {
+        myTeams.add(team);
+    }
+
+    public void addGame(PouleGame game) {
+        pouleGames.add(game);
     }
 }
