@@ -35,7 +35,7 @@ public class WKLoader implements CommandLineRunner {
             "Brazilië", "Argentinië"
     };
     private static final String[] ROLES = {
-            "Setter", "Libero", "Middle blocker", "Outside hitter", "Opposite hitter", "Coach", "PT"
+            "Setter", "Libero", "Middle blocker/hitter", "Outside hitter", "Opposite hitter", "Coach", "PT"
     };
 
     private final PlayerRepository playerRepository;
@@ -66,8 +66,6 @@ public class WKLoader implements CommandLineRunner {
         }
         roleRepository.saveAll(roles);
         roleRepository.flush();
-
-        Faker faker = new Faker();
 
         for (String nationality : NATIONALITIES){
             Team team = new Team();
