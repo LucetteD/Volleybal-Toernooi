@@ -1,6 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
@@ -24,20 +32,23 @@ public class PouleController {
     @Autowired
     PouleRepository pouleRepository;
 
-    @GetMapping("/pools")
-    protected String showPools(Model model) {
-        model.addAttribute("allPools", pouleRepository.findAll());
-        model.addAttribute("pool", new Poule());
-        return "poolOverzicht";
+    @Autowired
+    GameRepository gameRepository;
+
+    @GetMapping("/poules")
+    protected String showPoules(Model model) {
+        model.addAttribute("allPoules", pouleRepository.findAll());
+        return "pouleOverview";
     }
 
-    @PostMapping("/pools/add")
-    protected String saveOrUpdatePool(@ModelAttribute("pool") Poule poule, BindingResult result) {
-        if (result.hasErrors()) {
-            return "pouleOverview";
+    @GetMapping("/poules/{pouleName}")
+    protected String showPouleDetails(@PathVariable("pouleName") String pouleName, Model model) {
+        Optional<Poule> pouleOptional = pouleRepository.findByPouleName(pouleName);
+        if (pouleOptional.isPresent()) {
+            model.addAttribute("poule", pouleOptional.get());
+            return "pouleDetails";
         } else {
-            pouleRepository.save(poule);
-            return "redirect:/pools";
+            return "redirect:/poules";
         }
     }
 
@@ -56,6 +67,55 @@ public class PouleController {
         return "pouleGeneration";
     }
 
+    // XXX make this a nicer link
+    @GetMapping("/poules/generate/no-really")
+    protected String generatePoules() {
+        // remove all existing poules
+        for (Team team : teamRepository.findAll()) {
+            team.setPoule(null);
+            teamRepository.saveAndFlush(team);
+        }
+        pouleRepository.deleteAll();
+
+        List<Team> teams = teamRepository.findAll();
+
+        // Make sure the poules are randomized
+        Collections.shuffle(teams);
+
+        int numberOfPoules = numberOfPoules(teams.size());
+        int pouleSize = teams.size() / numberOfPoules;
+        int overSize = teams.size() % numberOfPoules;
+
+        for (int poule = 0; poule < numberOfPoules; poule++) {
+            String pouleName = "" + (char) (poule + 65);
+            Poule newPoule = new Poule();
+            newPoule.setPouleName(pouleName);
+            pouleRepository.save(newPoule);
+            for (int pouleTeam = 0; pouleTeam < pouleSize; pouleTeam++) {
+                // Added the minimum number of teams to this poule
+                Team team = teams.remove(0);
+                team.setPoule(newPoule);
+                teamRepository.save(team);
+            }
+            if (poule < overSize) {
+                // check if this is one of the "oversized poules" and add an additional team if it is.
+                Team team = teams.remove(0);
+                team.setPoule(newPoule);
+                teamRepository.save(team);
+            }
+        }
+        teamRepository.flush();
+
+        for (Poule poule : pouleRepository.findAll()) {
+            // TODO Dit werkt dus nog niet
+//            List<Game> pouleGames = poule.generatePouleGames();
+//            gameRepository.saveAll(pouleGames);
+        }
+
+        return "redirect:/poules";
+    }
+
+    // TODO: Should this functions be moved to "Poule"
     private int numberOfFinalGames(int levelOfFinals) {
         int noGames = 1;
         int noGamesAtLevel = 1;

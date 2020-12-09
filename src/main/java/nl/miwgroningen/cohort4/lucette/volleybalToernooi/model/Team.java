@@ -1,5 +1,6 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -25,21 +26,25 @@ public class Team {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pouleId", referencedColumnName = "pouleId")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Poule poule = null;
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
-    @OneToMany(mappedBy = "team")
-    private List<Game> games;
+    // TODO maybe this can/should be done as one variable
+    @OneToMany(mappedBy = "homeTeam")
+    private List<Game> homeGames;
+
+    @OneToMany(mappedBy = "visitorTeam")
+    private List<Game> visitingGames;
 
     public int getNrOfPlayers() {
         return players.size();
     }
 
     public int getNrOfGames() {
-        return games.size();
+        return homeGames.size() + visitingGames.size();
     }
 
     public Integer getTeamId() {

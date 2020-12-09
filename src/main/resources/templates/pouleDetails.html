@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <title>Informatie over poule</title>
+</head>
+<body>
+<h1>Informatie over poule <span th:text="${poule.pouleName}">poulenaam</span></h1>
+
+<table>
+    <tr>
+        <th>Team Naam</th>
+        <th>Aantal spelers</th>
+    </tr>
+    <tr th:each="team: ${poule.myTeams}">
+        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
+        <td th:text="${team.nrOfPlayers}"></td>
+        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamName})}">Voeg toe</a></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th>Thuis team</th>
+        <th>Uit team</th>
+    </tr>
+    <tr th:each="game: ${poule.pouleGames}">
+        <td th:text="${game.homeTeam}"></td>
+        <td th:text="${game.visitorTeam}"></td>
+    </tr>
+</table>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>

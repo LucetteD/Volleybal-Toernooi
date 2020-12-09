@@ -24,14 +24,14 @@ public class Game {
     private int result;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "teamId", referencedColumnName = "teamId", nullable = false)
+    @JoinColumn(name = "homeTeamId", referencedColumnName = "teamId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Team team;
+    private Team homeTeam;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "playerId", referencedColumnName = "playerId", nullable = false)
+    @JoinColumn(name = "visitorTeamId", referencedColumnName = "teamId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Player player;
+    private Team visitorTeam;
 
     public int getGameId() {
         return gameId;
@@ -41,19 +41,44 @@ public class Game {
         this.gameId = gameId;
     }
 
-    public Team getTeam() {
-        return team;
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
-    public Player getPlayer() {
-        return player;
+    public String getLocation() {
+        return location;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setLocation(String location) {
+        this.location = location;
     }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public Team getVisitorTeam() {
+        return visitorTeam;
+    }
+
+    public void setVisitorTeam(Team visitorTeam) {
+        this.visitorTeam = visitorTeam;
+    }
+
 }
