@@ -8,45 +8,30 @@
     <title>Wedstrijd overzicht</title>
 </head>
 <body>
-<ul>
-    <li><a th:href="@{/teams}">Team overzicht</a></li>
-    <li><a th:href="@{/players}">Speler overzicht</a></li>
-    <li><a th:href="@{/poules}">Poule overzicht</a></li>
-    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
-    <li><a th:href="@{/logout}">Log in</a></li>
-</ul>
+<div id="header" class="header">
+    <nav>
+        <ul class="nav">
+            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
+            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
+            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
+            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
+            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
+        </ul>
+    </nav>
+    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
+</div>
 <h1>Overzicht van de wedstrijden</h1>
-<table>
-    <tr>
-        <th>Poule</th>
-    </tr>
-    <tr th:each="poule: ${allPoules}">
-        <td>
-            <a>
-                <!--th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}" th:text="${poule.pouleName}"-->
-                pouleName
-            </a>
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr th:each="poule: ${allGames}">
-        <td><a>pouleGames</a></td>
-    </tr>
-</table>
 
-<!-- Het probleem was dat deze "parent" div miste... -->
 <div id="all_poules">
     <div th:each="poule: ${allPoules}" >
         <h2 th:text="'Poule ' + ${poule.pouleName}"></h2>
-<!--    Door de data-parent kunnen niet alle velden tegelijk uitgeklapt worden    -->
         <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
             <table>
                 <tr>
                     <th>Wedstrijdnummer:</th>
                     <th>Thuis team</th>
                     <th>Gast team</th>
+                    <th>Uitslag Wedstrijd</th>
                 </tr>
                 <tr th:each="game: ${poule.pouleGames}">
                     <td th:text="${game.gameId}"></td>
@@ -56,16 +41,21 @@
             </table>
         </div>
         <button class="btn btn-primary" data-toggle="collapse" th:attr="data-target='#poulegames_' + ${poule.pouleName}">
-            Show/Hide games
+            Toon/Verberg wedstrijden
         </button>
     </div>
 </div>
 
-<a th:href="@{/games}" role="button" class="btn btn-success btn-lg active" aria-pressed="true">
-    ??</a>
-
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<!--<div th:include="parts :: footer"></div>-->
+<!--<div th:insert="parts :: footer"></div>-->
+
+<footer>
+    <p class="quote">Copyright LucetteVincent 2020</p>
+</footer>
+
 </body>
 </html>

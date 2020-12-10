@@ -8,13 +8,18 @@
     <title>Poule overzicht</title>
 </head>
 <body>
-<ul>
-    <li><a th:href="@{/teams}">Team overzicht</a></li>
-    <li><a th:href="@{/players}">Speler overzicht</a></li>
-    <li><a th:href="@{/poules}">Poule overzicht</a></li>
-    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
-    <li><a th:href="@{/logout}">Log in</a></li>
-</ul>
+<div id="header" class="header">
+    <nav>
+        <ul class="nav">
+            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
+            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
+            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
+            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
+            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
+        </ul>
+    </nav>
+    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
+</div>
 <h1>Overzicht van bestaande Poules</h1>
 <table>
     <tr>
@@ -24,18 +29,24 @@
     </tr>
     <tr th:each="poule: ${allPoules}">
         <td th:text="${poule.pouleId}"></td>
-        <td><a th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}" th:text="${poule.pouleName}"></a></td>
+        <td><a class="clickableName" th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}"
+               th:text="'Poule ' + ${poule.pouleName}"></a></td>
         <td th:text="${poule.numberOfTeams}"></td>
-        <td></td>
-        <td></td>
-        <td></td>
     </tr>
 </table>
-
-<a th:href="@{/poule/generate}" role="button" class="btn btn-success btn-lg active" aria-pressed="true">Informatie over het te genereren kampioenschap</a>
+<div class="container">
+    <div class="buttonGenerate">
+        <a th:href="@{/poule/generate}" role="button" class="btn btn-success btn-lg active" aria-pressed="true">
+            Informatie over het te genereren kampioenschap</a>
+    </div>
+</div>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<footer>
+    <p class="quote">Copyright LucetteVincent 2020</p>
+</footer>
 </body>
 </html>

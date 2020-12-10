@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org"
       lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,14 +7,18 @@
     <title>Team overzicht</title>
 </head>
 <body>
-<ul>
-    <li><a th:href="@{/teams}">Team overzicht</a></li>
-    <li><a th:href="@{/players}">Speler overzicht</a></li>
-    <li><a th:href="@{/poules}">Poule overzicht</a></li>
-    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
-    <li><a th:href="@{/logout}">Log in</a></li>
-</ul>
-
+<div id="header" class="header">
+    <nav>
+        <ul class="nav">
+            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
+            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
+            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
+            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
+            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
+        </ul>
+    </nav>
+    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
+</div>
 <h1>Teams</h1>
 <table>
     <tr>
@@ -24,10 +27,10 @@
         <th>Aantal spelers</th>
     </tr>
     <tr th:each="team: ${allTeams}">
-        <td><a th:href="@{/team/{teamName}(teamName=${team.teamName})}" th:text="${team.teamName}" /></td>
-        <td th:text="${team.poule.pouleName}"/>
+        <td type="button" class="link"><a class="clickableName"  th:href="@{/team/{teamName}(teamName=${team.teamName})}"
+                                          th:text="${team.teamName}" /></td>
+        <td th:text="'Poule ' + ${team.poule.pouleName}"/>
         <td th:text="${team.nrOfPlayers}"></td>
-        <td><a th:href="@{/lid/add/t/{teamName}(teamName=${team.teamName})}">Voeg toe</a></td>
     </tr>
 </table>
 <p>
@@ -36,5 +39,10 @@
 <!--<p sec:authorize="hasRole('ADMIN')">-->
 <!--    <a th:href="@{/user/new}">Voeg gebruiker toe</a>-->
 <!--</p>-->
+
+<footer>
+    <p class="quote">Copyright LucetteVincent 2020</p>
+</footer>
+
 </body>
 </html>

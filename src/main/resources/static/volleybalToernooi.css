@@ -1,46 +1,222 @@
+@charset "utf-8";
+
 body {
-    width: 50%;
-    margin-left: 25%;
+    width: 100%;
+    height: auto;
+    font-family: 'Georgia', cursive;
+    font-size: 13pt;
+    margin: 0px 0px 50px 0px;
 }
 
-li {
+.logoNevobo {
+    opacity: 0.1;
+    position: absolute;
+    width: 40%;
+}
+
+li.nav {
     display: inline;
     float: left;
+    height: 80px;
 }
 
 li a {
     display: block;
     color: #e68a00;
     text-align: center;
-    padding: 14px 16px;
+    padding: 22px 16px;
     text-decoration: none;
     font-size: 20px;
+    font-weight: bold;
+}
+
+li a.teamOverzicht {
+    color: #0077b3;
+}
+
+li a.spelerOverzicht {
+    color: #0077b3;
+}
+
+li a.pouleOverzicht {
+    color: #0088cc;
+}
+
+li a.wedstrijdschema {
+    color: #0088cc;
+}
+
+li a.login {
+    color: black;
+}
+
+li.nav:hover {
+    background-color: #0088cc;
 }
 
 li a:hover {
-    background-color: #0000cc;
+    color: #00334d;
+}
+
+ul.rolesList {
+    text-align: center;
+    display: block;
+    list-style-type: none;
+}
+
+li.roles {
+    line-height: 1.4;
 }
 
 ul {
+    color: #00334d;
+    font-weight: bolder;
+    line-height: 1.8;
+    text-align: center;
+}
+
+ul.nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #000033;
+    background-image:-webkit-linear-gradient(290deg, black, #0088cc);
+    height: 80px;
 }
 
 h1 {
+    font-size: 50px;
+    color: #00334d;
     text-align: center;
-    font-size: 60px;
-    color: #000033;
+    padding: 18px 0 18px 0;
+    margin: 20px 40px 20px 40px;
+}
+
+h2 {
+    font-size: 25px;
+    color: #e68a00;
 }
 
 th {
-    font-size: 20px;
+    font-size: 25px;
     color: #e68a00;
+    width: 300px;
+}
+
+td {
+    color: #00334d;
+    font-weight: bolder;
+    line-height: 1.8;
+    width: 300px;
+}
+
+tr {
+    padding-left: 400px;
+    padding-right: 400px;
 }
 
 table {
     width: 100%;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    padding: 18px 0 18px 0;
+    margin: 20px 40px 20px 40px;
+}
+
+p a {
+    background-color: #00334d;
+    border-radius: 5px;
+    color: #0077b3;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+p a:hover {
+    background-color: #0088cc;
+    color: #00334d;
+}
+
+.container {
+    height: 50px;
+    position: relative;
+}
+
+.buttonCenter {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.buttonGenerate {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+a.btn {
+    background-color: #e68a00;
+    color: #00334d;
+}
+
+button.btn {
+    background-color: #00334d;
+    border-radius: 5px;
+    color: #0077b3;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+button.btn:hover {
+    background-color: #0088cc;
+    color: #00334d;
+}
+
+a.clickableName {
+    color: #00334d;
+    border: solid 1px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background-color: #0088cc;
+    width: 115px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-image:-webkit-linear-gradient(290deg, #0088cc, black);
+    font-weight: bold;
+}
+
+p.quote {
+    Text-align: right;
+    color: #0077b3;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    margin-top: -4px;
 }

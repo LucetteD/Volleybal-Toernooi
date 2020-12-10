@@ -8,24 +8,47 @@
     <title>Voeg een nieuwe rol toe</title>
 </head>
 <body>
+<div id="header" class="header">
+    <nav>
+        <ul class="nav">
+            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
+            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
+            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
+            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
+            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
+        </ul>
+    </nav>
+    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
+</div>
 <h1>Voeg een nieuwe rol toe</h1>
 <form th:action="@{/role/add}" th:object="${role}" method="post">
-    <div class="form-group col-md-6">
-        <label for="roleName">Rolnaam:</label>
-        <input type="text" class="form-control" id="roleName" th:field="*{roleName}"  th:classappend="${not #lists.isEmpty(#fields.errors('roleName'))} ? is-invalid" />
-        <div class="invalid-feedback" th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">Role name Error</div>
+    <div class="form-row">
+        <div class="form-group col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="roleName">Rolnaam:</label>
+            <input type="text" class="form-control" id="roleName" th:field="*{roleName}"  th:classappend="${not #lists.isEmpty(#fields.errors('roleName'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">Role name Error</div>
+        </div>
+        <div class="form-group col-md-4"></div>
     </div>
-    <button type="submit" class="btn btn-primary">Opslaan</button>
+    <div class="container">
+        <div class="buttonCenter">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </div>
+    </div>
 </form>
 
 <h1>Bestaande rollen</h1>
-<ul th:each="role : ${existingRoles}">
-    <li th:text="${role.roleName}">Role name</li>
+<ul class="rolesList" th:each="role : ${existingRoles}">
+    <li class="roles" th:text="${role.roleName}">Role name</li>
 </ul>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
+<footer>
+    <p class="quote">Copyright LucetteVincent 2020</p>
+</footer>
 </body>
 </html>

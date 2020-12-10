@@ -8,13 +8,18 @@
     <title>Informatie over het te generen kampioenschap</title>
 </head>
 <body>
-<ul>
-    <li><a th:href="@{/teams}">Team overzicht</a></li>
-    <li><a th:href="@{/players}">Speler overzicht</a></li>
-    <li><a th:href="@{/poules}">Poule overzicht</a></li>
-    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
-    <li><a th:href="@{/logout}">Log in</a></li>
-</ul>
+<div id="header" class="header">
+    <nav>
+        <ul class="nav">
+            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
+            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
+            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
+            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
+            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
+        </ul>
+    </nav>
+    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
+</div>
 <h1>Informatie over het te generen kampioenschap</h1>
 
 <table>
@@ -35,13 +40,21 @@
         <td th:text="${finalGames}"></td>
     </tr>
 </table>
-
-<a th:href="@{/poules/generate/no-really}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Maak dit kampioenschap</a>
+<div class="container">
+    <div class="buttonCenter">
+        <a th:href="@{/poules/generate/no-really}" class="btn btn-danger btn-lg active" role="button"
+           aria-pressed="true">Maak dit kampioenschap</a>
+    </div>
+</div>
 
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<footer>
+    <p class="quote">Copyright LucetteVincent 2020</p>
+</footer>
 
 </body>
 </html>
