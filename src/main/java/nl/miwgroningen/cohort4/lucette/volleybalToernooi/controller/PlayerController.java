@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class PlayerController {
         return "redirect:/teams";
     }
 
-    @GetMapping("/player/add/t/{teamName}")
+    @GetMapping("/players/add/t/{teamName}")
     protected String addPlayerByName(@PathVariable("teamName") String teamName) {
         Optional<Team> teamBox = teamRepository.findByTeamName(teamName);
         if (teamBox.isPresent()) {
@@ -75,7 +74,6 @@ public class PlayerController {
             result.rejectValue("associationRegistrationNumber", "error.user",
                     "Een speler met dit bondsnummer bestaat al");
         }
-
         if (result.hasErrors()) {
             System.out.println(result);
             model.addAttribute("allTeams", teamRepository.findAll());

@@ -1,25 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title>Voeg een nieuw team toe</title>
+<head th:replace="general :: baseHeader(~{::title})">
+    <title>Team toevoegen</title>
 </head>
 <body>
-<div id="header" class="header">
-    <nav>
-        <ul class="nav">
-            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
-            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
-            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
-            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
-            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
-        </ul>
-    </nav>
-    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
-</div>
+<div th:replace="general :: navbar"></div>
 <h1>Voeg een nieuw team toe</h1>
 <form th:action="@{/teams/add}" th:object="${team}" method="post" enctype="multipart/form-data">
     <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
@@ -43,7 +29,7 @@
             <input type="file" accept="image/png, image/jpeg, image/svg" class="form-control" id="nationalFlagImage" name="nationalFlagImage" />
         </div>
         <div class="form-group col-md-4"></div>
-    <div>
+    </div>
     <div sec:authorize="hasRole('ADMIN')" class="container">
         <div class="buttonCenter">
             <button type="submit" class="btn btn-primary">Opslaan</button>
@@ -51,13 +37,8 @@
     </div>
 </form>
 
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-<footer>
-    <p class="quote">Copyright LucetteVincent 2020</p>
-</footer>
+<div th:replace="general :: footer"></div>
+<div th:replace="general :: bottom_scripts"></div>
 
 </body>
 </html>

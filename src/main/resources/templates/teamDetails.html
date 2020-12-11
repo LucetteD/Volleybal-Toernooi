@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title th:text="${team.teamName} + ' detail'">Team details</title>
+<head th:replace="general :: baseHeader(~{::title})">
+    <title>Team details</title>
 </head>
 <body>
-<h1><span th:text="${team.teamName}" />Details</h1>
+<div th:replace="general :: navbar"></div>
+<h1><span th:text="${team.teamName}" /></h1>
 <table>
     <tr>
-        <td>Naam</td>
+        <th>Team naam</th>
+    </tr>
+    <tr>
         <td th:text="${team.teamName}" />
     </tr>
     <tr>
-        <td>Poule</td>
-        <td th:text="${team.poule.pouleName}" />
+        <th>Nationale vlag</th>
+    </tr>
+    <tr> <!-- TODO Make flag visible -->
+        <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>
+    </tr>
+    <tr>
+        <th>Poule</th>
+    </tr>
+    <tr>
+        <td th:text="'Poule ' + ${team.poule.pouleName}" />
+    </tr>
+    <tr>
+        <th>Aantal spelers</th>
+    </tr>
+    <td th:text="${team.nrOfPlayers}" />
     </tr>
 </table>
-
+<div th:replace="general :: footer"></div>
+<div th:replace="general :: bottom_scripts"></div>
 </body>
 </html>

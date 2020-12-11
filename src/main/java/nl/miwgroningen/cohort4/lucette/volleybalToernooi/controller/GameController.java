@@ -35,13 +35,9 @@ public class GameController {
     @GetMapping({"/games/overview"})
     protected String showPouleGames(Model model) {
         model.addAttribute("allPoules", pouleRepository.findAll());
-
-
         for (Poule poule : pouleRepository.findAll()) {
             model.addAttribute("allGames", gameRepository.findAll());
         }
-
-
         return "gameOverview";
     }
 }

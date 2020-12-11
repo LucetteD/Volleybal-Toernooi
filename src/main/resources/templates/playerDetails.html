@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="general :: baseHeader(~{::title})">
+    <title>Team details</title>
+</head>
+<body>
+<div th:replace="general :: navbar"></div>
+<h1><span th:text="${player.firstName} + ${player.lastName}" /></h1>
+<table>
+    <tr>
+        <th>Voornaam</th>
+        <td th:text="${player.firstName}" />
+    </tr>
+    <tr>
+        <th>Achternaam</th>
+        <td th:text="${player.lastName}" />
+    </tr>
+    <tr>
+        <th>Poule</th>
+        <td th:text="${team.poule.pouleName}" />
+    </tr>
+    <tr>
+        <th>Geboortedatum</th>
+        <td th:text="${player.birthdate}" />
+    </tr>
+    <tr>
+        <th>Lengte</th>
+        <td th:text="${player.height}" />
+    </tr>
+    <tr>
+        <th>Huidige club</th>
+        <td th:text="${player.currentClub}" />
+    </tr>
+    <tr>
+        <th>Bondsnummer</th>
+        <td th:text="${player.associationRegistrationNumber}" />
+    </tr>
+    <tr>
+        <th>Positie/Rol</th>
+        <td th:text="${player.role}" />
+    </tr>
+</table>
+<div th:replace="general :: footer"></div>
+<div th:replace="general :: bottom_scripts"></div>
+</body>
+</html>

@@ -9,7 +9,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
