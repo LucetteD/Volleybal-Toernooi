@@ -34,7 +34,7 @@ public class TeamController {
         return "teamOverview";
     }
 
-    @GetMapping("/team/{teamName}")
+    @GetMapping("/teams/{teamName}")
     protected String showTeamDetails(Model model, @PathVariable("teamName") String teamName) {
         Optional<Team> teamBox = teamRepository.findByTeamName(teamName);
         if (teamBox.isEmpty()) {

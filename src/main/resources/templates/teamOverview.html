@@ -3,7 +3,8 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" href="/css/volleybalToernooi.css" />
     <title>Team overzicht</title>
 </head>
 <body>
@@ -27,7 +28,7 @@
         <th>Aantal spelers</th>
     </tr>
     <tr th:each="team: ${allTeams}">
-        <td type="button" class="link"><a class="clickableName"  th:href="@{/team/{teamName}(teamName=${team.teamName})}"
+        <td type="button" class="link"><a class="clickableName"  th:href="@{/teams/{teamName}(teamName=${team.teamName})}"
                                           th:text="${team.teamName}" /></td>
 <!-- TODO replace null with nicer default       -->
         <td th:text="'Poule ' + ${team.poule?.pouleName}"/>
@@ -47,6 +48,10 @@
 <footer>
     <p class="quote">Copyright LucetteVincent 2020</p>
 </footer>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
 </html>
