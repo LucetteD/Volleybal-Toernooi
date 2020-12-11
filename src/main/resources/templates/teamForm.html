@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>Voeg een nieuw team toe</h1>
-<form th:action="@{/teams/add}" th:object="${team}" method="post">
+<form th:action="@{/teams/add}" th:object="${team}" method="post" enctype="multipart/form-data">
     <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
         Er heeft zich een probleem voorgedaan.
     </div>
@@ -19,9 +19,9 @@
         <div class="invalid-feedback" th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}">Team name Error</div>
     </div>
     <div>
-        <label for="nationality">Nationaliteit:</label>
-        <input type="text" class="form-control" id="nationality" th:field="*{nationality}" />
-        <div class="invalid-feedback" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}">Nationality Error</div>
+        <label for="nationalFlagImage">Nationaliteit:</label>
+        <input type="file" accept="image/png, image/jpeg, image/svg" class="form-control" id="nationalFlagImage" name="nationalFlagImage" />
+<!--        <div class="invalid-feedback" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}">Nationality Error</div>-->
     </div>
     <button type="submit" class="btn btn-primary">Opslaan</button>
 </form>

@@ -70,7 +70,7 @@ public class WKLoader implements CommandLineRunner {
         for (String nationality : NATIONALITIES){
             Team team = new Team();
             team.setTeamName(nationality);
-            team.setNationality(nationality);
+            // team.setNationality(nationality);
             teamRepository.save(team);
             for (Role role : roles) {
                 generatePlayerWithRoleAndTeam(role, team);
