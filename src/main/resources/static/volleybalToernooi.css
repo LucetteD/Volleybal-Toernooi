@@ -152,6 +152,8 @@ p a:hover {
 .container {
     height: 50px;
     position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .buttonCenter {

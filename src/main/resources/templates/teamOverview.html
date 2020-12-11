@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,9 +36,12 @@
 <p>
     <a th:href="@{/teams/add}">Voeg team toe</a>
 </p>
-<!--<p sec:authorize="hasRole('ADMIN')">-->
-<!--    <a th:href="@{/user/new}">Voeg gebruiker toe</a>-->
-<!--</p>-->
+<p sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/user/new}">Voeg gebruiker toe</a>
+</p>
+<p sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/logout}">Log out</a>
+</p>
 
 <footer>
     <p class="quote">Copyright LucetteVincent 2020</p>
