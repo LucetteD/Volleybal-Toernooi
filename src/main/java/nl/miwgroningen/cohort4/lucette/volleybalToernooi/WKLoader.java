@@ -9,8 +9,6 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.RoleReposito
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

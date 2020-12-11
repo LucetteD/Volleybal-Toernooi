@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+</head>
+<body>
+<ul th:fragment="navbar">
+    <li><a th:href="@{/teams}">Team overzicht</a></li>
+    <li><a th:href="@{/players}">Speler overzicht</a></li>
+    <li><a th:href="@{/poules}">Poule overzicht</a></li>
+    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
+    <li><a th:href="@{/logout}">Log in</a></li>
+</ul>
+
+<footer th:fragment="footer">
+    <p>Copyright LucetteVincent 2020</p>
+</footer>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

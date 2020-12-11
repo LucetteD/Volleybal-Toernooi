@@ -8,6 +8,13 @@
     <title>Informatie over poule</title>
 </head>
 <body>
+<ul>
+    <li><a th:href="@{/teams}">Team overzicht</a></li>
+    <li><a th:href="@{/players}">Speler overzicht</a></li>
+    <li><a th:href="@{/poules}">Poule overzicht</a></li>
+    <li><a th:href="@{/games}">Wedstrijdschema</a></li>
+    <li><a th:href="@{/logout}">Log in</a></li>
+</ul>
 <h1>Informatie over poule <span th:text="${poule.pouleName}">poulenaam</span></h1>
 
 <table>
@@ -15,10 +22,9 @@
         <th>Team Naam</th>
         <th>Aantal spelers</th>
     </tr>
-    <tr th:each="team: ${poule.myTeams}">
-        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
+    <tr th:each="team: ${poule.myTeams}"> <!--TODO on click overview of players of the team -->
+        <td><a th:href="@{/team/{teamNaam}(teamNaam=${team.nrOfPlayers})}" th:text="${team.teamName}" /></td>
         <td th:text="${team.nrOfPlayers}"></td>
-        <td><a th:href="@{/lid/add/t/{teamNaam}(teamNama=${team.teamName})}">Voeg toe</a></td>
     </tr>
 </table>
 

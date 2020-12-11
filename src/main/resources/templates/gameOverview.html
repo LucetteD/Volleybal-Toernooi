@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title>Poule overzicht</title>
+    <title>Wedstrijd overzicht</title>
 </head>
 <body>
 <div id="header" class="header">
@@ -20,24 +20,29 @@
     </nav>
     <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
 </div>
-<h1>Overzicht van bestaande Poules</h1>
-<table>
-    <tr>
-        <th>Nummer</th>
-        <th>Naam</th>
-        <th>Aantal Teams</th>
-    </tr>
-    <tr th:each="poule: ${allPoules}">
-        <td th:text="${poule.pouleId}"></td>
-        <td><a class="clickableName" th:href="@{/poules/{pouleName}(pouleName=${poule.pouleName})}"
-               th:text="'Poule ' + ${poule.pouleName}"></a></td>
-        <td th:text="${poule.numberOfTeams}"></td>
-    </tr>
-</table>
-<div class="container">
-    <div class="buttonGenerate">
-        <a th:href="@{/poule/generate}" role="button" class="btn btn-success btn-lg active" aria-pressed="true">
-            Informatie over het te genereren kampioenschap</a>
+<h1>Overzicht van de wedstrijden</h1>
+
+<div id="all_poules">
+    <div th:each="poule: ${allPoules}" >
+        <h2 th:text="'Poule ' + ${poule.pouleName}"></h2>
+        <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
+            <table>
+                <tr>
+                    <th>Wedstrijdnummer:</th>
+                    <th>Thuis team</th>
+                    <th>Gast team</th>
+                    <th>Uitslag Wedstrijd</th>
+                </tr>
+                <tr th:each="game: ${poule.pouleGames}">
+                    <td th:text="${game.gameId}"></td>
+                    <td th:text="${game.homeTeam.teamName}"></td>
+                    <td th:text="${game.visitorTeam.teamName}"></td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-primary" data-toggle="collapse" th:attr="data-target='#poulegames_' + ${poule.pouleName}">
+            Toon/Verberg wedstrijden
+        </button>
     </div>
 </div>
 
@@ -45,8 +50,12 @@
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
+<!--<div th:include="parts :: footer"></div>-->
+<!--<div th:insert="parts :: footer"></div>-->
+
 <footer>
     <p class="quote">Copyright LucetteVincent 2020</p>
 </footer>
+
 </body>
 </html>
