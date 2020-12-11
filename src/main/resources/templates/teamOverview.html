@@ -33,7 +33,7 @@
         <td th:text="${team.nrOfPlayers}"></td>
     </tr>
 </table>
-<p>
+<p sec:authorize="hasRole('ADMIN')">
     <a th:href="@{/teams/add}">Voeg team toe</a>
 </p>
 <p sec:authorize="hasRole('ADMIN')">

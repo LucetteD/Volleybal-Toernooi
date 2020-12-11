@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,7 +46,7 @@
         </div>
         <div class="form-group col-md-4"></div>
     </div>
-    <div class="container">
+    <div sec:authorize="hasRole('ADMIN')" class="container">
         <div class="buttonCenter">
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </div>

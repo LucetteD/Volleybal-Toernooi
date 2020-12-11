@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@
         <td th:text="${finalGames}"></td>
     </tr>
 </table>
-<div class="container">
+<div sec:authorize="hasRole('ADMIN')" class="container">
     <div class="buttonCenter">
         <a th:href="@{/poules/generate/no-really}" class="btn btn-danger btn-lg active" role="button"
            aria-pressed="true">Maak dit kampioenschap</a>
