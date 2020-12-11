@@ -43,6 +43,14 @@ public class Team {
         return players.size();
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
     public int getNrOfGames() {
         return homeGames.size() + visitingGames.size();
     }

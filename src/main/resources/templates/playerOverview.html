@@ -3,7 +3,8 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" href="/css/volleybalToernooi.css" />
     <title>Speler overzicht</title>
 </head>
 <body>
@@ -20,21 +21,38 @@
     <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
 </div>
 <h1>Spelers</h1>
-<table>
-    <tr>
-        <th>Naam</th>
-        <th>Team</th>
-        <th>Aantal gespeelde<br>wedstrijden</th>
-    </tr>
-    <tr th:each="player: ${allPlayers}">
-        <td><a class="clickableName"  th:href="@{/player/{playerName}(playerName=${player.lastName})}" th:text="${player.lastName}" /></td>
-        <td th:text="${player.team.teamName}"/>
-        <td th:text="${player.nrOfGames}"></td>
-    </tr>
-</table>
+
+    <div id="all_players">
+        <div th:each="team: ${allTeams}">
+            <h2 th:text="${team.teamName}"></h2>
+            <div th:id="'players_' + ${team.teamName}" class="collapse" data-parent="#all_players">
+                <table>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Team</th>
+                        <th>Aantal gespeelde<br>wedstrijden</th>
+                    </tr>
+                    <tr th:each="player: ${team.players}">
+                        <td><a class="clickableName"  th:href="@{/player/{playerName}(playerName=${player.lastName})}"
+                               th:text="${player.lastName}" /></td>
+                        <td th:text="${player.firstName}"/>
+                        <td th:text="${player.nrOfGames}"></td>
+                    </tr>
+                </table>
+            </div>
+            <button class="btn btn-primary" data-toggle="collapse" th:attr="data-target='#players_' + ${team.teamName}">
+                Toon/Verberg spelers
+            </button>
+        </div>
+    </div>
+
 <p sec:authorize="hasRole('ADMIN')">
     <a th:href="@{/players/add}">Voeg speler toe</a>
 </p>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 <footer>
     <p class="quote">Copyright LucetteVincent 2020</p>

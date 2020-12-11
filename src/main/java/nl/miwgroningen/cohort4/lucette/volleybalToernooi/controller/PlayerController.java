@@ -35,7 +35,7 @@ public class PlayerController {
 
     @GetMapping({"/players"})
     protected String showPlayers(Model model) {
-        model.addAttribute("allPlayers", playerRepository.findAll());
+        model.addAttribute("allTeams", teamRepository.findAll());
         return "playerOverview";
     }
 
