@@ -3,15 +3,20 @@ package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.utility.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -52,11 +57,19 @@ public class TeamController {
     }
 
     @PostMapping("/teams/add")
-    protected String saveOrUpdateTeam(@ModelAttribute("team") Team team, BindingResult result) {
+    protected String saveOrUpdateTeam(@ModelAttribute("team") Team team, BindingResult result,
+                                      @RequestParam("nationalFlagImage") MultipartFile nationalFlagImage)
+            throws IOException {
         if (teamRepository.findByTeamName(team.getTeamName()).isPresent()) {
             // A team with this naam already exists
             result.rejectValue("teamName", "error.user", "Deze teamnaam is al in gebruik.");
         }
+
+        String imageFileName = StringUtils.cleanPath(team.getTeamName() + "."
+                + StringUtils.getFilenameExtension(nationalFlagImage.getOriginalFilename()));
+        String uploadDirectory = "images\\team-images\\";
+        team.setNationalFlag(uploadDirectory + imageFileName);
+        FileUploadUtil.saveFile(uploadDirectory, imageFileName, nationalFlagImage);
 
         if (result.hasErrors()) {
             return "teamForm";

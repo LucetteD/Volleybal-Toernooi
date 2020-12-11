@@ -21,7 +21,7 @@
     <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
 </div>
 <h1>Voeg een nieuw team toe</h1>
-<form th:action="@{/teams/add}" th:object="${team}" method="post">
+<form th:action="@{/teams/add}" th:object="${team}" method="post" enctype="multipart/form-data">
     <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
         Er heeft zich een probleem voorgedaan.
     </div>
@@ -39,13 +39,11 @@
     <div class="form-row">
         <div class="form-group col-md-4"></div>
         <div class="form-group col-md-4">
-            <label for="nationality">Nationaliteit:</label>
-            <input type="text" class="form-control" id="nationality" th:field="*{nationality}" />
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('nationality')}"
-                 th:errors="*{nationality}">Nationality Error</div>
+            <label for="nationalFlagImage">Nationaliteit:</label>
+            <input type="file" accept="image/png, image/jpeg, image/svg" class="form-control" id="nationalFlagImage" name="nationalFlagImage" />
         </div>
         <div class="form-group col-md-4"></div>
-    </div>
+    <div>
     <div sec:authorize="hasRole('ADMIN')" class="container">
         <div class="buttonCenter">
             <button type="submit" class="btn btn-primary">Opslaan</button>

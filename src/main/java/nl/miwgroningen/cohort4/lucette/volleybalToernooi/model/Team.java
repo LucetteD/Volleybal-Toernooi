@@ -22,7 +22,7 @@ public class Team {
     @Column(unique = true)
     private String teamName;
 
-    private String nationality;
+    private String nationalFlag;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pouleId", referencedColumnName = "pouleId")
@@ -79,11 +79,11 @@ public class Team {
         this.poule = poule;
     }
 
-    public String getNationality() {
-        return nationality;
+    public String getNationalFlag() {
+        return nationalFlag;
     }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
+    public void setNationalFlag(String nationalFlag) {
+        this.nationalFlag = nationalFlag;
     }
 }
