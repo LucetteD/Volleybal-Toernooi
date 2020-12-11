@@ -1,25 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" href="/css/volleybalToernooi.css" />
+<head th:replace="general :: baseHeader(~{::title})">
     <title>Team overzicht</title>
 </head>
 <body>
-<div id="header" class="header">
-    <nav>
-        <ul class="nav">
-            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
-            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
-            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
-            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
-            <li class="nav"><a class="login" th:href="@{/logout}">Log in</a></li>
-        </ul>
-    </nav>
-    <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
-</div>
+<div th:replace="general :: navbar"></div>
 <h1>Teams</h1>
 <table>
     <tr>
@@ -47,13 +33,8 @@
     <a th:href="@{/logout}">Log out</a>
 </p>
 
-<footer>
-    <p class="quote">Copyright LucetteVincent 2020</p>
-</footer>
-
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<div th:replace="general :: footer"></div>
+<div th:replace="general :: bottom_scripts"></div>
 
 </body>
 </html>

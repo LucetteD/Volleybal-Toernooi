@@ -37,8 +37,8 @@ public class VolleybalUserConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/resources/**", "/static/**","/webjars/**", "/css/**").permitAll()
-                .antMatchers("/teams/**", "/images/**").permitAll()
+                .antMatchers("/resources/**","/webjars/**", "/css/**", "/images/**").permitAll()
+                .antMatchers("/teams/**").permitAll()
                 .antMatchers("/players/**").permitAll()
                 .antMatchers("/poules/**").permitAll()
                 .antMatchers("/games/**").permitAll()
