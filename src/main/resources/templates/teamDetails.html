@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/volleybalToernooi.css" />
-    <title th:text="@{${team.naam} + ' detail'}">Team details</title>
+    <title th:text="${team.teamName} + ' detail'">Team details</title>
 </head>
 <body>
 <h1><span th:text="${team.teamName}" />Details</h1>

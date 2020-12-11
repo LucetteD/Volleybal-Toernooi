@@ -29,7 +29,8 @@
     <tr th:each="team: ${allTeams}">
         <td type="button" class="link"><a class="clickableName"  th:href="@{/team/{teamName}(teamName=${team.teamName})}"
                                           th:text="${team.teamName}" /></td>
-        <td th:text="'Poule ' + ${team.poule.pouleName}"/>
+<!-- TODO replace null with nicer default       -->
+        <td th:text="'Poule ' + ${team.poule?.pouleName}"/>
         <td th:text="${team.nrOfPlayers}"></td>
     </tr>
 </table>
