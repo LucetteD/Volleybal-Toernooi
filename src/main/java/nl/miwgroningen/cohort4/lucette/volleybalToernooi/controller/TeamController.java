@@ -67,8 +67,8 @@ public class TeamController {
 
         String imageFileName = StringUtils.cleanPath(team.getTeamName() + "."
                 + StringUtils.getFilenameExtension(nationalFlagImage.getOriginalFilename()));
-        team.setNationalFlag(imageFileName);
-        String uploadDirectory = "team-images/";
+        String uploadDirectory = "images\\team-images\\";
+        team.setNationalFlag(uploadDirectory + imageFileName);
         FileUploadUtil.saveFile(uploadDirectory, imageFileName, nationalFlagImage);
 
         if (result.hasErrors()) {

@@ -68,6 +68,10 @@ public class WKLoader implements CommandLineRunner {
         for (String nationality : NATIONALITIES){
             Team team = new Team();
             team.setTeamName(nationality);
+            if (nationality.equals("Nederland")) {
+                // TODO add all flags to the folder so this can be done for all nationalities in the sample set
+                team.setNationalFlag("images/team-images/Nederland.svg");
+            }
             // team.setNationality(nationality);
             teamRepository.save(team);
             for (Role role : roles) {

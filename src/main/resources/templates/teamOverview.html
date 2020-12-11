@@ -23,11 +23,13 @@
 <h1>Teams</h1>
 <table>
     <tr>
+        <th></th>
         <th>Team Naam</th>
         <th>Poule</th>
         <th>Aantal spelers</th>
     </tr>
     <tr th:each="team: ${allTeams}">
+        <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>
         <td type="button" class="link"><a class="clickableName"  th:href="@{/teams/{teamName}(teamName=${team.teamName})}"
                                           th:text="${team.teamName}" /></td>
 <!-- TODO replace null with nicer default       -->
