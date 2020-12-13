@@ -34,11 +34,18 @@
     </tr>
     <tr>
         <th>Bondsnummer</th>
-        <td th:text="${player.associationRegistrationNumber}" />
+        <td th:text="${player.associationRegistrationNumber.toString()}" />
     </tr>
     <tr>
         <th>Positie/Rol</th>
-        <td th:text="${player.role}" />
+        <td th:text="${player.role.roleName}" />
+    </tr>
+    <tr>
+        <th rowspan="2">Team</th>
+        <td th:text="${player.team.teamName}"></td>
+    </tr>
+    <tr>
+        <td><img th:src="'/' + ${player.team.nationalFlag}" width="100%" /></td>
     </tr>
 </table>
 <div th:replace="general :: footer"></div>

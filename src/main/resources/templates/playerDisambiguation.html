@@ -9,7 +9,7 @@
 <h1>Player disambiguation</h1>
 <table>
     <tr th:each="player : ${allMatchingPlayers}">
-        <td><img th:src="${player.team.nationalFlag}" width="23" height="15" /></td>
+        <td><img th:src="'/' + ${player.team.nationalFlag}" width="23" height="15" /></td>
         <td>
             <a class="clickableName"
                th:href="@{/players/{playerName}/{playerId}(playerName=${player.lastName}, playerId=${player.playerId})}"
