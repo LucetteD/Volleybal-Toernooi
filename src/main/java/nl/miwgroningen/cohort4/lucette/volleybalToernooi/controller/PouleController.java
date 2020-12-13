@@ -52,12 +52,6 @@ public class PouleController {
         }
     }
 
-    @GetMapping({"/poule/generate"})
-    protected String showGames(Model model) {
-        model.addAttribute("allGames", gameRepository.findAll());
-        return "pouleGeneration";
-    }
-
     @GetMapping("/poules/generate")
     protected String showPouleGeneration(Model model) {
         int numberOfTeams = teamRepository.findAll().size();
