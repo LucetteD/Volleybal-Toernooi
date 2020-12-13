@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -41,6 +43,7 @@ public class WKLoader implements CommandLineRunner {
     private final TeamRepository teamRepository;
 
     private final Faker faker;
+    private Set<String> playerRegistrationNumbers = new HashSet<>();
 
     @Autowired
     public WKLoader(PlayerRepository playerRepository, RoleRepository roleRepository, TeamRepository teamRepository) {
@@ -90,9 +93,15 @@ public class WKLoader implements CommandLineRunner {
         player.setBirthdate(LocalDate.ofInstant(faker.date().birthday(18, 32).toInstant(), ZoneId.systemDefault()));
         player.setRole(role);
         player.setCurrentClub(faker.team().name());
-        player.setAssociationRegistrationNumber(faker.idNumber().toString());
+        String registrationNumber = faker.bothify("###-??-####");
+        while (playerRegistrationNumbers.contains(registrationNumber)) {
+            registrationNumber = faker.bothify("###-??-####");
+        }
+        player.setAssociationRegistrationNumber(registrationNumber);
         player.setHeight(faker.random().nextInt(170, 220));
-        player.setFirstName(faker.name().firstName());
+        // XXX This is not according to documentation and may fail (or at least not work as expected)
+        // when combined with "locales".
+        player.setFirstName(faker.resolve("name.female_first_name"));
         player.setLastName(faker.name().lastName());
 
         playerRepository.save(player);
