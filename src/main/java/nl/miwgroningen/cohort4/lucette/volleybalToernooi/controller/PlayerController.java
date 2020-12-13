@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,6 +38,38 @@ public class PlayerController {
         model.addAttribute("allTeams", teamRepository.findAll());
         return "playerOverview";
     }
+
+    @GetMapping("/players/{lastName}")
+    protected String showPlayerDetails(@PathVariable("lastName") String lastName, Model model) {
+        List<Player> players = playerRepository.findPlayersByLastName(lastName);
+
+        if (players.size() == 0) {
+            // No players with this lastName
+            return showPlayers(model);
+        } else if (players.size() == 1) {
+            // Single player with this lastName show their details
+            model.addAttribute("player", players.get(0));
+            return "playerDetails";
+        } else {
+            // more than one player has this lastName, show disambiguation page
+            model.addAttribute("allMatchingPlayers", players);
+            return "playerDisambiguation";
+        }
+    }
+
+    @GetMapping("/players/{lastName}/{playerId}")
+    protected String showPlayerDetails(@PathVariable("lastName") String lastName,
+                                       @PathVariable("playerId") Integer playerId,
+                                       Model model) {
+        Optional<Player> player = playerRepository.findById(playerId);
+        if (player.isEmpty()) {
+            return showPlayers(model);
+        } else {
+            model.addAttribute("player", player.get());
+            return "playerDetails";
+        }
+    }
+
 
     @GetMapping("/game/add/{teamId}")
     protected String addGame(@PathVariable("teamId") Integer teamId) {

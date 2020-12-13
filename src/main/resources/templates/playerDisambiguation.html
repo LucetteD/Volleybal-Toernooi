@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="general :: baseHeader(~{::title})">
+    <title>Player disambiguation</title>
+</head>
+<body>
+<div th:replace="general :: navbar"></div>
+<h1>Player disambiguation</h1>
+<table>
+    <tr th:each="player : ${allMatchingPlayers}">
+        <td><img th:src="${player.team.nationalFlag}" width="23" height="15" /></td>
+        <td>
+            <a class="clickableName"
+               th:href="@{/players/{playerName}/{playerId}(playerName=${player.lastName}, playerId=${player.playerId})}"
+               th:text="${player.firstName} + ' ' + ${player.lastName}">
+                Player full name
+            </a>
+        </td>
+        <td th:text="${player.team.teamName}"></td>
+    </tr>
+</table>
+<div th:replace="general :: footer"></div>
+<div th:replace="general :: bottom_scripts"></div>
+</body>
+</html>
