@@ -15,7 +15,7 @@
     </tr>
     <tr th:each="team: ${poule.myTeams}"> <!--TODO on click overview of players of the team -->
         <td><a class="clickableName"
-               th:href="@{/teams/{teamNaam}(teamNaam=${team.nrOfPlayers})}" th:text="${team.teamName}" /></td>
+               th:href="@{/teams/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
         <td th:text="${team.nrOfPlayers}"></td>
     </tr>
 </table>
