@@ -1,10 +1,14 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,7 +27,7 @@ public class Poule {
     @OneToMany(mappedBy = "poule")
     private List<Team> myTeams;
 
-    @OneToMany(mappedBy = "poule")
+    @OneToMany(mappedBy = "poule", fetch = FetchType.EAGER)
     private List<PouleGame> pouleGames;
 
     public Poule(){
@@ -32,7 +36,7 @@ public class Poule {
     }
 
     public List<Game> generatePouleGames(LocalDate startDate, LocalTime startTime, LocalTime endTime,
-                                         int gameLength, int numberOfCourts){
+                                         int gameLength, int numberOfCourts, List<Game> games){
         List<Game> pouleGames = new ArrayList<>();
         System.out.println(this.getMyTeams());
         List<Team> teams = new ArrayList<>(this.getMyTeams());
@@ -44,8 +48,9 @@ public class Poule {
                 game.setHomeTeam(teamA);
                 game.setVisitorTeam(teamB);
                 game.setPoule(this);
-                game.findSlot(startDate, startTime, endTime, gameLength, numberOfCourts, pouleGames);
+                game.findSlot(startDate, startTime, endTime, gameLength, numberOfCourts, games);
                 pouleGames.add(game);
+                games.add(game);
             }
             teamA = teams.remove(0);
         }
@@ -78,6 +83,7 @@ public class Poule {
     }
 
     public List<PouleGame> getPouleGames() {
+        Collections.sort(pouleGames);
         return pouleGames;
     }
 

@@ -99,7 +99,9 @@ public class ChampionshipController {
                     championshipDTO.getStartTime(),
                     championshipDTO.getEndTime(),
                     championshipDTO.getGameLength(),
-                    championshipDTO.getNumberOfCourts());
+                    championshipDTO.getNumberOfCourts(),
+                    gameRepository.findAll()
+            );
             gameRepository.saveAll(pouleGames);
         }
 

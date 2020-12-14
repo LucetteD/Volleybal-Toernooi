@@ -1,7 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 
 @Entity
-public class Game {
+public class Game implements Comparable<Game> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -119,5 +121,13 @@ public class Game {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int compareTo(Game game) {
+        if (this.time.equals(game.time)) {
+            return this.location.compareTo(game.location);
+        }
+        return this.time.compareTo(game.time);
     }
 }
