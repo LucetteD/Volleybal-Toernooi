@@ -83,4 +83,5 @@ public class Poule {
     public void addGame(PouleGame game) {
         pouleGames.add(game);
     }
+
 }

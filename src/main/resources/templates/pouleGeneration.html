@@ -11,24 +11,24 @@
 <table>
     <tr>
         <td>Aantal Poules</td>
-        <td th:text="${numberOfPoules}"></td>
+        <td th:text="${championshipDto.numberOfPoules}"></td>
     </tr>
     <tr>
         <td>Aantal Poule Wedstrijden</td>
-        <td th:text="${pouleGames}"></td>
+        <td th:text="${championshipDto.numberOfPouleGames}"></td>
     </tr>
     <tr>
         <td>Niveaus van finales</td>
-        <td th:text="${levelsOfFinals}"></td>
+        <td th:text="${championshipDto.levelsOfFinals}"></td>
     </tr>
     <tr>
         <td>Aantal Finale wedstrijden</td>
-        <td th:text="${finalGames}"></td>
+        <td th:text="${championshipDto.numberOfFinalGames}"></td>
     </tr>
 </table>
 <div sec:authorize="hasRole('ADMIN')" class="container">
     <div class="buttonCenter">
-        <a th:href="@{/poules/generate/no-really}" class="btn btn-danger btn-lg active" role="button"
+        <a th:href="@{/championship/generate}" class="btn btn-danger btn-lg active" role="button"
            aria-pressed="true">Maak dit kampioenschap</a>
     </div>
 </div>
