@@ -11,8 +11,12 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,12 +42,18 @@ public class ChampionshipController {
     public String showChampionshipDetails(Model model) {
         int numberOfTeams = teamRepository.findAll().size();
         model.addAttribute("championshipDto", new ChampionshipDTO(numberOfTeams));
-        return "pouleGeneration";
+        return "championshipGeneration";
     }
 
-    @GetMapping("/championship/generate")
-    protected String generatePoules() {
-        // remove all existing poules
+    @PostMapping("/championship/generate")
+    protected String generatePoules(@ModelAttribute("championshipDto") @Valid ChampionshipDTO championshipDTO,
+                                    BindingResult result) {
+        // TODO should we store "old" championships?
+        // remove all existing poules and games
+        if (result.hasErrors()) {
+            return "championshipGeneration";
+        }
+
         for (Team team : teamRepository.findAll()) {
             team.setPoule(null);
             teamRepository.saveAndFlush(team);
@@ -84,11 +94,16 @@ public class ChampionshipController {
 
         // generate pool games
         for (Poule poule : pouleRepository.findAll()) {
-            List<Game> pouleGames = poule.generatePouleGames();
+            List<Game> pouleGames = poule.generatePouleGames(
+                    championshipDTO.getStartDate(),
+                    championshipDTO.getStartTime(),
+                    championshipDTO.getEndTime(),
+                    championshipDTO.getGameLength(),
+                    championshipDTO.getNumberOfCourts());
             gameRepository.saveAll(pouleGames);
         }
 
-        // generate final games
+        // TODO generate final games
 
         return "redirect:/poules";
     }

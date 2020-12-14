@@ -1,6 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,8 @@ public class Poule {
         pouleGames = new ArrayList<>();
     }
 
-    public List<Game> generatePouleGames(){
+    public List<Game> generatePouleGames(LocalDate startDate, LocalTime startTime, LocalTime endTime,
+                                         int gameLength, int numberOfCourts){
         List<Game> pouleGames = new ArrayList<>();
         System.out.println(this.getMyTeams());
         List<Team> teams = new ArrayList<>(this.getMyTeams());
@@ -40,6 +44,7 @@ public class Poule {
                 game.setHomeTeam(teamA);
                 game.setVisitorTeam(teamB);
                 game.setPoule(this);
+                game.findSlot(startDate, startTime, endTime, gameLength, numberOfCourts, pouleGames);
                 pouleGames.add(game);
             }
             teamA = teams.remove(0);

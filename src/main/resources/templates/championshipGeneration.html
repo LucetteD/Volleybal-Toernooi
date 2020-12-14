@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head th:replace="general :: baseHeader(~{::title})">
+    <title>Informatie over te genereren Poules</title>
+</head>
+<body>
+<div th:replace="general :: navbar"></div>
+<h1>Informatie over het te generen kampioenschap</h1>
+
+<table>
+    <tr>
+        <td>Aantal Poules</td>
+        <td th:text="${championshipDto.numberOfPoules}"></td>
+    </tr>
+    <tr>
+        <td>Aantal Poule Wedstrijden</td>
+        <td th:text="${championshipDto.numberOfPouleGames}"></td>
+    </tr>
+    <tr>
+        <td>Niveaus van finales</td>
+        <td th:text="${championshipDto.levelsOfFinals}"></td>
+    </tr>
+    <tr>
+        <td>Aantal Finale wedstrijden</td>
+        <td th:text="${championshipDto.numberOfFinalGames}"></td>
+    </tr>
+</table>
+<form th:action="@{/championship/generate}" th:object="${championshipDto}" method="post">
+    <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
+        Er heeft zich een probleem voorgedaan.
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="numberOfPoules">numberOfPoules:</label>
+            <input disabled type="number" class="form-control" id="numberOfPoules" th:field="*{numberOfPoules}"  th:classappend="${not #lists.isEmpty(#fields.errors('numberOfPoules'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('numberOfPoules')}" th:errors="*{numberOfPoules}">numberOfPoules Error</div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="levelsOfFinals">levelsOfFinals:</label>
+            <input disabled type="number" class="form-control" id="levelsOfFinals" th:field="*{levelsOfFinals}"  th:classappend="${not #lists.isEmpty(#fields.errors('levelsOfFinals'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('levelsOfFinals')}" th:errors="*{levelsOfFinals}">levelsOfFinals Error</div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="numberOfPouleGames">numberOfPouleGames:</label>
+            <input disabled type="number" class="form-control" id="numberOfPouleGames" th:field="*{numberOfPouleGames}"  th:classappend="${not #lists.isEmpty(#fields.errors('numberOfPouleGames'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('numberOfPouleGames')}" th:errors="*{numberOfPouleGames}">numberOfPouleGames Error</div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="numberOfFinalGames">numberOfFinalGames:</label>
+            <input disabled type="number" class="form-control" id="numberOfFinalGames" th:field="*{numberOfFinalGames}"  th:classappend="${not #lists.isEmpty(#fields.errors('numberOfFinalGames'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('numberOfFinalGames')}" th:errors="*{numberOfFinalGames}">numberOfFinalGames Error</div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="startDate">startDate:</label>
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}"  th:classappend="${not #lists.isEmpty(#fields.errors('startDate'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">startDate Error</div>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="startTime">startTime:</label>
+            <input type="time" class="form-control" id="startTime" th:field="*{startTime}"  th:classappend="${not #lists.isEmpty(#fields.errors('startTime'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">startTime Error</div>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="endTime">endTime:</label>
+            <input type="time" class="form-control" id="endTime" th:field="*{endTime}"  th:classappend="${not #lists.isEmpty(#fields.errors('endTime'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">endTime Error</div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="gameLength">gameLength:</label>
+            <input type="number" class="form-control" id="gameLength" th:field="*{gameLength}"  th:classappend="${not #lists.isEmpty(#fields.errors('gameLength'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('gameLength')}" th:errors="*{gameLength}">gameLength Error</div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="numberOfCourts">numberOfCourts:</label>
+            <input type="number" class="form-control" id="numberOfCourts" th:field="*{numberOfCourts}"  th:classappend="${not #lists.isEmpty(#fields.errors('numberOfCourts'))} ? is-invalid" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('numberOfCourts')}" th:errors="*{numberOfCourts}">numberOfCourts Error</div>
+        </div>
+    </div>
+    <div>
+        <div class="buttonCenter">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </div>
+    </div>
+</form>
+
+<div th:replace="general :: footer"></div>
+<div th:replace="general :: bottom_scripts"></div>
+
+</body>
+</html>

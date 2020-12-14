@@ -2,11 +2,14 @@ package nl.miwgroningen.cohort4.lucette.volleybalToernooi.dto;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.FinaleGame;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.PouleGame;
+import org.aspectj.lang.annotation.After;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -15,11 +18,14 @@ import java.time.LocalDateTime;
  */
 public class ChampionshipDTO {
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime startTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate startDate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime endTime;
+    @DateTimeFormat(pattern="HH:mm")
+    private LocalTime startTime;
+
+    @DateTimeFormat(pattern="HH:mm")
+    private LocalTime endTime;
 
     @Min(0)     // Game length should at least be positive
     @Max(150)   // 2,5 hours seems like enough
@@ -43,19 +49,27 @@ public class ChampionshipDTO {
         numberOfFinalGames = FinaleGame.numberOfFinalGames(levelsOfFinals);
     }
 
-    public LocalDateTime getStartTime() {
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -106,4 +120,5 @@ public class ChampionshipDTO {
     public void setNumberOfFinalGames(int numberOfFinalGames) {
         this.numberOfFinalGames = numberOfFinalGames;
     }
+
 }

@@ -4,7 +4,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 /**
  * @author Lucette Das <l.k.das@st.hanze.nl>
@@ -81,4 +84,40 @@ public class Game {
         this.visitorTeam = visitorTeam;
     }
 
+    public void findSlot(LocalDate startDate, LocalTime startTime, LocalTime endTime,
+                         int gameLength, int numberOfCourts, List<Game> games) {
+        LocalTime gameTime = startTime;
+        while (!findCourt(LocalDateTime.of(startDate, gameTime), numberOfCourts, games)) {
+            gameTime = gameTime.plusMinutes(gameLength);
+            if (gameTime.isAfter(endTime)) {
+                startDate = startDate.plusDays(1);
+                gameTime = startTime;
+            }
+        }
+    }
+
+    private boolean findCourt(LocalDateTime startTime, int numberOfCourts, List<Game> games) {
+        int court = 0;
+        for (Game game : games) {
+            if (startTime.equals(game.getTime())) {
+                court += 1;
+
+                if (    game.getHomeTeam().equals(this.getHomeTeam()) ||
+                        game.getHomeTeam().equals(this.getVisitorTeam()) ||
+                        game.getVisitorTeam().equals(this.getHomeTeam()) ||
+                        game.getVisitorTeam().equals(this.getVisitorTeam())) {
+                    return false;
+                }
+            }
+        }
+
+        if (court < numberOfCourts) {
+            court += 1;
+            this.setLocation("Court " + court);
+            this.setTime(startTime);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
