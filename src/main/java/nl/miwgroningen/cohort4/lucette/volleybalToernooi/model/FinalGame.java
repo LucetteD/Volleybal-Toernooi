@@ -7,7 +7,7 @@ import javax.persistence.Entity;
  */
 
 @Entity
-public class FinaleGame extends Game {
+public class FinalGame extends Game {
 
     public static int numberOfFinalGames(int levelOfFinals) {
         int noGames = 1;

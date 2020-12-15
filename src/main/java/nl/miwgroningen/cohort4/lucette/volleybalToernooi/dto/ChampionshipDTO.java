@@ -1,14 +1,12 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.dto;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.FinaleGame;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.FinalGame;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.PouleGame;
-import org.aspectj.lang.annotation.After;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -44,9 +42,9 @@ public class ChampionshipDTO {
 
     public ChampionshipDTO(int numberOfTeams) {
         numberOfPoules = PouleGame.numberOfPoules(numberOfTeams);
-        levelsOfFinals = FinaleGame.levelsOfFinals(numberOfTeams);
+        levelsOfFinals = FinalGame.levelsOfFinals(numberOfTeams);
         numberOfPouleGames = PouleGame.numberOfPouleGames(numberOfTeams, numberOfPoules);
-        numberOfFinalGames = FinaleGame.numberOfFinalGames(levelsOfFinals);
+        numberOfFinalGames = FinalGame.numberOfFinalGames(levelsOfFinals);
     }
 
     public LocalDate getStartDate() {
