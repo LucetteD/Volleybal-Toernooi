@@ -26,7 +26,8 @@ public class Game implements Comparable<Game> {
 
     private String location;
 
-    private int result;
+    // 0 = no winner/not yet played, 1 = home team won, 2 = visitor team won
+    private int result = 0;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "homeTeamId", referencedColumnName = "teamId", nullable = false)

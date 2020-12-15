@@ -95,4 +95,13 @@ public class Poule {
         pouleGames.add(game);
     }
 
+    public boolean finished() {
+        // TODO indicate if all games in the poule have been played
+        return false;
+    }
+
+    public Team getPlace(Integer placement) {
+        // TODO determine "winning" order in the poule and return the Team in "placement" position
+        return null;
+    }
 }
