@@ -22,7 +22,9 @@
                     <th>Uitslag Wedstrijd</th>
                 </tr>
                 <tr th:each="game: ${poule.pouleGames}">
-                    <td th:text="${game.gameId}"></td>
+                    <td><a class="clickableName"
+                           th:href="@{/games/{gameId}(gameId=${game.gameId})}"
+                           th:text="${game.gameId}"></a></td>
                     <td th:text="${game.homeTeam.teamName}"></td>
                     <td th:text="${game.visitorTeam.teamName}"></td>
                     <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
