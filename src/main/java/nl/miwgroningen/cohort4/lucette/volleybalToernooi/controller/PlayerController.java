@@ -35,7 +35,7 @@ public class PlayerController {
 
     @GetMapping({"/players"})
     protected String showPlayers(Model model) {
-        model.addAttribute("allTeams", teamRepository.findAll());
+        model.addAttribute("allPlayers", playerRepository.findAll());
         return "playerOverview";
     }
 
@@ -71,6 +71,7 @@ public class PlayerController {
     }
 
 
+    // TODO is this still in use?
     @GetMapping("/game/add/{teamId}")
     protected String addGame(@PathVariable("teamId") Integer teamId) {
         Optional<Team> teamBox = teamRepository.findById(teamId);
@@ -82,6 +83,7 @@ public class PlayerController {
         return "redirect:/teams";
     }
 
+    // TODO is this still in use?
     @GetMapping("/players/add/t/{teamName}")
     protected String addPlayerByName(@PathVariable("teamName") String teamName) {
         Optional<Team> teamBox = teamRepository.findByTeamName(teamName);
