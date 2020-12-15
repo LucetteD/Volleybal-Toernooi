@@ -13,10 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -70,26 +67,27 @@ public class WKLoader implements CommandLineRunner {
 
         for (String nationality : NATIONALITIES){
             Team team = new Team();
+            List<Integer> shirtNumbers = new ArrayList<>();
+            for (int i = 1; i <= 99; i++) {
+                shirtNumbers.add(i);
+            }
+            Collections.shuffle(shirtNumbers);
             team.setTeamName(nationality);
             team.setNationalFlag("images/team-images/" + nationality + ".svg");
-//            if (nationality.equals("Nederland")) {
-//                // TODO add all flags to the folder so this can be done for all nationalities in the sample set
-//                team.setNationalFlag("images/team-images/Nederland.svg");
-//            }
-//            team.setNationality(nationality);
             teamRepository.save(team);
             for (Role role : roles) {
-                generatePlayerWithRoleAndTeam(role, team);
-                generatePlayerWithRoleAndTeam(role, team);
-                generatePlayerWithRoleAndTeam(role, team);
+                generatePlayerWithRoleAndTeam(role, team, shirtNumbers.remove(shirtNumbers.size() - 1));
+                generatePlayerWithRoleAndTeam(role, team, shirtNumbers.remove(shirtNumbers.size() - 1));
+                generatePlayerWithRoleAndTeam(role, team, shirtNumbers.remove(shirtNumbers.size() - 1));
             }
         }
     }
 
-    private Player generatePlayerWithRoleAndTeam(Role role, Team team) {
+    private Player generatePlayerWithRoleAndTeam(Role role, Team team, Integer shirtNumber) {
         Player player = new Player();
 
         player.setTeam(team);
+        player.setShirtNumber(shirtNumber);
         player.setBirthdate(LocalDate.ofInstant(faker.date().birthday(18, 32).toInstant(), ZoneId.systemDefault()));
         player.setRole(role);
         player.setCurrentClub(faker.team().name());

@@ -45,6 +45,10 @@ public class Player {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
+    @Min(1)
+    @Max(99)
+    private int shirtNumber;
+
     @ManyToOne
     private Role role;
 
@@ -107,6 +111,14 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public int getShirtNumber() {
+        return shirtNumber;
+    }
+
+    public void setShirtNumber(int shirtNumber) {
+        this.shirtNumber = shirtNumber;
     }
 
     public Role getRole() {

@@ -11,19 +11,25 @@
         <div th:each="team: ${allTeams}">
             <h2 th:text="${team.teamName}"></h2>
             <div th:id="'players_' + ${team.teamName}" class="collapse" data-parent="#all_players">
-                <table>
-                    <tr>
-                        <th>Naam</th>
-                        <th>Team</th>
-                        <th>Aantal gespeelde<br>wedstrijden</th>
-                    </tr>
-                    <tr th:each="player: ${team.players}">
-                        <td><a class="clickableName"
-                               th:href="@{/players/{playerName}(playerName=${player.lastName})}"
-                               th:text="${player.lastName}" /></td>
-                        <td th:text="${player.firstName}"/>
-                        <td th:text="${player.nrOfGames}"></td>
-                    </tr>
+                <table class="dataTable" th:id="'players_' + ${team.teamName}"  data-order='[[1, "desc"]]'>
+                    <thead>
+                        <tr>
+                            <th scope="col">Shirtnr.</th>
+                            <th scope="col">Naam</th>
+                            <th scope="col">Team</th>
+                            <th scope="col">Aantal gespeelde<br>wedstrijden</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="player: ${team.players}">
+                            <td th:text="${player.shirtNumber}"></td>
+                            <td><a class="clickableName"
+                                   th:href="@{/players/{playerName}(playerName=${player.lastName})}"
+                                   th:text="${player.lastName}"></a></td>
+                            <td th:text="${player.firstName}"></td>
+                            <td th:text="${player.nrOfGames}"></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <button class="btn btn-primary" data-toggle="collapse" th:attr="data-target='#players_' + ${team.teamName}">
@@ -37,5 +43,16 @@
 
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script language="javascript" type="text/javascript">
+    $(document).ready( function () {
+        $('.dataTable').each(function(i) {
+            $(this).DataTable( {
+                "paging":   false
+            });
+        });
+    } );
+</script>
+
 </body>
 </html>
