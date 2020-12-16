@@ -103,9 +103,23 @@ public class PlayerController {
         return "playerForm";
     }
 
+    @GetMapping("/players/change/{playerId}")
+    protected String changePlayer(@PathVariable("playerId") Integer playerId, Model model) {
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        if (playerOptional.isEmpty()) {
+            return "redirect:/players";
+        }
+        model.addAttribute("player", playerOptional.get());
+        model.addAttribute("allTeams", teamRepository.findAll());
+        model.addAttribute("allRoles", roleRepository.findAll());
+        return "playerForm";
+    }
+
     @PostMapping("/players/add")
     protected String saveOrUpdatePlayer(@ModelAttribute("player") @Valid Player player, BindingResult result, Model model) {
-        if (playerRepository.existsByAssociationRegistrationNumber(player.getAssociationRegistrationNumber())) {
+        Optional<Player> existingPlayer =
+                playerRepository.findByAssociationRegistrationNumber(player.getAssociationRegistrationNumber());
+        if (existingPlayer.isPresent() && !existingPlayer.get().getPlayerId().equals(player.getPlayerId())) {
             result.rejectValue("associationRegistrationNumber", "error.user",
                     "Een speler met dit bondsnummer bestaat al");
         }
