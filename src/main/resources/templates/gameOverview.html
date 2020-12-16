@@ -6,40 +6,41 @@
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1>Overzicht van de wedstrijden</h1>
+<div class="container">
+    <h1>Overzicht van de wedstrijden</h1>
 
-<div id="all_poules">
-    <div th:each="poule: ${allPoules}" >
-        <h2 th:text="'Poule ' + ${poule.pouleName}"></h2>
-        <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
-            <table>
-                <tr>
-                    <th>Wedstrijdnummer:</th>
-                    <th>Thuis team</th>
-                    <th>Gast team</th>
-                    <th>Start tijd</th>
-                    <th>Locatie</th>
-                    <th>Uitslag Wedstrijd</th>
-                </tr>
-                <tr th:each="game: ${poule.pouleGames}">
-                    <td><a class="clickableName"
-                           th:href="@{/games/{gameId}(gameId=${game.gameId})}"
-                           th:text="${game.gameId}"></a></td>
-                    <td th:text="${game.homeTeam.teamName}"></td>
-                    <td th:text="${game.visitorTeam.teamName}"></td>
-                    <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
-                    <td th:text="${game.location}"></td>
-                    <td></td>
-                </tr>
-            </table>
+    <div id="all_poules">
+        <div th:each="poule: ${allPoules}" >
+            <h2 th:text="'Poule ' + ${poule.pouleName}"></h2>
+            <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
+                <table>
+                    <tr>
+                        <th>Wedstrijdnummer:</th>
+                        <th>Thuis team</th>
+                        <th>Gast team</th>
+                        <th>Start tijd</th>
+                        <th>Locatie</th>
+                        <th>Uitslag Wedstrijd</th>
+                    </tr>
+                    <tr th:each="game: ${poule.pouleGames}">
+                        <td><a class="clickableName"
+                               th:href="@{/games/{gameId}(gameId=${game.gameId})}"
+                               th:text="${game.gameId}"></a></td>
+                        <td th:text="${game.homeTeam.teamName}"></td>
+                        <td th:text="${game.visitorTeam.teamName}"></td>
+                        <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
+                        <td th:text="${game.location}"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <button class="btn btn-primary" data-toggle="collapse"
+                    th:attr="data-target='#poulegames_' + ${poule.pouleName}">
+                Toon/Verberg wedstrijden
+            </button>
         </div>
-        <button class="btn btn-primary" data-toggle="collapse"
-                th:attr="data-target='#poulegames_' + ${poule.pouleName}">
-            Toon/Verberg wedstrijden
-        </button>
     </div>
 </div>
-
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
 

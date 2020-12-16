@@ -6,40 +6,42 @@
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1><span th:text="${game.homeTeam} + ' - ' + ${game.visitorTeam}" /></h1>
-<table>
-    <tr>
-        <th>Wedstrijdnummer:</th>
-        <td th:text="${game.gameId}"> />
-    </tr>
-    <tr>
-        <th>Achternaam</th>
-        <td th:text="${player.lastName}" />
-    </tr>
-    <tr>
-        <th>Thuis team</th>
-        <td th:text="${game.homeTeam.teamName}"></td>
-    </tr>
-    <tr>
-        <th>Gast team</th>
-        <td th:text="${game.visitorTeam.teamName}"></td>
-    </tr>
-    <tr>
-        <th>Start tijd</th>
-        <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
-    </tr>
-    <tr>
-        <th>Locatie</th>
-        <td th:text="${game.location}"></td>
-    </tr>
-    <tr>
-        <th>Uitslag Wedstrijd</th>
-<!-- TODO        <td /> -->
-    </tr>
-</table>
-<p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/game/newDetails}">Voeg wedstrijdgegevens toe</a>
-</p>
+<div class="container">
+    <h1><span th:text="${game.homeTeam} + ' - ' + ${game.visitorTeam}" /></h1>
+    <table>
+        <tr>
+            <th>Wedstrijdnummer:</th>
+            <td th:text="${game.gameId}"> />
+        </tr>
+        <tr>
+            <th>Achternaam</th>
+            <td th:text="${player.lastName}" />
+        </tr>
+        <tr>
+            <th>Thuis team</th>
+            <td th:text="${game.homeTeam.teamName}"></td>
+        </tr>
+        <tr>
+            <th>Gast team</th>
+            <td th:text="${game.visitorTeam.teamName}"></td>
+        </tr>
+        <tr>
+            <th>Start tijd</th>
+            <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
+        </tr>
+        <tr>
+            <th>Locatie</th>
+            <td th:text="${game.location}"></td>
+        </tr>
+        <tr>
+            <th>Uitslag Wedstrijd</th>
+    <!-- TODO        <td /> -->
+        </tr>
+    </table>
+    <p sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/game/newDetails}">Voeg wedstrijdgegevens toe</a>
+    </p>
+</div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
 </body>

@@ -6,45 +6,47 @@
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1>Spelers</h1>
-<div id="all_players">
-    <table id="playerTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
-        <thead>
-            <tr>
-                <th scope="col">Shirtnr.</th>
-                <th scope="col">Achternaam</th>
-                <th scope="col">Voornaam</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Lengte (cm)</th>
-                <th scope="col">Team</th>
-                <th scope="col">Aantal gespeelde<br>wedstrijden</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="player: ${allPlayers}">
-                <td th:text="${player.shirtNumber}"></td>
-                <td><a class="clickableName"
-                       th:href="@{/players/{playerName}(playerName=${player.lastName})}"
-                       th:text="${player.lastName}"></a></td>
-                <td th:text="${player.firstName}"></td>
-                <td th:text="${player.role.roleName}"></td>
-                <td th:text="${player.height}"></td>
-                <td>
-                    <a th:href="@{/teams/{teamName}(teamName=${player.team.teamName})}"
-                       th:text="${player.team.teamName}"></a>
-                </td>
-                <td th:text="${player.nrOfGames}"></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <h1>Spelers</h1>
+    <div id="all_players">
+        <table id="playerTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
+            <thead>
+                <tr>
+                    <th scope="col">Shirtnr.</th>
+                    <th scope="col">Achternaam</th>
+                    <th scope="col">Voornaam</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Lengte (cm)</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Aantal gespeelde<br>wedstrijden</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="player: ${allPlayers}">
+                    <td th:text="${player.shirtNumber}"></td>
+                    <td><a class="clickableName"
+                           th:href="@{/players/{playerName}(playerName=${player.lastName})}"
+                           th:text="${player.lastName}"></a></td>
+                    <td th:text="${player.firstName}"></td>
+                    <td th:text="${player.role.roleName}"></td>
+                    <td th:text="${player.height}"></td>
+                    <td>
+                        <a th:href="@{/teams/{teamName}(teamName=${player.team.teamName})}"
+                           th:text="${player.team.teamName}"></a>
+                    </td>
+                    <td th:text="${player.nrOfGames}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/players/add}">Voeg speler toe</a>
+    </p>
 </div>
-<p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/players/add}">Voeg speler toe</a>
-</p>
-
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script language="javascript" type="text/javascript">
     $(document).ready( function () {
         $('#playerTable').DataTable();

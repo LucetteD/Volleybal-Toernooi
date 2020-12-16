@@ -1,39 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org"
       lang="en">
 <head th:replace="general :: baseHeader(~{::title})">
     <title>Team overzicht</title>
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1>Teams</h1>
-<table>
-    <tr>
-        <th></th>
-        <th>Team Naam</th>
-        <th>Poule</th>
-        <th>Aantal spelers</th>
-    </tr>
-    <tr th:each="team: ${allTeams}">
-        <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>
-        <td type="button" class="link"><a class="clickableName"
-                                          th:href="@{/teams/{teamName}(teamName=${team.teamName})}"
-                                          th:text="${team.teamName}" /></td>
-<!-- TODO replace null with nicer default       -->
-        <td th:text="'Poule ' + ${team.poule?.pouleName}"/>
-        <td th:text="${team.nrOfPlayers}"></td>
-    </tr>
-</table>
-<p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/teams/add}">Voeg team toe</a>
-</p>
-<p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/user/new}">Voeg gebruiker toe</a>
-</p>
-<p sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/logout}">Log out</a>
-</p>
-
+<div class="container">
+    <h1>Teams</h1>
+    <table>
+        <tr>
+            <th></th>
+            <th>Team Naam</th>
+            <th>Poule</th>
+            <th>Aantal spelers</th>
+        </tr>
+        <tr th:each="team: ${allTeams}">
+            <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>
+            <td type="button" class="link"><a class="clickableName"
+                                              th:href="@{/teams/{teamName}(teamName=${team.teamName})}"
+                                              th:text="${team.teamName}" /></td>
+    <!-- TODO replace null with nicer default       -->
+            <td th:text="'Poule ' + ${team.poule?.pouleName}"/>
+            <td th:text="${team.nrOfPlayers}"></td>
+        </tr>
+    </table>
+    <p sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/teams/add}">Voeg team toe</a>
+    </p>
+    <p sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/user/new}">Voeg gebruiker toe</a>
+    </p>
+    <p sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/logout}">Log out</a>
+    </p>
+</div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
 

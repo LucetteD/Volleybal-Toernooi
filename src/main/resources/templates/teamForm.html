@@ -6,37 +6,38 @@
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1>Voeg een nieuw team toe</h1>
-<form th:action="@{/teams/add}" th:object="${team}" method="post" enctype="multipart/form-data">
-    <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
-        Er heeft zich een probleem voorgedaan.
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4"></div>
-        <div class="form-group col-md-4">
-            <label for="teamName">Team naam:</label>
-            <input type="text" class="form-control" id="teamName" th:field="*{teamName}"
-                   th:classappend="${not #lists.isEmpty(#fields.errors('teamName'))} ? is-invalid" />
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('teamName')}"
-                 th:errors="*{teamName}">Team name Error</div>
+<div class="container">
+    <h1>Voeg een nieuw team toe</h1>
+    <form th:action="@{/teams/add}" th:object="${team}" method="post" enctype="multipart/form-data">
+        <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
+            Er heeft zich een probleem voorgedaan.
         </div>
-        <div class="form-group col-md-4"></div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4"></div>
-        <div class="form-group col-md-4">
-            <label for="nationalFlagImage">Nationaliteit:</label>
-            <input type="file" accept="image/png, image/jpeg, image/svg" class="form-control" id="nationalFlagImage" name="nationalFlagImage" />
+        <div class="form-row">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="teamName">Team naam:</label>
+                <input type="text" class="form-control" id="teamName" th:field="*{teamName}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('teamName'))} ? is-invalid" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('teamName')}"
+                     th:errors="*{teamName}">Team name Error</div>
+            </div>
+            <div class="form-group col-md-4"></div>
         </div>
-        <div class="form-group col-md-4"></div>
-    </div>
-    <div sec:authorize="hasRole('ADMIN')" class="container">
-        <div class="buttonCenter">
-            <button type="submit" class="btn btn-primary">Opslaan</button>
+        <div class="form-row">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="nationalFlagImage">Nationaliteit:</label>
+                <input type="file" accept="image/png, image/jpeg, image/svg" class="form-control" id="nationalFlagImage" name="nationalFlagImage" />
+            </div>
+            <div class="form-group col-md-4"></div>
         </div>
-    </div>
-</form>
-
+        <div sec:authorize="hasRole('ADMIN')" class="container">
+            <div class="buttonCenter">
+                <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+        </div>
+    </form>
+</div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
 

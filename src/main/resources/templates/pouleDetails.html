@@ -6,31 +6,32 @@
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1>Informatie over poule <span th:text="${poule.pouleName}">poulenaam</span></h1>
+<div class="container">
+    <h1>Informatie over poule <span th:text="${poule.pouleName}">poulenaam</span></h1>
 
-<table>
-    <tr>
-        <th>Team Naam</th>
-        <th>Aantal spelers</th>
-    </tr>
-    <tr th:each="team: ${poule.myTeams}"> <!--TODO on click overview of players of the team -->
-        <td><a class="clickableName"
-               th:href="@{/teams/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
-        <td th:text="${team.nrOfPlayers}"></td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <th>Team Naam</th>
+            <th>Aantal spelers</th>
+        </tr>
+        <tr th:each="team: ${poule.myTeams}"> <!--TODO on click overview of players of the team -->
+            <td><a class="clickableName"
+                   th:href="@{/teams/{teamNaam}(teamNaam=${team.teamName})}" th:text="${team.teamName}" /></td>
+            <td th:text="${team.nrOfPlayers}"></td>
+        </tr>
+    </table>
 
-<table>
-    <tr>
-        <th>Thuis team</th>
-        <th>Uit team</th>
-    </tr>
-    <tr th:each="game: ${poule.pouleGames}">
-        <td th:text="${game.homeTeam.teamName}"></td>
-        <td th:text="${game.visitorTeam.teamName}"></td>
-    </tr>
-</table>
-
+    <table>
+        <tr>
+            <th>Thuis team</th>
+            <th>Uit team</th>
+        </tr>
+        <tr th:each="game: ${poule.pouleGames}">
+            <td th:text="${game.homeTeam.teamName}"></td>
+            <td th:text="${game.visitorTeam.teamName}"></td>
+        </tr>
+    </table>
+</div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
 
