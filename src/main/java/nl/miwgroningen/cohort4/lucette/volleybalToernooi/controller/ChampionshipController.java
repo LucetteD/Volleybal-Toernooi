@@ -5,6 +5,7 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.PouleGame;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.CompetitorRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
@@ -30,12 +31,14 @@ public class ChampionshipController {
     private final TeamRepository teamRepository;
     private final PouleRepository pouleRepository;
     private final GameRepository gameRepository;
+    private final CompetitorRepository competitorRepository;
 
     @Autowired
-    public ChampionshipController(TeamRepository teamRepository, PouleRepository pouleRepository, GameRepository gameRepository) {
+    public ChampionshipController(TeamRepository teamRepository, PouleRepository pouleRepository, GameRepository gameRepository, CompetitorRepository competitorRepository) {
         this.teamRepository = teamRepository;
         this.pouleRepository = pouleRepository;
         this.gameRepository = gameRepository;
+        this.competitorRepository = competitorRepository;
     }
 
     @GetMapping("/championship")
@@ -102,6 +105,11 @@ public class ChampionshipController {
                     championshipDTO.getNumberOfCourts(),
                     gameRepository.findAll()
             );
+            for (Game pouleGame : pouleGames) {
+                // TODO I feel this might be done more efficiently using CASCADE
+                competitorRepository.save(pouleGame.getHomeCompetitor());
+                competitorRepository.save(pouleGame.getVisitorCompetitor());
+            }
             gameRepository.saveAll(pouleGames);
         }
 

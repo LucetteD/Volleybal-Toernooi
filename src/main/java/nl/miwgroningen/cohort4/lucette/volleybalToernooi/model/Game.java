@@ -1,9 +1,8 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.Competitor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,14 +29,14 @@ public class Game implements Comparable<Game> {
     private int result = 0;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "homeTeamId", referencedColumnName = "teamId", nullable = false)
+    @JoinColumn(name = "homeTeamId", referencedColumnName = "competitorId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Team homeTeam;
+    private Competitor homeCompetitor;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "visitorTeamId", referencedColumnName = "teamId", nullable = false)
+    @JoinColumn(name = "visitorTeamId", referencedColumnName = "competitorId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Team visitorTeam;
+    private Competitor visitorCompetitor;
 
     public int getGameId() {
         return gameId;
@@ -71,32 +70,60 @@ public class Game implements Comparable<Game> {
         this.result = result;
     }
 
-    public Team getHomeTeam() {
-        return homeTeam;
+    public Competitor getHomeCompetitor() {
+        return homeCompetitor;
     }
 
-    public void setHomeTeam(Team homeTeam) {
-        this.homeTeam = homeTeam;
+    public void setHomeCompetitor(Competitor homeTeam) {
+        this.homeCompetitor = homeTeam;
     }
 
-    public Team getVisitorTeam() {
-        return visitorTeam;
+    public Competitor getVisitorCompetitor() {
+        return visitorCompetitor;
     }
 
-    public void setVisitorTeam(Team visitorTeam) {
-        this.visitorTeam = visitorTeam;
+    public void setVisitorCompetitor(Competitor visitorTeam) {
+        this.visitorCompetitor = visitorTeam;
     }
 
-    public void findSlot(LocalDate startDate, LocalTime startTime, LocalTime endTime,
+    public void findSlot(LocalDate gameDate, LocalTime startTime, LocalTime endTime,
                          int gameLength, int numberOfCourts, List<Game> games) {
         LocalTime gameTime = startTime;
-        while (!findCourt(LocalDateTime.of(startDate, gameTime), numberOfCourts, games)) {
+        System.err.printf("Finding a slot for %s against %s\n", this.homeCompetitor, this.visitorCompetitor);
+        while ( !timeSlotAvailable(this.homeCompetitor, LocalDateTime.of(gameDate, gameTime), gameLength, games) ||
+                !timeSlotAvailable(this.visitorCompetitor, LocalDateTime.of(gameDate, gameTime), gameLength, games) ||
+                !findCourt(LocalDateTime.of(gameDate, gameTime), numberOfCourts, games)) {
             gameTime = gameTime.plusMinutes(gameLength);
             if (gameTime.isAfter(endTime)) {
-                startDate = startDate.plusDays(1);
+                gameDate = gameDate.plusDays(1);
                 gameTime = startTime;
             }
         }
+    }
+
+    private boolean timeSlotAvailable(Competitor competitor, LocalDateTime gameTime, int gameLength, List<Game> games) {
+        final int MAX_CONSECUTIVE_GAMES = 2;
+        int precedingGames = 0;
+        for (Game game : games) {
+            // if the competitor is in the game
+            if (competitor.getTeam().equals(game.getHomeCompetitor().getTeam()) ||
+                    competitor.getTeam().equals(game.getVisitorCompetitor().getTeam())) {
+                if (game.time.isEqual(gameTime)) {
+                    // and it is at the proposed time, that time is not available
+                    return false;
+                } else if (game.getTime().isAfter(gameTime.minusMinutes(MAX_CONSECUTIVE_GAMES * gameLength + 1))) {
+                    // if it is within 2 game lengths before the proposed time, record it
+                    // System.err.printf("%s is recorded because of a game at %s\n", gameTime, game.time);
+                    precedingGames++;
+                    if (precedingGames >= MAX_CONSECUTIVE_GAMES) {
+                        // when there are 2 games directly before the proposed time, this time is not available
+                        // System.err.println("Deny because too many games in a row for " + competitor);
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     private boolean findCourt(LocalDateTime startTime, int numberOfCourts, List<Game> games) {
@@ -104,18 +131,12 @@ public class Game implements Comparable<Game> {
         for (Game game : games) {
             if (startTime.equals(game.getTime())) {
                 court += 1;
-
-                if (    game.getHomeTeam().equals(this.getHomeTeam()) ||
-                        game.getHomeTeam().equals(this.getVisitorTeam()) ||
-                        game.getVisitorTeam().equals(this.getHomeTeam()) ||
-                        game.getVisitorTeam().equals(this.getVisitorTeam())) {
-                    return false;
-                }
             }
         }
 
         if (court < numberOfCourts) {
             court += 1;
+            // TODO this maybe should not be the place to do this
             this.setLocation("Court " + court);
             this.setTime(startTime);
             return true;

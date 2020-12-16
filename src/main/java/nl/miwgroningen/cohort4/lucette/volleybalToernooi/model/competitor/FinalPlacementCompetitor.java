@@ -23,9 +23,9 @@ public class FinalPlacementCompetitor extends Competitor {
         } else if(finalGame.getResult() == placement) {
             // if result is 1 and placement is 1 then the winner of the game should be returned which is the home team
             // result is 2 and placement is 2 than the loser of the game shouhld be returned which is the home team
-            return finalGame.getHomeTeam();
+            return finalGame.getHomeCompetitor().getTeam();
         } else {
-            return finalGame.getVisitorTeam();
+            return finalGame.getVisitorCompetitor().getTeam();
         }
     }
 

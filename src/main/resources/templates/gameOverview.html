@@ -23,8 +23,8 @@
                 </tr>
                 <tr th:each="game: ${poule.pouleGames}">
                     <td th:text="${game.gameId}"></td>
-                    <td th:text="${game.homeTeam.teamName}"></td>
-                    <td th:text="${game.visitorTeam.teamName}"></td>
+                    <td th:text="${game.homeCompetitor}"></td>
+                    <td th:text="${game.visitorCompetitor}"></td>
                     <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
                     <td th:text="${game.location}"></td>
                     <td></td>

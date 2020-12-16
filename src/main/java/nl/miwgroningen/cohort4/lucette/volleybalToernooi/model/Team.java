@@ -1,10 +1,13 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.Competitor;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.TeamCompetitor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,12 +35,9 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
-    // TODO maybe this can/should be done as one variable
-    @OneToMany(mappedBy = "homeTeam")
-    private List<Game> homeGames;
 
-    @OneToMany(mappedBy = "visitorTeam")
-    private List<Game> visitingGames;
+    @OneToMany(mappedBy = "team")
+    private List<TeamCompetitor> competitions;
 
     public int getNrOfPlayers() {
         return players.size();
@@ -51,8 +51,17 @@ public class Team {
         this.players = players;
     }
 
+    public List<Game> getGames() {
+        List<Game> games = new ArrayList<>();
+        for (Competitor competition : competitions) {
+            games.add(competition.getGame());
+        }
+        return games;
+    }
+
+
     public int getNrOfGames() {
-        return homeGames.size() + visitingGames.size();
+        return competitions.size();
     }
 
     public Integer getTeamId() {

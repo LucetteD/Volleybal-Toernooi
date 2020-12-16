@@ -26,8 +26,8 @@
         <th>Uit team</th>
     </tr>
     <tr th:each="game: ${poule.pouleGames}">
-        <td th:text="${game.homeTeam.teamName}"></td>
-        <td th:text="${game.visitorTeam.teamName}"></td>
+        <td th:text="${game.homeCompetitor}"></td>
+        <td th:text="${game.visitorCompetitor}"></td>
     </tr>
 </table>
 
