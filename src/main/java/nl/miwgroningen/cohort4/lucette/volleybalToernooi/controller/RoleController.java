@@ -4,6 +4,7 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Role;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PlayerRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,7 @@ public class RoleController {
 //    }
 
     @GetMapping("role/add")
+    @Secured("ROLE_ADMIN")
     protected String showRoleForm(Model model) {
         model.addAttribute("role", new Role());
         model.addAttribute("existingRoles", roleRepository.findAll());
@@ -44,6 +46,7 @@ public class RoleController {
     }
 
     @PostMapping("role/add")
+    @Secured("ROLE_ADMIN")
     protected String saveOrUpdateRole(@ModelAttribute("role") Role role, BindingResult result, Model model) {
         if (roleRepository.existsByRoleName(role.getRoleName())) {
             result.rejectValue("roleName", "error.user", "Deze rol bestaat al");

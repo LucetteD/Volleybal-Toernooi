@@ -5,6 +5,7 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleReposit
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.utility.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -50,6 +51,7 @@ public class TeamController {
     }
 
     @GetMapping("/teams/add")
+    @Secured("ROLE_ADMIN")
     protected String showTeamForm(Model model) {
         model.addAttribute("team", new Team());
         model.addAttribute("allPools", pouleRepository.findAll());
@@ -57,6 +59,7 @@ public class TeamController {
     }
 
     @PostMapping("/teams/add")
+    @Secured("ROLE_ADMIN")
     protected String saveOrUpdateTeam(@ModelAttribute("team") Team team, BindingResult result,
                                       @RequestParam("nationalFlagImage") MultipartFile nationalFlagImage)
             throws IOException {

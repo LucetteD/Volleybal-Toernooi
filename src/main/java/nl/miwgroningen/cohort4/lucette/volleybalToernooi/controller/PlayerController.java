@@ -1,7 +1,6 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Player;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PlayerRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.RoleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;

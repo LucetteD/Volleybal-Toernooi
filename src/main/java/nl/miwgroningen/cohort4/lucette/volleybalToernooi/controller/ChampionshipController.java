@@ -9,6 +9,7 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameReposito
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,7 @@ public class ChampionshipController {
     }
 
     @PostMapping("/championship/generate")
+    @Secured("ROLE_ADMIN")
     protected String generatePoules(@ModelAttribute("championshipDto") @Valid ChampionshipDTO championshipDTO,
                                     BindingResult result) {
         // TODO should we store "old" championships?
