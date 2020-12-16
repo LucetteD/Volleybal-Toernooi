@@ -14,10 +14,10 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PouleGame extends Game {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pouleId", referencedColumnName = "pouleId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pouleId", referencedColumnName = "pouleId")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    Poule poule;
+    Poule poule = null;
 
     public Poule getPoule() {
         return poule;

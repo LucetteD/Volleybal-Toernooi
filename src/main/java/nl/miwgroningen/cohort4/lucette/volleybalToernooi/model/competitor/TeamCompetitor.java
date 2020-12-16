@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class TeamCompetitor extends Competitor {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     Team team;
 
     public TeamCompetitor() {

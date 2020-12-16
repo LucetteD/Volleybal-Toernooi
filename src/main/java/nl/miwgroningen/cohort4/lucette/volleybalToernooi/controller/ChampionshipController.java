@@ -1,10 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.dto.ChampionshipDTO;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.PouleGame;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.*;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.Competitor;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.FinalPlacementCompetitor;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.CompetitorRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
@@ -61,15 +60,26 @@ public class ChampionshipController {
             team.setPoule(null);
             teamRepository.saveAndFlush(team);
         }
+
+        for (Competitor competitor : competitorRepository.findAll()) {
+            if (competitor instanceof FinalPlacementCompetitor) {
+                ((FinalPlacementCompetitor) competitor).setFinalGame(null);
+                competitorRepository.saveAndFlush(competitor);
+            }
+        }
+        competitorRepository.deleteAll();
+        competitorRepository.flush();
         gameRepository.deleteAll();
+        gameRepository.flush();
         pouleRepository.deleteAll();
+        pouleRepository.flush();
 
         List<Team> teams = teamRepository.findAll();
 
         // Make sure the poules are randomized
         Collections.shuffle(teams);
 
-        int numberOfPoules = PouleGame.numberOfPoules(teams.size());
+        int numberOfPoules = championshipDTO.getNumberOfPoules();
         int pouleSize = teams.size() / numberOfPoules;
         int overSize = teams.size() % numberOfPoules;
 
@@ -113,6 +123,23 @@ public class ChampionshipController {
             gameRepository.saveAll(pouleGames);
         }
 
+        List<Game> finalGames = FinalGame.generateFinalGames(
+                championshipDTO.getStartDate(),
+                championshipDTO.getStartTime(),
+                championshipDTO.getEndTime(),
+                championshipDTO.getGameLength(),
+                championshipDTO.getNumberOfCourts(),
+                pouleRepository.findAll(),
+                championshipDTO.getLevelsOfFinals(),
+                gameRepository.findAll()
+        );
+        for (Game finalGame : finalGames) {
+            // TODO I feel this might be done more efficiently using CASCADE
+            competitorRepository.save(finalGame.getHomeCompetitor());
+            competitorRepository.save(finalGame.getVisitorCompetitor());
+            gameRepository.save(finalGame);
+        }
+        //gameRepository.saveAll(finalGames);
         // TODO generate final games
 
         return "redirect:/poules";

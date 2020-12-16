@@ -17,20 +17,20 @@ import java.time.LocalTime;
 public class ChampionshipDTO {
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    private LocalDate startDate;
+    private LocalDate startDate = LocalDate.of(2020, 12, 27);
 
     @DateTimeFormat(pattern="HH:mm")
-    private LocalTime startTime;
+    private LocalTime startTime = LocalTime.of(9, 30);
 
     @DateTimeFormat(pattern="HH:mm")
-    private LocalTime endTime;
+    private LocalTime endTime = LocalTime.of(19, 30);
 
     @Min(0)     // Game length should at least be positive
     @Max(150)   // 2,5 hours seems like enough
-    private int gameLength;
+    private int gameLength = 60;
 
     @Min(0)
-    private int numberOfCourts;
+    private int numberOfCourts = 6;
 
     private int numberOfPoules;
     private int levelsOfFinals;

@@ -2,9 +2,10 @@ package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -12,10 +13,18 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PoulePlacementCompetitor extends Competitor {
 
-    @ManyToOne
-    Poule poule;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    Poule poule = null;
 
     Integer placement;
+
+    public PoulePlacementCompetitor(Poule poule, int placement) {
+        super();
+        this.poule = poule;
+        this.placement = placement;
+    }
+
+    public PoulePlacementCompetitor(){}
 
     @Override
     public Team getTeam() {

@@ -3,6 +3,7 @@ package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.PouleGame;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.FinalGameRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,22 @@ import java.util.Optional;
 
 @Controller
 public class GameController {
-    @Autowired
-    GameRepository gameRepository;
+
+    private final GameRepository gameRepository;
+    private final FinalGameRepository finalGameRepository;
+    private final PouleRepository pouleRepository;
 
     @Autowired
-    PouleRepository pouleRepository;
+    public GameController(GameRepository gameRepository, FinalGameRepository finalGameRepository, PouleRepository pouleRepository) {
+        this.gameRepository = gameRepository;
+        this.finalGameRepository = finalGameRepository;
+        this.pouleRepository = pouleRepository;
+    }
 
     @GetMapping({"/games"})
     protected String showPoules(Model model) {
         model.addAttribute("allPoules", pouleRepository.findAll());
+        model.addAttribute("allFinalGames", finalGameRepository.findAll());
         return "gameOverview";
     }
 

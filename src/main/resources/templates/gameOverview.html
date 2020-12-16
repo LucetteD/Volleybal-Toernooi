@@ -36,6 +36,32 @@
             Toon/Verberg wedstrijden
         </button>
     </div>
+    <div>
+        <h2>Finale Wedstrijden</h2>
+        <div id="finalgames" class="collapse" data-parent="#all_poules">
+            <table>
+                <tr>
+                    <th>Wedstrijdnummer:</th>
+                    <th>Thuis team</th>
+                    <th>Gast team</th>
+                    <th>Start tijd</th>
+                    <th>Locatie</th>
+                    <th>Uitslag Wedstrijd</th>
+                </tr>
+                <tr th:each="game: ${allFinalGames}">
+                    <td th:text="${game.gameId}"></td>
+                    <td th:text="${game.homeCompetitor}"></td>
+                    <td th:text="${game.visitorCompetitor}"></td>
+                    <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
+                    <td th:text="${game.location}"></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#finalgames">
+            Toon/Verberg wedstrijden
+        </button>
+    </div>
 </div>
 
 <div th:replace="general :: footer"></div>

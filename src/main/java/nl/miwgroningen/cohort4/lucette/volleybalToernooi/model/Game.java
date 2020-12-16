@@ -1,6 +1,7 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.Competitor;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.TeamCompetitor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -88,8 +89,11 @@ public class Game implements Comparable<Game> {
 
     public void findSlot(LocalDate gameDate, LocalTime startTime, LocalTime endTime,
                          int gameLength, int numberOfCourts, List<Game> games) {
-        LocalTime gameTime = startTime;
-        System.err.printf("Finding a slot for %s against %s\n", this.homeCompetitor, this.visitorCompetitor);
+        findSlot(gameDate, startTime, endTime, startTime, gameLength, numberOfCourts, games);
+    }
+
+    public void findSlot(LocalDate gameDate, LocalTime startTime, LocalTime endTime, LocalTime gameTime,
+                         int gameLength, int numberOfCourts, List<Game> games) {
         while ( !timeSlotAvailable(this.homeCompetitor, LocalDateTime.of(gameDate, gameTime), gameLength, games) ||
                 !timeSlotAvailable(this.visitorCompetitor, LocalDateTime.of(gameDate, gameTime), gameLength, games) ||
                 !findCourt(LocalDateTime.of(gameDate, gameTime), numberOfCourts, games)) {
@@ -104,6 +108,11 @@ public class Game implements Comparable<Game> {
     private boolean timeSlotAvailable(Competitor competitor, LocalDateTime gameTime, int gameLength, List<Game> games) {
         final int MAX_CONSECUTIVE_GAMES = 2;
         int precedingGames = 0;
+
+        if (!(competitor instanceof TeamCompetitor)) {
+            // TODO availability for Schrodinger's competitors needs to be sorted out but might not be an issue
+            return true;
+        }
         for (Game game : games) {
             // if the competitor is in the game
             if (competitor.getTeam().equals(game.getHomeCompetitor().getTeam()) ||
@@ -141,6 +150,19 @@ public class Game implements Comparable<Game> {
         } else {
             return false;
         }
+    }
+
+    public static Game getLast(List<? extends Game> games) {
+        if (games.size() == 0) {
+            return null;
+        }
+        Game last = games.get(0);
+        for (Game game : games) {
+            if (game.getTime().isAfter(last.getTime())) {
+                last = game;
+            }
+        }
+        return last;
     }
 
     @Override
