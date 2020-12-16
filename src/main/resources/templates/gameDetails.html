@@ -7,15 +7,11 @@
 <body>
 <div th:replace="general :: navbar"></div>
 <div class="container">
-    <h1><span th:text="${game.homeTeam} + ' - ' + ${game.visitorTeam}" /></h1>
+    <h1><span th:text="${game.homeTeam.teamName} + ' - ' + ${game.visitorTeam.teamName}" /></h1>
     <table>
         <tr>
             <th>Wedstrijdnummer:</th>
             <td th:text="${game.gameId}"> />
-        </tr>
-        <tr>
-            <th>Achternaam</th>
-            <td th:text="${player.lastName}" />
         </tr>
         <tr>
             <th>Thuis team</th>
@@ -35,12 +31,16 @@
         </tr>
         <tr>
             <th>Uitslag Wedstrijd</th>
-    <!-- TODO        <td /> -->
+            <td th:text="${game.gameResult}"></td>
+        </tr>
+        <tr>
+            <th>Winnaar</th>
+            <td th:text="${game.result}"></td>
         </tr>
     </table>
-    <p sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/game/newDetails}">Voeg wedstrijdgegevens toe</a>
-    </p>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/games/details/add/{gameId}(gameId=${game.gameId})}">Voeg wedstrijdgegevens toe</a>
+    </div>
 </div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>

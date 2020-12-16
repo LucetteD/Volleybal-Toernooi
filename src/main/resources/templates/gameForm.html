@@ -6,101 +6,382 @@
 </head>
 <body>
 <div th:replace="general :: navbar"></div>
-<h1><span th:text="${game.homeTeam} + ' - ' + ${game.visitorTeam}" /></h1>
+<h1><span th:text="${game.homeTeam.teamName} + ' - ' + ${game.visitorTeam.teamName}" /></h1>
 <div class="container">
-    <table>
-        <tr>
-            <th>Wedstrijdnummer:</th>
-            <th>Thuis team</th>
-            <th>Gast team</th>
-            <th>Start tijd</th>
-            <th>Locatie</th>
-            <th>Uitslag Wedstrijd</th>
-        </tr>
-        <tr th:each="game: ${poule.pouleGames}">
-            <td th:text="${game.gameId}"></td>
-            <td th:text="${game.homeTeam.teamName}"></td>
-            <td th:text="${game.visitorTeam.teamName}"></td>
-            <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
-            <td th:text="${game.location}"></td>
-            <td></td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <th>Wedstrijdnummer:</th>
+        <td th:text="${game.gameId}"></td>
+    </tr>
+    <tr>
+        <th>Thuis team</th>
+        <td th:text="${game.homeTeam.teamName}"></td>
+    </tr>
+    <tr>
+        <th>Gast team</th>
+        <td th:text="${game.visitorTeam.teamName}"></td>
+    </tr>
+    <tr>
+        <th>Start tijd</th>
+        <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy HH:mm')}"></td>
+    </tr>
+    <tr>
+        <th>Locatie</th>
+        <td th:text="${game.location}"></td>
+    </tr>
+</table>
 
-    <h1>Voeg wedstrijdgegevens toe</h1>
-    <form th:action="@{/games/newDetails}" th:object="${game}" method="post">
+        <h1>Voeg wedstrijdgegevens toe</h1>
+    <form th:action="@{/games/newDetails/add}" th:object="${game}" method="post">
         <div th:if="${#fields.hasErrors()}" class="alert alert-danger alert-dismissible" role="alert">
             Er heeft zich een probleem voorgedaan.
         </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <th><td>Team A</td></th>
+            </div>
+            <div class="form-group col-md-6">
+                <th><td>Team B</td></th>
+            </div>
+        </div>
 <!--        <div class="form-row">-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="firstName">Voornaam:</label>-->
-<!--                <input type="text" class="form-control" id="firstName" th:field="*{firstName}"  th:classappend="${not #lists.isEmpty(#fields.errors('firstName'))} ? is-invalid" />-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Team name Error</div>-->
-<!--            </div>-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="lastName">Achternaam:</label>-->
-<!--                <input type="text" class="form-control" id="lastName" th:field="*{lastName}"  th:classappend="${not #lists.isEmpty(#fields.errors('lastName'))} ? is-invalid" />-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Team name Error</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-row">-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="birthdate">Geboortedatum:</label>-->
-<!--                <input type="date" class="form-control" id="birthdate" th:field="*{birthdate}"  th:classappend="${not #lists.isEmpty(#fields.errors('birthdate'))} ? is-invalid" />-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}">Team name Error</div>-->
-<!--            </div>-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="height">Lengte (in cm):</label>-->
-<!--                <input type="number" class="form-control" id="height" th:field="*{height}"  th:classappend="${not #lists.isEmpty(#fields.errors('height'))} ? is-invalid" />-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Team name Error</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-row">-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="currentClub">Huidige club:</label>-->
-<!--                <input type="text" class="form-control" id="currentClub" th:field="*{currentClub}"  th:classappend="${not #lists.isEmpty(#fields.errors('currentClub'))} ? is-invalid" />-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('currentClub')}" th:errors="*{currentClub}">Team name Error</div>-->
-<!--            </div>-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="associationRegistrationNumber">Bondsnummer:</label>-->
-<!--                <input type="text" class="form-control" id="associationRegistrationNumber" th:field="*{associationRegistrationNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('associationRegistrationNumber'))} ? is-invalid" />-->
-<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('associationRegistrationNumber')}" th:errors="*{associationRegistrationNumber}">Team name Error</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-row">-->
-<!--            <div class="form-group col-md-4">-->
-<!--                <label for="team">Team:</label>-->
+<!--            <div class="form-group col-md-3">-->
+<!--                <label for="team">Team:</label>    Must be players team A-->
 <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
 <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
 <!--                </select>-->
 <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
 <!--            </div>-->
-<!--            <div class="form-group col-md-4">-->
-<!--                <label for="shirtNumber">shirtnummer:</label>-->
+<!--        <div class="form-group col-md-3">&ndash;&gt;-->
+<!--                <label for="role">Rol:</label>    Must be associationregistrationnumber  players team A -->
+<!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+<!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+<!--                </select>-->
+<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+<!--            </div>-->
+<!--            <div class="form-group col-md-3">-->
+<!--                <label for="shirtNumber">shirtnummer:</label>   Must be players team B-->
 <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
 <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
 <!--            </div>-->
-<!--            <div class="form-group col-md-4">-->
-<!--                <label for="role">Rol:</label>-->
+<!--            <div class="form-group col-md-3">-->
+<!--                <label for="role">Rol:</label>    Must be associationregistrationnumber  players team B -->
 <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
 <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
 <!--                </select>-->
 <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--        <div sec:authorize="hasRole('ADMIN')" class="container">-->
-<!--            <div class="buttonCenter">-->
-<!--                <button type="submit" class="btn btn-primary">Opslaan</button>-->
-<!--            </div>-->
-<!--        </div>-->
-    </form>
 
-    <div sec:authorize="hasRole('ADMIN')" class="container">
-        <div class="buttonCenter">
-            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <th><td>Goedkeuring</td></th>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <th><td>Scheidsrechter</td></th>
+                </div>
+                <div class="form-group col-md-4">
+                    <th><td>Bondsnummer</td></th>
+                </div>
+                <div class="form-group col-md-4">
+                    <th><td>Handtekening</td></th>
+                </div>
+            </div>
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="team">Team:</label>    Must be 1st referee -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-4">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be associationregistrationnumber  1st referee  -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="shirtNumber">shirtnummer:</label>   Must be signature 1st referee -->
+        <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <th><td>Teller</td></th>
+                </div>
+            </div>
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="team">Team:</label>    Must be teller -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-4">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be associationregistrationnumber  teller -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="shirtNumber">shirtnummer:</label>   Must be signature teller-->
+        <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <th><td>Lijnrechter</td></th>
+            </div>
         </div>
-    </div>
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="team">Team:</label>    Must be lijnrechter 1 -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-4">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be associationregistrationnumber lijnrechter 1 -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="shirtNumber">shirtnummer:</label>   Must be signature lijnrechter 1-->
+        <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="team">Team:</label>    Must be lijnrechter 2 -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-4">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be associationregistrationnumber lijnrechter 2 -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="shirtNumber">shirtnummer:</label>   Must be signature lijnrechter 2-->
+        <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="team">Team:</label>    Must be lijnrechter 3 -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-4">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be associationregistrationnumber lijnrechter 3 -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="shirtNumber">shirtnummer:</label>   Must be signature lijnrechter 3-->
+        <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="team">Team:</label>    Must be lijnrechter 4 -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-4">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be associationregistrationnumber lijnrechter 4 -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-4">-->
+        <!--                <label for="shirtNumber">shirtnummer:</label>   Must be signature lijnrechter 4-->
+        <!--                <input type="number" class="form-control" id="shirtNumber" th:field="*{shirtNumber}"  th:classappend="${not #lists.isEmpty(#fields.errors('shirtNumber'))} ? is-invalid" />-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnummer Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <th><td>Goedkeuring</td></th>
+                </div>
+            </div>
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-3">-->
+        <!--                <label for="team">Team:</label>    Must be aanvoerder team A -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-3">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be signature aanvoerder team A -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-3">-->
+        <!--                <label for="team">Team:</label>    Must be aanvoerder team B -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-3">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be signature aanvoerder team B -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="form-row">-->
+        <!--            <div class="form-group col-md-3">-->
+        <!--                <label for="team">Team:</label>    Must be coach team A -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-3">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be signature coach team A -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--            <div class="form-group col-md-3">-->
+        <!--                <label for="team">Team:</label>    Must be coach team B -->
+        <!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+        <!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+        <!--            </div>-->
+        <!--        <div class="form-group col-md-3">&ndash;&gt;-->
+        <!--                <label for="role">Rol:</label>    Must be signature coach team B -->
+        <!--                <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">-->
+        <!--                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>-->
+        <!--                </select>-->
+        <!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <th><td>Resultaten</td></th>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <th><td>Winnaar</td></th>
+            </div>
+<!--            <div class="form-group col-md-6">-->
+<!--                <label for="team">Team:</label>    Must be winning team -->
+<!--                <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >-->
+<!--                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>-->
+<!--                </select>-->
+<!--                <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>-->
+<!--            </div>-->
+        </div>
+
+        <h2>Resultaten</h2>
+
+        <div class="form-row">
+           <div class="form-group col-md-6">
+                <label for="setPointsHomeSetOne">Punten team thuis Set 1:</label>
+                <input type="number" class="form-control" id="setPointsHomeSetOne"
+                       th:field="*{setPointsHomeSetOne}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('setPointsHomeSetOne'))} ? is-invalid" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('setPointsHomeSetOne')}"
+                     th:errors="*{setPointsHomeSetOne}">Result Error</div>
+          </div>
+                <div class="form-group col-md-6">
+                   <label for="setPointsVisitorSetOne">Punten team uit Set 1:</label>
+                   <input type="number" class="form-control" id="setPointsVisitorSetOne"
+                          th:field="*{setPointsVisitorSetOne}"
+                          th:classappend="${not #lists.isEmpty(#fields.errors('setPointsVisitorSetOne'))} ? is-invalid"/>
+                   <div class="invalid-feedback" th:if="${#fields.hasErrors('setPointsVisitorSetOne')}"
+                        th:errors="*{setPointsVisitorSetOne}">Result Error</div>
+                </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="setPointsHomeSetTwo">Punten team thuis Set 2:</label>
+                <input type="number" class="form-control" id="setPointsHomeSetTwo"
+                       th:field="*{setPointsHomeSetTwo}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('setPointsHomeSetTwo'))} ? is-invalid" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('setPointsHomeSetTwo')}"
+                     th:errors="*{setPointsHomeSetTwo}">Result Error</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="setPointsVisitorSetTwo">Punten team uit Set 2:</label>
+                <input type="number" class="form-control" id="setPointsVisitorSetTwo"
+                       th:field="*{setPointsVisitorSetTwo}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('setPointsVisitorSetTwo'))} ? is-invalid" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('setPointsVisitorSetTwo')}"
+                     th:errors="*{setPointsVisitorSetTwo}">Result Error</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="setPointsHomeSetThree">Punten team thuis Set 3:</label>
+                <input type="number" class="form-control" id="setPointsHomeSetThree"
+                       th:field="*{setPointsHomeSetThree}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('setPointsHomeSetThree'))} ? is-invalid" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('setPointsHomeSetThree')}"
+                     th:errors="*{setPointsHomeSetThree}">Result Error</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="setPointsVisitorSetThree">Punten team uit Set 3:</label>
+                <input type="number" class="form-control" id="setPointsVisitorSetThree"
+                       th:field="*{setPointsVisitorSetThree}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('setPointsVisitorSetThree'))} ? is-invalid"/>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('setPointsVisitorSetThree')}"
+                     th:errors="*{setPointsVisitorSetThree}">Result Error</div>
+            </div>
+        </div>
+
+        <div sec:authorize="hasRole('ADMIN')" class="container">
+            <div class="buttonCenter">
+                <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div th:replace="general :: footer"></div>
