@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
 <html lang="en">
 <head th:replace="general :: baseHeader(~{::title})">
     <title>Team details</title>
@@ -59,6 +59,9 @@
             </tr>
             </tbody>
         </table>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/teams/change/{teamName}(teamName=${team.teamName})}">Wijzig team details</a>
+        </div>
     </div>
 </div>
 <div th:replace="general :: footer"></div>

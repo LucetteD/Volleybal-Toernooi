@@ -1,6 +1,8 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Player;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PlayerRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.utility.FileUploadUtil;
@@ -34,6 +36,9 @@ public class TeamController {
     @Autowired
     PouleRepository pouleRepository;
 
+    @Autowired
+    PlayerRepository playerRepository;
+
     @GetMapping({"/", "/teams"})
     protected String showTeams(Model model) {
         model.addAttribute("allTeams", teamRepository.findAll());
@@ -54,7 +59,20 @@ public class TeamController {
     @Secured("ROLE_ADMIN")
     protected String showTeamForm(Model model) {
         model.addAttribute("team", new Team());
-        model.addAttribute("allPools", pouleRepository.findAll());
+        model.addAttribute("allPoules", pouleRepository.findAll());
+        return "teamForm";
+    }
+
+    @GetMapping("/teams/change/{teamName}")
+    @Secured("ROLE_ADMIN")
+    protected String changeTeam(@PathVariable("teamName") String teamName, Model model) {
+        Optional<Team> teamOptional = teamRepository.findByTeamName(teamName);
+        if (teamOptional.isEmpty()) {
+            return "redirect:/teams";
+        }
+        model.addAttribute("team", teamOptional.get());
+        model.addAttribute("allPlayers", playerRepository.findAll());
+        model.addAttribute("allPoules", pouleRepository.findAll());
         return "teamForm";
     }
 
