@@ -113,11 +113,9 @@ public class Game implements Comparable<Game> {
                     return false;
                 } else if (game.getTime().isAfter(gameTime.minusMinutes(MAX_CONSECUTIVE_GAMES * gameLength + 1))) {
                     // if it is within 2 game lengths before the proposed time, record it
-                    // System.err.printf("%s is recorded because of a game at %s\n", gameTime, game.time);
                     precedingGames++;
                     if (precedingGames >= MAX_CONSECUTIVE_GAMES) {
                         // when there are 2 games directly before the proposed time, this time is not available
-                        // System.err.println("Deny because too many games in a row for " + competitor);
                         return false;
                     }
                 }
