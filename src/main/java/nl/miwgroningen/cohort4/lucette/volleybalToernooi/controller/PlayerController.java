@@ -6,6 +6,7 @@ import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PlayerReposi
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.RoleRepository;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,32 +71,8 @@ public class PlayerController {
         }
     }
 
-
-    // TODO is this still in use?
-    @GetMapping("/game/add/{teamId}")
-    protected String addGame(@PathVariable("teamId") Integer teamId) {
-        Optional<Team> teamBox = teamRepository.findById(teamId);
-        if (teamBox.isPresent()) {
-            Player player = new Player();
-            player.setTeam(teamBox.get());
-            playerRepository.save(player);
-        }
-        return "redirect:/teams";
-    }
-
-    // TODO is this still in use?
-    @GetMapping("/players/add/t/{teamName}")
-    protected String addPlayerByName(@PathVariable("teamName") String teamName) {
-        Optional<Team> teamBox = teamRepository.findByTeamName(teamName);
-        if (teamBox.isPresent()) {
-            Player player = new Player();
-            player.setTeam(teamBox.get());
-            playerRepository.save(player);
-        }
-        return "redirect:/teams";
-    }
-
     @GetMapping("/players/add")
+    @Secured("ROLE_ADMIN")
     protected String addNewPlayer(Model model) {
         model.addAttribute("player", new Player());
         model.addAttribute("allTeams", teamRepository.findAll());
@@ -104,6 +81,7 @@ public class PlayerController {
     }
 
     @GetMapping("/players/change/{playerId}")
+    @Secured("ROLE_ADMIN")
     protected String changePlayer(@PathVariable("playerId") Integer playerId, Model model) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (playerOptional.isEmpty()) {
@@ -116,6 +94,7 @@ public class PlayerController {
     }
 
     @PostMapping("/players/add")
+    @Secured("ROLE_ADMIN")
     protected String saveOrUpdatePlayer(@ModelAttribute("player") @Valid Player player, BindingResult result, Model model) {
         Optional<Player> existingPlayer =
                 playerRepository.findByAssociationRegistrationNumber(player.getAssociationRegistrationNumber());
