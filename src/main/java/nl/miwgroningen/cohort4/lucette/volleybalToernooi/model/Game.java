@@ -36,7 +36,7 @@ public class Game implements Comparable<Game> {
     // 0 = no winner/not yet played, 1 = home team won, 2 = visitor team won
     private int result = 0;
 
-    private String gameResult;
+    private String gameResult = " ";
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "homeTeamId", referencedColumnName = "teamId", nullable = false)
@@ -221,6 +221,8 @@ public class Game implements Comparable<Game> {
         } else if (setPointsHomeSetOne > setPointsVisitorSetOne && setPointsVisitorSetTwo < setPointsHomeSetTwo
                 && setPointsHomeSetThree < setPointsVisitorSetThree) {
             gameResult = "1 - 2";
+        } else {
+            gameResult = " ";
         }
     }
 
