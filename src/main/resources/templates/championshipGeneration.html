@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
 <html lang="en">
 <head th:replace="general :: baseHeader(~{::title})">
     <title>Informatie over te genereren Poules</title>
@@ -16,12 +16,12 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="numberOfPoules">numberOfPoules:</label>
-                <input disabled type="number" class="form-control" id="numberOfPoules" th:field="*{numberOfPoules}"  th:classappend="${not #lists.isEmpty(#fields.errors('numberOfPoules'))} ? is-invalid" />
+                <input type="number" class="form-control" id="numberOfPoules" th:field="*{numberOfPoules}"  th:classappend="${not #lists.isEmpty(#fields.errors('numberOfPoules'))} ? is-invalid" />
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('numberOfPoules')}" th:errors="*{numberOfPoules}">numberOfPoules Error</div>
             </div>
             <div class="form-group col-md-6">
                 <label for="levelsOfFinals">levelsOfFinals:</label>
-                <input disabled type="number" class="form-control" id="levelsOfFinals" th:field="*{levelsOfFinals}"  th:classappend="${not #lists.isEmpty(#fields.errors('levelsOfFinals'))} ? is-invalid" />
+                <input type="number" class="form-control" id="levelsOfFinals" th:field="*{levelsOfFinals}"  th:classappend="${not #lists.isEmpty(#fields.errors('levelsOfFinals'))} ? is-invalid" />
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('levelsOfFinals')}" th:errors="*{levelsOfFinals}">levelsOfFinals Error</div>
             </div>
         </div>
@@ -67,8 +67,10 @@
             </div>
         </div>
         <div class="form-row">
-            <div>
-                <button type="submit" class="btn btn-primary">Opslaan</button>
+            <div sec:authorize="hasRole('ADMIN')" class="container">
+                <div class="buttonCenter">
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </div>
             </div>
         </div>
     </form>

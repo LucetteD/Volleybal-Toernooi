@@ -1,11 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -18,6 +16,9 @@ public abstract class Competitor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer competitorId;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    Game game;
+
     public abstract Team getTeam();
 
     public Integer getCompetitorId() {
@@ -26,5 +27,13 @@ public abstract class Competitor {
 
     public void setCompetitorId(Integer competitorId) {
         this.competitorId = competitorId;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

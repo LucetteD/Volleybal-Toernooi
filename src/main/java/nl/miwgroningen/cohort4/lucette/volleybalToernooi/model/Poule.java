@@ -1,11 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor.TeamCompetitor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,15 +36,14 @@ public class Poule {
     public List<Game> generatePouleGames(LocalDate startDate, LocalTime startTime, LocalTime endTime,
                                          int gameLength, int numberOfCourts, List<Game> games){
         List<Game> pouleGames = new ArrayList<>();
-        System.out.println(this.getMyTeams());
         List<Team> teams = new ArrayList<>(this.getMyTeams());
         Team teamA = teams.remove(0);
 
         while (!teams.isEmpty()) {
             for (Team teamB : teams) {
                 PouleGame game = new PouleGame();
-                game.setHomeTeam(teamA);
-                game.setVisitorTeam(teamB);
+                game.setHomeCompetitor(new TeamCompetitor(teamA));
+                game.setVisitorCompetitor(new TeamCompetitor(teamB));
                 game.setPoule(this);
                 game.findSlot(startDate, startTime, endTime, gameLength, numberOfCourts, games);
                 pouleGames.add(game);

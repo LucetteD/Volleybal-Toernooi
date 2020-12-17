@@ -1,8 +1,10 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.competitor;
 
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.FinalGame;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,10 +14,35 @@ import javax.persistence.ManyToOne;
 @Entity
 public class FinalPlacementCompetitor extends Competitor {
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     FinalGame finalGame;
 
     Integer placement;
+
+    public FinalGame getFinalGame() {
+        return finalGame;
+    }
+
+    public void setFinalGame(FinalGame finalGame) {
+        this.finalGame = finalGame;
+    }
+
+    public Integer getPlacement() {
+        return placement;
+    }
+
+    public void setPlacement(Integer placement) {
+        this.placement = placement;
+    }
+
+    public FinalPlacementCompetitor(FinalGame game, int placement) {
+        super();
+        this.finalGame = game;
+        this.placement = placement;
+    }
+
+    public FinalPlacementCompetitor() {
+    }
 
     public Team getTeam() {
         if (finalGame.getResult() == 0) {
@@ -23,9 +50,9 @@ public class FinalPlacementCompetitor extends Competitor {
         } else if(finalGame.getResult() == placement) {
             // if result is 1 and placement is 1 then the winner of the game should be returned which is the home team
             // result is 2 and placement is 2 than the loser of the game shouhld be returned which is the home team
-            return finalGame.getHomeTeam();
+            return finalGame.getHomeCompetitor().getTeam();
         } else {
-            return finalGame.getVisitorTeam();
+            return finalGame.getVisitorCompetitor().getTeam();
         }
     }
 

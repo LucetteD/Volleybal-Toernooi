@@ -10,8 +10,15 @@ import javax.persistence.*;
 @Entity
 public class TeamCompetitor extends Competitor {
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     Team team;
+
+    public TeamCompetitor() {
+    }
+
+    public TeamCompetitor(Team team) {
+        this.team = team;
+    }
 
     @Override
     public Team getTeam() {
