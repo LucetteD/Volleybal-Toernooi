@@ -1,9 +1,8 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.*;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.GameRepository;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.PouleRepository;
-import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.TeamRepository;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,11 +22,18 @@ import java.util.Optional;
 
 @Controller
 public class GameController {
-    @Autowired
-    GameRepository gameRepository;
+
+    private final GameRepository gameRepository;
+    private final FinalGameRepository finalGameRepository;
+    private final PouleRepository pouleRepository;
 
     @Autowired
-    PouleRepository pouleRepository;
+    public GameController(GameRepository gameRepository, FinalGameRepository finalGameRepository,
+                          PouleRepository pouleRepository) {
+        this.gameRepository = gameRepository;
+        this.finalGameRepository = finalGameRepository;
+        this.pouleRepository = pouleRepository;
+    }
 
     @Autowired
     TeamRepository teamRepository;
@@ -36,6 +41,7 @@ public class GameController {
     @GetMapping({"/games"})
     protected String showPoules(Model model) {
         model.addAttribute("allPoules", pouleRepository.findAll());
+        model.addAttribute("allFinalGames", finalGameRepository.findAll());
         return "gameOverview";
     }
 
@@ -74,16 +80,11 @@ public class GameController {
     @PostMapping("/games/newDetails/add")
     @Secured("ROLE_ADMIN")
     protected String saveAndUpdateResult(@ModelAttribute("game") @Valid Game game, BindingResult result, Model model) {
-//        Optional<Game> gameOptional =
-//                gameRepository.findByGameId(game.getGameId());
-//        if (gameOptional.isPresent() && !gameOptional.get().getGameId().equals(game.getResult())) {
-//            result.rejectValue("gameOptional", "error.game",
-//                    "Deze wedstrijd heeft al een uitslag");
-//        }
         if (result.hasErrors()) {
             System.out.println(result);
-            model.addAttribute("homeTeam", teamRepository.findAll());
-            model.addAttribute("visitorTeam", teamRepository.findAll());
+            model.addAttribute("allGames", gameRepository.findAll());
+            model.addAttribute("gameResult", gameRepository.findAll());
+            model.addAttribute("result", gameRepository.findAll());
             return "gameForm";
         } else {
             gameRepository.save(game);

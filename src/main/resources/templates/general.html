@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
 <head th:fragment="baseHeader(title)">
     <title th:replace="${title}">Base Title</title>
 
@@ -9,15 +9,32 @@
 </head>
 <body>
 <div id="header" class="header" th:fragment="navbar">
-    <nav>
-        <ul class="nav">
-            <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
-            <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
-            <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
-            <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
-            <li class="nav"><a class="login" th:href="@{/logout}">Log in/uit</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul id="nav" class="navbar-nav mr-auto">
+                <li class="nav"><a class="teamOverzicht" th:href="@{/teams}">Team overzicht</a></li>
+                <li class="nav"><a class="spelerOverzicht" th:href="@{/players}">Speler overzicht</a></li>
+                <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
+                <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
+            </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Gebruiker</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{/user/new}">Voeg gebruiker toe</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{/logout}">Log in/uit</a>
+                </div>
+            </li>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn-navbar my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+
     </nav>
+
+
     <img src="./Afbeeldingen/logoNevobo.png" alt="" class="logoNevobo">
 </div>
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org"
-      lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head th:replace="general :: baseHeader(~{::title})">
     <title>Team overzicht</title>
 </head>
@@ -8,31 +7,27 @@
 <div th:replace="general :: navbar"></div>
 <div class="container">
     <h1>Teams</h1>
-    <table>
-        <tr>
-            <th></th>
-            <th>Team Naam</th>
-            <th>Poule</th>
-            <th>Aantal spelers</th>
-        </tr>
-        <tr th:each="team: ${allTeams}">
-            <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>
-            <td type="button" class="link"><a class="clickableName"
-                                              th:href="@{/teams/{teamName}(teamName=${team.teamName})}"
-                                              th:text="${team.teamName}" /></td>
-    <!-- TODO replace null with nicer default       -->
-            <td th:text="'Poule ' + ${team.poule?.pouleName}"/>
-            <td th:text="${team.nrOfPlayers}"></td>
-        </tr>
-    </table>
+    <div class="row justify-content-center">
+        <table id="teamsTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
+            <tr>
+                <th></th>
+                <th><h3>Team Naam</h3></th>
+                <th><h3>Poule</h3></th>
+                <th><h3>Aantal spelers</h3></th>
+            </tr>
+            <tr th:each="team: ${allTeams}">
+                <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>
+                <td type="button" class="link"><a class="clickableName"
+                                                  th:href="@{/teams/{teamName}(teamName=${team.teamName})}"
+                                                  th:text="${team.teamName}" /></td>
+        <!-- TODO replace null with nicer default       -->
+                <td th:text="'Poule ' + ${team.poule?.pouleName}"/>
+                <td th:text="${team.nrOfPlayers}"></td>
+            </tr>
+        </table>
+    </div>
     <p sec:authorize="hasRole('ADMIN')">
         <a th:href="@{/teams/add}">Voeg team toe</a>
-    </p>
-    <p sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/user/new}">Voeg gebruiker toe</a>
-    </p>
-    <p sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/logout}">Log out</a>
     </p>
 </div>
 <div th:replace="general :: footer"></div>

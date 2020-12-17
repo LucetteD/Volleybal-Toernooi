@@ -31,11 +31,11 @@ li a {
 }
 
 li a.teamOverzicht {
-    color: #0077b3;
+    color: #0088cc;
 }
 
 li a.spelerOverzicht {
-    color: #0077b3;
+    color: #0088cc;
 }
 
 li a.pouleOverzicht {
@@ -44,6 +44,16 @@ li a.pouleOverzicht {
 
 li a.wedstrijdschema {
     color: #0088cc;
+}
+
+a.navLogin {
+    text-align: right;
+    color: black;
+}
+
+li.nav-item{
+    align-content: end;
+    color: black;
 }
 
 li a.login {
@@ -75,12 +85,20 @@ ul {
     text-align: center;
 }
 
-ul.nav {
+nav {
+    background-image:-webkit-linear-gradient(290deg, black, #0088cc);
+}
+
+.nav-link {
+    color: black;
+}
+
+ul#nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-image:-webkit-linear-gradient(290deg, black, #0088cc);
+
     height: 80px;
 }
 
@@ -94,6 +112,12 @@ h1 {
 
 h2 {
     font-size: 25px;
+    color: #e68a00;
+}
+
+h3 {
+    font-size: 23px;
+    font-weight: 1.4;
     color: #e68a00;
 }
 
@@ -133,8 +157,8 @@ p {
 
 p a {
     background-color: #00334d;
-    border-radius: 5px;
-    color: #0077b3;
+    border-radius: 4px;
+    color: #0088cc;
     padding: 12px 30px;
     text-align: center;
     text-decoration: none;
@@ -151,7 +175,7 @@ p a:hover {
 .container {
     position: relative;
     margin-top: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 90px;
 }
 
 .buttonCenter {
@@ -172,6 +196,22 @@ p a:hover {
     transform: translate(-50%, -50%);
 }
 
+button.btn-navbar {
+    background-color: #00334d;
+    border-radius: 5px;
+    color: #0088cc;
+    padding: 4px 3px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+button.btn-navbar:hover {
+    background-color: #0088cc;
+    color: #00334d;
+}
+
 a.btn {
     background-color: #e68a00;
     color: #00334d;
@@ -180,7 +220,7 @@ a.btn {
 button.btn {
     background-color: #00334d;
     border-radius: 5px;
-    color: #0077b3;
+    color: #0088cc;
     padding: 12px 30px;
     text-align: center;
     text-decoration: none;
@@ -200,6 +240,47 @@ a.clickableName {
     border-radius: 4px;
     background-color: #0088cc;
     width: 115px;
+}
+
+#gameDetailsTable {
+    text-align: left;
+    width: 40%;
+}
+
+#pouleDetailsTable {
+    text-align: left;
+    width: 50%;
+}
+
+#pouleDetailsGamesTable {
+    text-align: left;
+    width: 50%;
+}
+
+#teamDetailsTable {
+    width: 50%;
+}
+
+#teamDetailsPlayersTable {
+    text-align: left;
+}
+
+#playersDetailsTable {
+    text-align: left;
+    width: 50%;
+}
+
+#playerTable {
+    text-align: left;
+}
+
+#playerDisambiguationTable {
+    width: 50%
+}
+
+#teamsTable {
+    text-align: left;
+    width: 75%;
 }
 
 footer {

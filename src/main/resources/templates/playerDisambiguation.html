@@ -7,20 +7,23 @@
 <body>
 <div th:replace="general :: navbar"></div>
 <div class="container">
-    <h1>Player disambiguation</h1>
-    <table>
-        <tr th:each="player : ${allMatchingPlayers}">
-            <td><img th:src="'/' + ${player.team.nationalFlag}" width="23" height="15" /></td>
-            <td>
-                <a class="clickableName"
-                   th:href="@{/players/{playerName}/{playerId}(playerName=${player.lastName}, playerId=${player.playerId})}"
-                   th:text="${player.firstName} + ' ' + ${player.lastName}">
-                    Player full name
-                </a>
-            </td>
-            <td th:text="${player.team.teamName}"></td>
-        </tr>
-    </table>
+    <h1>Er zijn meerdere spelers met deze achternaam</h1>
+    <h2>Kies de gewenste speler</h2>
+    <div class="row justify-content-center">
+        <table id="playerDisambiguationTable" class="table table-striped table-bordered" data-paging="false">
+            <tr th:each="player : ${allMatchingPlayers}">
+                <td><img th:src="'/' + ${player.team.nationalFlag}" width="23" height="15" /></td>
+                <td>
+                    <a class="clickableName"
+                       th:href="@{/players/{playerName}/{playerId}(playerName=${player.lastName}, playerId=${player.playerId})}"
+                       th:text="${player.firstName} + ' ' + ${player.lastName}">
+                        Player full name
+                    </a>
+                </td>
+                <td th:text="${player.team.teamName}"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
