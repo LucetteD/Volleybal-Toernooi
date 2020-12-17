@@ -13,7 +13,7 @@
             <div class="form-group col-md-4"></div>
             <div class="form-group col-md-4">
                 <label for="roleName">Rolnaam:</label>
-                <input type="text" class="form-control" id="roleName" th:field="*{roleName}"  th:classappend="${not #lists.isEmpty(#fields.errors('roleName'))} ? is-invalid" />
+                <input type="text" class="form-control" id="roleName" th:field="*{roleName}"  th:classappend="${not #lists.isEmpty(#fields.errors('roleName'))} ? 'is-invalid'" />
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">Role name Error</div>
             </div>
             <div class="form-group col-md-4"></div>
