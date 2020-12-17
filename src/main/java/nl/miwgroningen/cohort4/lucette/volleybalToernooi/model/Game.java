@@ -50,110 +50,6 @@ public class Game implements Comparable<Game> {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Competitor visitorCompetitor;
 
-    public Integer getSetPointsHomeSetOne() {
-        return setPointsHomeSetOne;
-    }
-
-    public void setSetPointsHomeSetOne(Integer setPointsHomeSetOne) {
-        this.setPointsHomeSetOne = setPointsHomeSetOne;
-    }
-
-    public Integer getSetPointsVisitorSetOne() {
-        return setPointsVisitorSetOne;
-    }
-
-    public void setSetPointsVisitorSetOne(Integer setPointsVisitorSetOne) {
-        this.setPointsVisitorSetOne = setPointsVisitorSetOne;
-    }
-
-    public Integer getSetPointsHomeSetTwo() {
-        return setPointsHomeSetTwo;
-    }
-
-    public void setSetPointsHomeSetTwo(Integer setPointsHomeSetTwo) {
-        this.setPointsHomeSetTwo = setPointsHomeSetTwo;
-    }
-
-    public Integer getSetPointsVisitorSetTwo() {
-        return setPointsVisitorSetTwo;
-    }
-
-    public void setSetPointsVisitorSetTwo(Integer setPointsVisitorSetTwo) {
-        this.setPointsVisitorSetTwo = setPointsVisitorSetTwo;
-    }
-
-    public Integer getSetPointsHomeSetThree() {
-        return setPointsHomeSetThree;
-    }
-
-    public void setSetPointsHomeSetThree(Integer setPointsHomeSetThree) {
-        this.setPointsHomeSetThree = setPointsHomeSetThree;
-    }
-
-    public Integer getSetPointsVisitorSetThree() {
-        return setPointsVisitorSetThree;
-    }
-
-    public void setSetPointsVisitorSetThree(Integer setPointsVisitorSetThree) {
-        this.setPointsVisitorSetThree = setPointsVisitorSetThree;
-    }
-
-    public int getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getGameResult() {
-        return gameResult;
-    }
-
-    public void setGameResult(String gameResult) {
-        this.gameResult = gameResult;
-    }
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
-
-    public Competitor getHomeCompetitor() {
-        return homeCompetitor;
-    }
-
-    public void setHomeCompetitor(Competitor homeTeam) {
-        this.homeCompetitor = homeTeam;
-    }
-
-    public Competitor getVisitorCompetitor() {
-        return visitorCompetitor;
-    }
-
-    public void setVisitorCompetitor(Competitor visitorTeam) {
-        this.visitorCompetitor = visitorTeam;
-    }
-
     public void findSlot(LocalDate gameDate, LocalTime startTime, LocalTime endTime,
                          int gameLength, int numberOfCourts, List<Game> games) {
         findSlot(gameDate, startTime, endTime, startTime, gameLength, numberOfCourts, games);
@@ -240,12 +136,13 @@ public class Game implements Comparable<Game> {
         return this.time.compareTo(game.time);
     }
 
-    public void gameResult(Integer setPointsHomeSetOne,
-                              Integer setPointsVisitorSetOne,
-                              Integer setPointsHomeSetTwo,
-                              Integer setPointsVisitorSetTwo,
-                              Integer setPointsHomeSetThree,
-                              Integer setPointsVisitorSetThree) {
+    public void processResult() {
+        // TODO I'm not sure why it was designed like this, maybe it can be easier?
+        gameResult();
+        result(getGameResult());
+    }
+
+    public void gameResult() {
         if (setPointsHomeSetOne > setPointsVisitorSetOne && setPointsHomeSetTwo > setPointsVisitorSetTwo
                 && setPointsHomeSetThree > setPointsVisitorSetThree) {
             gameResult = "3 - 0";
@@ -281,5 +178,109 @@ public class Game implements Comparable<Game> {
         } else {
             result = 0;
         }
+    }
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Integer getSetPointsHomeSetOne() {
+        return setPointsHomeSetOne;
+    }
+
+    public void setSetPointsHomeSetOne(Integer setPointsHomeSetOne) {
+        this.setPointsHomeSetOne = setPointsHomeSetOne;
+    }
+
+    public Integer getSetPointsVisitorSetOne() {
+        return setPointsVisitorSetOne;
+    }
+
+    public void setSetPointsVisitorSetOne(Integer setPointsVisitorSetOne) {
+        this.setPointsVisitorSetOne = setPointsVisitorSetOne;
+    }
+
+    public Integer getSetPointsHomeSetTwo() {
+        return setPointsHomeSetTwo;
+    }
+
+    public void setSetPointsHomeSetTwo(Integer setPointsHomeSetTwo) {
+        this.setPointsHomeSetTwo = setPointsHomeSetTwo;
+    }
+
+    public Integer getSetPointsVisitorSetTwo() {
+        return setPointsVisitorSetTwo;
+    }
+
+    public void setSetPointsVisitorSetTwo(Integer setPointsVisitorSetTwo) {
+        this.setPointsVisitorSetTwo = setPointsVisitorSetTwo;
+    }
+
+    public Integer getSetPointsHomeSetThree() {
+        return setPointsHomeSetThree;
+    }
+
+    public void setSetPointsHomeSetThree(Integer setPointsHomeSetThree) {
+        this.setPointsHomeSetThree = setPointsHomeSetThree;
+    }
+
+    public Integer getSetPointsVisitorSetThree() {
+        return setPointsVisitorSetThree;
+    }
+
+    public void setSetPointsVisitorSetThree(Integer setPointsVisitorSetThree) {
+        this.setPointsVisitorSetThree = setPointsVisitorSetThree;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
+    public String getGameResult() {
+        return gameResult;
+    }
+
+    public void setGameResult(String gameResult) {
+        this.gameResult = gameResult;
+    }
+
+    public Competitor getHomeCompetitor() {
+        return homeCompetitor;
+    }
+
+    public void setHomeCompetitor(Competitor homeCompetitor) {
+        this.homeCompetitor = homeCompetitor;
+    }
+
+    public Competitor getVisitorCompetitor() {
+        return visitorCompetitor;
+    }
+
+    public void setVisitorCompetitor(Competitor visitorCompetitor) {
+        this.visitorCompetitor = visitorCompetitor;
     }
 }

@@ -1,7 +1,9 @@
 package nl.miwgroningen.cohort4.lucette.volleybalToernooi.controller;
 
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.dto.GameDTO;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Game;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Poule;
+import nl.miwgroningen.cohort4.lucette.volleybalToernooi.model.Team;
 import nl.miwgroningen.cohort4.lucette.volleybalToernooi.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -28,15 +30,11 @@ public class GameController {
     private final PouleRepository pouleRepository;
 
     @Autowired
-    public GameController(GameRepository gameRepository, FinalGameRepository finalGameRepository,
-                          PouleRepository pouleRepository) {
+    public GameController(GameRepository gameRepository, FinalGameRepository finalGameRepository, PouleRepository pouleRepository) {
         this.gameRepository = gameRepository;
         this.finalGameRepository = finalGameRepository;
         this.pouleRepository = pouleRepository;
     }
-
-    @Autowired
-    TeamRepository teamRepository;
 
     @GetMapping({"/games"})
     protected String showPoules(Model model) {
@@ -73,22 +71,27 @@ public class GameController {
             return "redirect:/games";
         }
         model.addAttribute("game", gameOptional.get());
-        model.addAttribute("allGames", gameRepository.findAll());
+        model.addAttribute("gameObject", new GameDTO(gameOptional.get()));
+        // model.addAttribute("allGames", gameRepository.findAll());
         return "gameForm";
     }
 
     @PostMapping("/games/newDetails/add")
     @Secured("ROLE_ADMIN")
-    protected String saveAndUpdateResult(@ModelAttribute("game") @Valid Game game, BindingResult result, Model model) {
+    protected String saveAndUpdateResult(@ModelAttribute("gameObject") @Valid GameDTO gameDTO, BindingResult result, Model model) {
+        Optional<Game> gameOptional = gameRepository.findByGameId(gameDTO.getGameId());
+        if (gameOptional.isEmpty()) {
+            return "redirect:/games/overview";
+        }
+
         if (result.hasErrors()) {
             System.out.println(result);
-            model.addAttribute("allGames", gameRepository.findAll());
-            model.addAttribute("gameResult", gameRepository.findAll());
-            model.addAttribute("result", gameRepository.findAll());
+            model.addAttribute("game", gameOptional.get());
             return "gameForm";
         } else {
+            Game game = gameDTO.update(gameOptional.get());
             gameRepository.save(game);
-            return "redirect:/gameDetails";
+            return "redirect:/games/" + game.getGameId();
         }
     }
 }
