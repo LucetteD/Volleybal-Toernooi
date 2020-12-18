@@ -40,8 +40,6 @@
                 <th scope="col"><h3>Voornaam</h3></th>
                 <th scope="col"><h3>Rol</h3></th>
                 <th scope="col"><h3>Lengte (cm)</h3></th>
-                <th scope="col"><h3>Team</h3></th>
-                <th scope="col"><h3>Aantal gespeelde<br>wedstrijden</h3></th>
             </tr>
             </thead>
             <tbody>
@@ -53,11 +51,6 @@
                 <td th:text="${player.firstName}"></td>
                 <td th:text="${player.role.roleName}"></td>
                 <td th:text="${player.height}"></td>
-                <td>
-                    <a th:href="@{/teams/{teamName}(teamName=${player.team.teamName})}"
-                       th:text="${player.team.teamName}"></a>
-                </td>
-                <td th:text="${player.nrOfGames}"></td>
             </tr>
             </tbody>
         </table>
@@ -68,10 +61,11 @@
 </div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
-
+<script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script language="javascript" type="text/javascript">
     $(document).ready( function () {
-        $('#playerTable').DataTable();
+        $('#teamDetailsPlayersTable').DataTable();
     });
 </script>
 
