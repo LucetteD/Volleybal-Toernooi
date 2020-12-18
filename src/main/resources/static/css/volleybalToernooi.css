@@ -11,6 +11,8 @@ body {
 .logoNevobo {
     opacity: 0.1;
     position: absolute;
+    margin-top: 25px;
+    right: 25px;
     width: 40%;
 }
 
