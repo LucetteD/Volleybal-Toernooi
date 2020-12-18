@@ -291,8 +291,7 @@ footer {
 p.quote {
     Text-align: right;
     color: #0077b3;
-    padding-right: 20px;
-    margin-bottom: 20px;
+    margin-right: 20px;
+
     font-size: 15px;
-    margin-top: -4px;
 }

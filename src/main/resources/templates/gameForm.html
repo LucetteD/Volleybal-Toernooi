@@ -103,7 +103,11 @@
                      th:errors="*{setPointsVisitorSetThree}">Result Error</div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Opslaan</button>
+        <div sec:authorize="hasRole('ADMIN')" class="container">
+            <div class="buttonCenter">
+                <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+        </div>
     </form>
 </div>
 
