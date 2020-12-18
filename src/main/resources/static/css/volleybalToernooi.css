@@ -264,9 +264,22 @@ a.clickableName {
     width: 50%
 }
 
-#teamsTable {
+.teamsTableClass {
     text-align: left;
+    width: 100%;
+}
+
+.dataTables_wrapper {
     width: 75%;
+}
+
+.paginate_button {
+    margin: 5px;
+    color: #00334d;
+    border: solid 1px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 footer {
