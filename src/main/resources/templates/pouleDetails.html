@@ -25,12 +25,22 @@
     <div class="row justify-content-center">
         <table id="pouleDetailsGamesTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
             <tr>
-                <th><h3>Thuis team</h3></th>
-                <th><h3>Uit team</h3></th>
+                <th>Wedstrijdnr.</th>
+                <th>Thuis team</th>
+                <th>Uit team</th>
+                <th colspan="2">Tijd</th>
+                <th>Plek</th>
+                <th>Uitslag</th>
             </tr>
             <tr th:each="game: ${poule.pouleGames}">
+                <td><a class="clickableName" th:href="@{/games/{gameId}(gameId=${game.gameId})}"
+                      th:text="${game.gameId}"></a></td>
                 <td th:text="${game.homeCompetitor}"></td>
                 <td th:text="${game.visitorCompetitor}"></td>
+                <td th:text="${#temporals.format(game.time, 'dd-MMM-yyyy')}"></td>
+                <td th:text="${#temporals.format(game.time, 'HH:mm')}"></td>
+                <td th:text="${game.location}"></td>
+                <td th:text="${game.gameResult}"></td>
             </tr>
         </table>
     </div>
