@@ -41,10 +41,10 @@
         <input type="hidden" th:field="*{gameId}" />
         <div class="form-row">
             <div class="form-group col-md-6">
-                <th><h2>Team A</h2></th>
+                <th><h2 th:text="${game.homeCompetitor}">Team A</h2></th>
             </div>
             <div class="form-group col-md-6">
-                <th><h2>Team B</h2></th>
+                <th><h2 th:text="${game.visitorCompetitor}">Team B</h2></th>
             </div>
         </div>
 
