@@ -52,7 +52,7 @@
             <div class="form-group col-md-4">
                 <label for="team">Team:</label>
                 <select th:field="*{team}" class="form-control" id="team" th:classappend="${not #lists.isEmpty(#fields.errors('team'))} ? is-invalid" >
-                    <option th:each="team: ${allTeams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>
+                    <option th:each="team: ${#lists.sort(allTeams)}" th:value="${team.teamId}" th:text="${team.teamName}"></option>
                 </select>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('team')}" th:errors="*{team}">Team Error</div>
             </div>
@@ -64,7 +64,7 @@
             <div class="form-group col-md-4">
                 <label for="role">Rol:</label>
                 <select th:field="*{role}" class="form-control" id="role" th:classappend="${not #lists.isEmpty(#fields.errors('role'))} ? is-invalid">
-                    <option th:each="role: ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
+                    <option th:each="role: ${#lists.sort(allRoles)}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
                 </select>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>
             </div>

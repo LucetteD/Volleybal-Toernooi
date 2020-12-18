@@ -7,7 +7,9 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Role {
+public class Role implements Comparable<Role> {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,4 +39,8 @@ public class Role {
         this.roleName = roleName;
     }
 
+    @Override
+    public int compareTo(Role role) {
+        return this.roleName.compareTo(role.roleName);
+    }
 }

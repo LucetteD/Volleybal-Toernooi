@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Entity
-public class Team {
+public class Team implements Comparable<Team> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -95,5 +95,10 @@ public class Team {
 
     public void setNationalFlag(String nationalFlag) {
         this.nationalFlag = nationalFlag;
+    }
+
+    @Override
+    public int compareTo(Team team) {
+        return this.teamName.compareTo(team.teamName);
     }
 }
