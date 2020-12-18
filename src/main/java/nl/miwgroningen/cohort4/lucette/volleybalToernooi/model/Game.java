@@ -180,6 +180,18 @@ public class Game implements Comparable<Game> {
         }
     }
 
+    public Competitor getWinner() {
+        switch (result) {
+            case 1:
+                return homeCompetitor;
+            case 2:
+                return visitorCompetitor;
+            case 0:
+            default:
+                return null;
+        }
+    }
+
     public int getGameId() {
         return gameId;
     }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org" lang="en">
 <head th:replace="general :: baseHeader(~{::title})">
     <title>Wedstrijd details</title>
 </head>
@@ -36,7 +35,7 @@
             </tr>
             <tr>
                 <th><h3>Winnaar</h3></th>
-                <td th:text="${game.result}"></td>
+                <td th:text="${game.winner}"></td>
             </tr>
         </table>
     </div>

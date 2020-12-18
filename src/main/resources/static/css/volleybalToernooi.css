@@ -196,24 +196,8 @@ p a:hover {
     transform: translate(-50%, -50%);
 }
 
-button.btn-navbar {
-    background-color: #00334d;
-    border-radius: 5px;
-    color: #0088cc;
-    padding: 4px 3px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bolder;
-}
-
-button.btn-navbar:hover {
+btn-navbar:hover {
     background-color: #0088cc;
-    color: #00334d;
-}
-
-a.btn {
-    background-color: #e68a00;
     color: #00334d;
 }
 
@@ -231,6 +215,17 @@ button.btn {
 button.btn:hover {
     background-color: #0088cc;
     color: #00334d;
+}
+
+.btn-navbar {
+    background-color: #00334d;
+    border-radius: 5px;
+    color: #0088cc;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bolder;
 }
 
 a.clickableName {

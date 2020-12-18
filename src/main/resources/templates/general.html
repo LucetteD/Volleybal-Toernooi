@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
 <head th:fragment="baseHeader(title)">
     <title th:replace="${title}">Base Title</title>
 
@@ -17,19 +17,22 @@
                 <li class="nav"><a class="pouleOverzicht" th:href="@{/poules}">Poule overzicht</a></li>
                 <li class="nav"><a class="wedstrijdschema" th:href="@{/games}">Wedstrijdschema</a></li>
             </ul>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Gebruiker</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{/user/new}">Voeg gebruiker toe</a>
+            <div class="btn-group">
+                <a type="button" class="btn-navbar" sec:authorize="isAnonymous()" th:href="@{/login}">Log in</a>
+                <button sec:authorize="isAuthenticated()" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span sec:authentication="name"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a type="button" class="dropdown-item" sec:authorize="hasRole('ADMIN')" th:href="@{/user/new}">Voeg gebruiker toe</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:href="@{/logout}">Log in/uit</a>
+                    <a type="button" class="dropdown-item" th:href="@{/logout}">Log uit</a>
                 </div>
-            </li>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn-navbar my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            </div>
+<!--        TODO nice ambition!    -->
+<!--            <form class="form-inline my-2 my-lg-0">-->
+<!--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn-navbar my-2 my-sm-0" type="submit">Search</button>-->
+<!--            </form>-->
         </div>
 
     </nav>
