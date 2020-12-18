@@ -118,11 +118,18 @@ public class ChampionshipController {
                     gameRepository.findAll()
             );
             for (Game pouleGame : pouleGames) {
-                // TODO I feel this might be done more efficiently using CASCADE
+                // TODO I feel this must be done more efficiently using CASCADE
                 competitorRepository.save(pouleGame.getHomeCompetitor());
                 competitorRepository.save(pouleGame.getVisitorCompetitor());
             }
             gameRepository.saveAll(pouleGames);
+            for (Game pouleGame : pouleGames) {
+                // TODO I feel this must be done more efficiently using CASCADE
+                pouleGame.getHomeCompetitor().setGame(pouleGame);
+                competitorRepository.save(pouleGame.getHomeCompetitor());
+                pouleGame.getVisitorCompetitor().setGame(pouleGame);
+                competitorRepository.save(pouleGame.getVisitorCompetitor());
+            }
         }
 
         List<Game> finalGames = FinalGame.generateFinalGames(

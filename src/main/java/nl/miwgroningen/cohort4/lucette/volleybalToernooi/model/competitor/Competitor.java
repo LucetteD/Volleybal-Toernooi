@@ -16,7 +16,7 @@ public abstract class Competitor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer competitorId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Game game;
 
     public abstract Team getTeam();

@@ -52,6 +52,7 @@ public class Team {
     }
 
     public List<Game> getGames() {
+        // TODO this is borked
         List<Game> games = new ArrayList<>();
         for (Competitor competition : competitions) {
             games.add(competition.getGame());

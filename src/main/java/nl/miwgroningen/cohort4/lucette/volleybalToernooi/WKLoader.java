@@ -25,7 +25,7 @@ public class WKLoader implements CommandLineRunner {
     // https://nl.wikipedia.org/wiki/Wereldkampioenschap_volleybal_vrouwen_2018
     private static final String[] NATIONALITIES = {
             "Kameroen", "Kenia",
-            "Japan", "China", "Kazachstan", "Zuid-Korea", "Thailand",
+            "China", "Japan", "Kazachstan", "Zuid-Korea", "Thailand",
             "Rusland", "Servië", "Turkije", "Italië", "Azerbeidzjan", "Duitsland", "Nederland", "Bulgarije",
             "Verenigde Staten", "Dominicaanse Republiek", "Puerto Rico", "Canada", "Cuba", "Mexico",
                 "Trinidad en Tobego",
