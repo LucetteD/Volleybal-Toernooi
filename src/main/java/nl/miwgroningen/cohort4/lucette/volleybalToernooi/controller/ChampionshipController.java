@@ -34,7 +34,8 @@ public class ChampionshipController {
     private final CompetitorRepository competitorRepository;
 
     @Autowired
-    public ChampionshipController(TeamRepository teamRepository, PouleRepository pouleRepository, GameRepository gameRepository, CompetitorRepository competitorRepository) {
+    public ChampionshipController(TeamRepository teamRepository, PouleRepository pouleRepository,
+                                  GameRepository gameRepository, CompetitorRepository competitorRepository) {
         this.teamRepository = teamRepository;
         this.pouleRepository = pouleRepository;
         this.gameRepository = gameRepository;

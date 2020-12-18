@@ -9,8 +9,6 @@ import javax.persistence.*;
 @Entity
 public class Role implements Comparable<Role> {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roleId;
