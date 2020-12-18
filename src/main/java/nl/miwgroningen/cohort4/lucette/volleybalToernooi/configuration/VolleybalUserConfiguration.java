@@ -44,7 +44,9 @@ public class VolleybalUserConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/games/**").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated().and()
-            .formLogin();
+            .formLogin().and()
+                .logout()
+                .logoutSuccessUrl("/");
     }
 
     @Bean
