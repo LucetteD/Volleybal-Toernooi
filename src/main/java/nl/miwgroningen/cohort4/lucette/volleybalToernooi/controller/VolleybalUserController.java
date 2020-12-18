@@ -29,6 +29,7 @@ public class VolleybalUserController {
     @Secured("ROLE_ADMIN")
     protected String showNewUserForm(Model model) {
         model.addAttribute("user", new VolleybalUser());
+        model.addAttribute("allUsers", volleybalUserRepository.findAll());
         return "userForm";
     }
 

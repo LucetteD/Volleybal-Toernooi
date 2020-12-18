@@ -27,7 +27,7 @@
             <div class="form-group col-md-4"></div>
             <div class="form-group col-md-4">
                 <label for="password">Wachtwoord:</label>
-                <input type="text" class="form-control" id="password" th:field="*{password}" />
+                <input type="password" class="form-control" id="password" th:field="*{password}" />
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"
                      th:errors="*{password}">Wachtwoord Error</div>
             </div>
@@ -44,6 +44,17 @@
             </div>
         </div>
     </form>
+    <h2>Bestaande gebruikers</h2>
+    <div class="row justify-content-center">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Username</th>
+            </tr>
+            <tr th:each="user : ${allUsers}">
+                <td th:text="${user.username}"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <div th:replace="general :: footer"></div>
 <div th:replace="general :: bottom_scripts"></div>
