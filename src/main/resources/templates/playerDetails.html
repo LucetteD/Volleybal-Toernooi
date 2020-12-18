@@ -11,39 +11,39 @@
     <div class="row justify-content-center">
         <table id="playersDetailsTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
             <tr>
-                <th><h3>Voornaam</h3></th>
+                <th>Voornaam</th>
                 <td th:text="${player.firstName}" />
             </tr>
             <tr>
-                <th><h3>Achternaam</h3></th>
+                <th>Achternaam</th>
                 <td th:text="${player.lastName}" />
             </tr>
             <tr>
-                <th><h3>Poule</h3></th>
+                <th>Poule</th>
                 <td th:text="${player.team.poule?.pouleName}" />
             </tr>
             <tr>
-                <th><h3>Geboortedatum</h3></th>
+                <th>Geboortedatum</th>
                 <td th:text="${player.birthdate}" />
             </tr>
             <tr>
-                <th><h3>Lengte</h3></th>
+                <th>Lengte</th>
                 <td th:text="${player.height}" />
             </tr>
             <tr>
-                <th><h3>Huidige club</h3></th>
+                <th>Huidige club</th>
                 <td th:text="${player.currentClub}" />
             </tr>
             <tr>
-                <th><h3>Bondsnummer</h3></th>
+                <th>Bondsnummer</th>
                 <td th:text="${player.associationRegistrationNumber.toString()}" />
             </tr>
             <tr>
-                <th><h3>Positie/Rol</h3></th>
+                <th>Positie/Rol</th>
                 <td th:text="${player.role.roleName}" />
             </tr>
             <tr>
-                <th rowspan="2"><h3>Team</h3></th>
+                <th rowspan="2">Team</th>
                 <td th:text="${player.team.teamName}"></td>
             </tr>
             <tr>

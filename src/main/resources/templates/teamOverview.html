@@ -11,9 +11,9 @@
         <table id="teamsTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
             <tr>
                 <th></th>
-                <th><h3>Team Naam</h3></th>
-                <th><h3>Poule</h3></th>
-                <th><h3>Aantal spelers</h3></th>
+                <th>Team Naam</th>
+                <th>Poule</th>
+                <th>Aantal spelers</th>
             </tr>
             <tr th:each="team: ${allTeams}">
                 <td><img th:src="${team.nationalFlag}" width="23" height="15" /></td>

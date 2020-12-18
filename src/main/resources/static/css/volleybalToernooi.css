@@ -122,16 +122,16 @@ h3 {
 }
 
 th {
-    font-size: 25px;
+    font-size: 23px;
+    font-weight: 1.4;
     color: #e68a00;
-    width: 300px;
+    text-align: center;
 }
 
 td {
     color: #00334d;
     font-weight: bolder;
     line-height: 1.8;
-    width: 300px;
 }
 
 tr {

@@ -11,9 +11,9 @@
     <div class="row justify-content-center">
         <table id="pouleTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
             <tr>
-                <th><h3>Nummer</h3></th>
-                <th><h3>Naam</h3></th>
-                <th><h3>Aantal Teams</h3></th>
+                <th>Nummer</th>
+                <th>Naam</th>
+                <th>Aantal Teams</th>
             </tr>
             <tr th:each="poule: ${allPoules}">
                 <td th:text="${poule.pouleId}"></td>

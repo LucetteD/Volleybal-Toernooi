@@ -15,12 +15,12 @@
         <div th:id="'poulegames_' + ${poule.pouleName}" class="collapse" data-parent="#all_poules">
             <table id="gamesTable" class="table table-striped table-bordered" data-page-length='50' data-order='[[4, "asc"]]'>
                 <tr>
-                    <th><h3>Wedstrijdnummer:</h3></th>
-                    <th><h3>Thuis team</h3></th>
-                    <th><h3>Gast team</h3></th>
-                    <th><h3>Start tijd</h3></th>
-                    <th><h3>Locatie</h3></th>
-                    <th><h3>Uitslag Wedstrijd</h3></th>
+                    <th>Wedstrijdnummer:</th>
+                    <th>Thuis team</th>
+                    <th>Gast team</th>
+                    <th>Start tijd</th>
+                    <th>Locatie</th>
+                    <th>Uitslag Wedstrijd</th>
                 </tr>
                 <tr th:each="game: ${poule.pouleGames}">
                     <td><a class="clickableName" th:href="@{/games/{gameId}(gameId=${game.gameId})}"
